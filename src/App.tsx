@@ -1,23 +1,15 @@
-import { BrowserRouter, useRoutes } from "react-router-dom"
-import { routes } from "./routes/route"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { useEffect } from "react";
+import {AppRoutes} from "./routes/route";
+import { useTheme } from "./hooks/useTheme";
 
 function App() {
+  const { initializeTheme } = useTheme();
 
-  const queryClient = new QueryClient()
+  useEffect(() => {
+    initializeTheme();
+  }, []);
 
-  function AppRoutes(){
-    const element = useRoutes(routes)
-    return element
-  }
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
-    </QueryClientProvider>
-  )
+  return <AppRoutes />;
 }
 
-export default App
+export default App;
