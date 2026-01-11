@@ -1,4 +1,5 @@
 import { useTheme } from "@/hooks/useTheme";
+// import { Moon, Son } from 'lucide-react';
 
 export const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
@@ -14,7 +15,8 @@ export const ThemeToggle = () => {
                  hover:bg-gray-200 dark:hover:bg-gray-700 
                  transition"
     >
-      {theme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode"}
+      {/* {theme === "dark" ? <Moon /> : <Sun /> } */}
+      {theme === "dark" ? "☀️" : "🌙"}
     </button>
   );
 };
