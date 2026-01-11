@@ -6,22 +6,21 @@ const Navbar = () => {
     <nav className="flex items-center justify-between px-6 py-4 border-b">
       <h1 className="text-xl font-bold">MyApp</h1>
 
-      <div className="flex items-center gap-4">
-        <Link to="/" className="hover:underline">
+      <div className="hidden md:flex items-center space-x-8">
+        <Link to="/" className="text-sm tracking-wide transition-colors" style={{ color: 'var(--color-text-secondary)' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-brand-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}>
           Home
         </Link>
-        <Link to="/collections" className="hover:underline">
+        <Link to="/collections" className="text-sm tracking-wide transition-colors" style={{ color: 'var(--color-text-secondary)' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-brand-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}>
           Collections
         </Link>
-        <Link to="/about" className="hover:underline">
-          About
+        <Link to="/about" className="text-sm tracking-wide transition-colors" style={{ color: 'var(--color-text-secondary)' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-brand-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}>
+          About Us
         </Link>
-        <Link to="/contact" className="hover:underline">
+        <Link to="/contact" className="text-sm tracking-wide transition-colors" style={{ color: 'var(--color-text-secondary)' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-brand-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}>
           Contact
         </Link>
-
-        <ThemeToggle />
       </div>
+      <ThemeToggle />
     </nav>
   );
 };
