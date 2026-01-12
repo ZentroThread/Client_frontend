@@ -1,28 +1,34 @@
 import DressCard from "../molecules/DressCard";
+import { dresses, type Dress } from "../../data/dresses";
 
-import gownImg from "../../assets/items/jwl1.jpeg";
-import lehengaImg from "../../assets/items/nilame1.jpeg";
-import sareeImg from "../../assets/items/saree1.jpeg";
 
-const dresses = [
-  { name: "Classic White Bridal Gown", pricePerDay: 8000, image: gownImg },
-  { name: "Luxury Lehenga", pricePerDay: 6500, image: lehengaImg },
-  { name: "Traditional Bridal Saree", pricePerDay: 5000, image: sareeImg },
-  // repeat to 16 items as needed
-];
+type Props = {
+  category?: Dress["category"];
+};
 
-export default function DressGrid() {
+export default function DressGrid({ category }: Props) {
+  const filteredDresses = category
+    ? dresses.filter((dress) => dress.category === category)
+    : dresses;
+
   return (
-    <section className="py-20 px-10">
-      <h2 className="text-4xl font-bold text-center">
-        Bridal Collections
-      </h2>
-
-      <div className="mt-12 grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        {dresses.map((dress, index) => (
-          <DressCard key={index} {...dress} />
+    <section className="py-24 px-10">
+      <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        {filteredDresses.map((dress) => (
+          <DressCard
+            key={dress.id}
+            name={dress.name}
+            pricePerDay={dress.pricePerDay}
+            image={dress.image}
+          />
         ))}
       </div>
+
+      {filteredDresses.length === 0 && (
+        <p className="text-center text-gray-500 mt-10">
+          No items available in this category.
+        </p>
+      )}
     </section>
   );
 }
