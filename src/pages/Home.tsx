@@ -10,10 +10,11 @@ export default function Home() {
     <>
       <TraditionalAttire />
       <CollectionsSection />
+      <DressGrid />
       <FeaturedProducts />
       <WhyChooseUs />
       <Testimonials />
-      <DressGrid />
+      
     </>
   );
 }

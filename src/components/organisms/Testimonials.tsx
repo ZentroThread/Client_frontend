@@ -15,21 +15,39 @@ const reviews = [
 
 export default function Testimonials() {
   return (
-    <section className="py-24 bg-gray-50 text-center">
-      <h2 className="text-4xl font-serif font-bold text-red-900">
+    <section className="py-24 bg-(--color-bg-tertiary) text-center">
+      <h2 className="text-4xl font-serif font-bold text-(--color-brand-primary)">
         What Our Customers Say
       </h2>
 
-      <p className="mt-4 text-gray-600">
+      <p className="mt-4 text-(--color-text-secondary)">
         Reviews from satisfied customers
       </p>
 
       <div className="mt-14 max-w-7xl mx-auto px-10 grid grid-cols-1 md:grid-cols-3 gap-10">
         {reviews.map((r, i) => (
-          <div key={i} className="bg-white p-8 rounded-xl shadow">
-            ⭐⭐⭐⭐⭐
-            <p className="mt-4 italic">"{r.text}"</p>
-            <p className="mt-4 font-semibold">– {r.name}</p>
+          <div
+            key={i}
+            className="
+              bg-(--color-surface)
+              p-8
+              rounded-xl
+              shadow-(--shadow-md)
+              border
+              border-(--color-border-light)
+            "
+          >
+            <div className="text-(--color-accent-gold) text-lg">
+              ⭐⭐⭐⭐⭐
+            </div>
+
+            <p className="mt-4 italic text-(--color-text-secondary)">
+              “{r.text}”
+            </p>
+
+            <p className="mt-4 font-semibold text-(--color-text-primary)">
+              – {r.name}
+            </p>
           </div>
         ))}
       </div>

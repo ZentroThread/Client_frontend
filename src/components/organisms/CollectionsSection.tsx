@@ -30,12 +30,15 @@ const collections = [
 
 export default function CollectionsSection() {
   return (
-    <section id ="collections" className="py-24 bg-white text-center">
-      <h2 className="text-4xl font-serif font-bold text-red-900">
+    <section
+      id="collections"
+      className="py-24 bg-(--color-bg-primary) text-center"
+    >
+      <h2 className="text-4xl font-serif font-bold text-(--color-brand-primary)">
         Our Collections
       </h2>
 
-      <p className="mt-4 text-gray-600">
+      <p className="mt-4 text-(--color-text-secondary)">
         Discover our exquisite range of traditional attire and jewelry
       </p>
 
@@ -43,28 +46,44 @@ export default function CollectionsSection() {
         {collections.map((item, index) => (
           <div
             key={index}
-            className="bg-white rounded-xl shadow p-8"
+            className="
+              bg-(--color-surface)
+              rounded-xl
+              shadow-(--shadow-md)
+              p-8
+              border
+              border-(--color-border-light)
+            "
           >
-            <div className="h-48 bg-gray-100 rounded mb-6 flex items-center justify-center">
+            <div className="h-48 bg-(--color-bg-tertiary) rounded mb-6 flex items-center justify-center">
               🖼
             </div>
 
-            <h3 className="text-xl font-serif font-bold">
+            <h3 className="text-xl font-serif font-bold text-(--color-text-primary)">
               {item.title}
             </h3>
 
-            <p className="mt-3 text-gray-600">
+            <p className="mt-3 text-(--color-text-secondary)">
               {item.desc}
             </p>
 
             <Link
-                to={item.path}
-                className="inline-flex items-center gap-2 border border-red-800 text-red-800 px-5 py-2 rounded-md hover:bg-red-800 hover:text-white transition"
+              to={item.path}
+              className="
+                inline-flex items-center gap-2
+                mt-6
+                border
+                border-(--color-brand-primary)
+                text-(--color-brand-primary)
+                px-5 py-2
+                rounded-md
+                hover:bg-(--color-brand-primary)
+                hover:text-white
+                transition
+              "
             >
-            View Collection →
+              View Collection →
             </Link>
-
-
           </div>
         ))}
       </div>
