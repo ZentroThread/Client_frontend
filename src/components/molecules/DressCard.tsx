@@ -1,5 +1,3 @@
-import Button from "../atoms/Button.tsx";
-
 type Props = {
   name: string;
   pricePerDay: number;
@@ -8,7 +6,18 @@ type Props = {
 
 export default function DressCard({ name, pricePerDay, image }: Props) {
   return (
-    <div className="bg-white rounded-2xl shadow overflow-hidden">
+    <div
+      className="
+        bg-(--color-surface)
+        rounded-2xl
+        shadow-(--shadow-md)
+        overflow-hidden
+        border
+        border-(--color-border-light)
+        hover:shadow-lg
+        transition
+      "
+    >
       <img
         src={image}
         alt={name}
@@ -16,14 +25,27 @@ export default function DressCard({ name, pricePerDay, image }: Props) {
       />
 
       <div className="p-5 text-center">
-        <h3 className="font-semibold">{name}</h3>
-        <p className="text-pink-600 mt-2">
+        <h3 className="text-lg font-serif text-(--color-text-primary)">
+          {name}
+        </h3>
+
+        <p className="mt-2 text-(--color-brand-primary) font-medium">
           Rs. {pricePerDay} / day
         </p>
 
-        <div className="mt-4">
-          <Button>Rent Now</Button>
-        </div>
+        <button
+          className="
+            mt-4 w-full
+            bg-(--color-brand-primary)
+            text-white
+            py-2
+            rounded-full
+            hover:bg-(--color-brand-secondary)
+            transition
+          "
+        >
+          Rent Now
+        </button>
       </div>
     </div>
   );
