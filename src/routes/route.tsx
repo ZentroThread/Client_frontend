@@ -23,7 +23,7 @@ export const AppRoutes = () => {
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/wishlist" element={<Wishlist />} 
+        <Route path="/wishlist" element={<Wishlist />}/> 
 
         {/* Collection pages */}
         <Route path="/collections/bridal-sarees" element={<BridalSarees />} />
