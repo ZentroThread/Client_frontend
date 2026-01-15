@@ -7,7 +7,7 @@ function App() {
 
   useEffect(() => {
     initializeTheme();
-  }, []);
+  }, [initializeTheme]);
 
   return <AppRoutes />;
 }

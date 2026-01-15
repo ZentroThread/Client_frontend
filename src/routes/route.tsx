@@ -1,7 +1,9 @@
-import Home from '@/pages/Home'
-import About from '@/pages/About'
-import { Routes, Route } from 'react-router-dom'
-import MainLayout from '@/layouts/MainLayout'
+import { Routes, Route } from 'react-router-dom';
+import MainLayout from '@/layouts/MainLayout';
+import Home from '@/pages/Home';
+import About from '@/pages/About';
+import Cart from "@/pages/cart";
+
 
 // Collection pages
 import BridalSarees from '../pages/Collections/BridalSarees'
@@ -17,6 +19,7 @@ export const AppRoutes = () => {
         {/* Main pages */}
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/cart" element={<Cart />} />
 
         {/* Collection pages */}
         <Route path="/collections/bridal-sarees" element={<BridalSarees />} />
