@@ -16,6 +16,7 @@ export default function DressGrid({ category }: Props) {
         {filteredDresses.map((dress) => (
           <DressCard
             key={dress.id}
+            id={dress.id}
             name={dress.name}
             pricePerDay={dress.pricePerDay}
             image={dress.image}
