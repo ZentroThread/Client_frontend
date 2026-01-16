@@ -3,6 +3,7 @@ import MainLayout from '@/layouts/MainLayout';
 import Home from '@/pages/Home';
 import About from '@/pages/About';
 import Cart from "@/pages/cart";
+import Checkout from "@/pages/checkout";
 
 
 // Collection pages
@@ -20,6 +21,7 @@ export const AppRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
 
         {/* Collection pages */}
         <Route path="/collections/bridal-sarees" element={<BridalSarees />} />

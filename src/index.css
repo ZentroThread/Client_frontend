@@ -77,8 +77,8 @@ h1,h2,h3,h4,h5,h6 {
 
 .glass {
   background: rgba(255,255,255,0.9);
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .dark .glass {
@@ -87,4 +87,16 @@ h1,h2,h3,h4,h5,h6 {
 
 html {
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+:root {
+  --dashboard-bg: #faf7f5;
+  --card-bg: #ffffff;
+
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+
+  --border-soft: #e5e7eb;
+
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }

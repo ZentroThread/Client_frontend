@@ -1,5 +1,6 @@
 import { useCart } from "@/context/CartContext";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Cart() {
   const {
@@ -177,11 +178,12 @@ export default function Cart() {
                 >
                   Clear Cart
                 </button>
-                <button
-                  className="bg-linear-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transform transition-all duration-200 hover:scale-105"
+                <Link
+                  to="/checkout"
+                  className="bg-linear-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transform transition-all duration-200 hover:scale-105 inline-block"
                 >
                   Proceed to Checkout
-                </button>
+                </Link>
               </div>
             </div>
           </div>
