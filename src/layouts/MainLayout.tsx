@@ -8,9 +8,15 @@ const MainLayout = () => {
       <Navbar />
 
       {/* Page content */}
-      <main className="flex-1 px-6 py-8">
-        <Outlet />
+      <main 
+        className="flex-1 px-8 py-10"
+        style={{ backgroundColor: "var(--dashboard-bg)" }}
+      >
+        <div className="max-w-7xl mx-auto">
+          <Outlet />
+        </div>
       </main>
+
 
       <Footer />
     </div>
