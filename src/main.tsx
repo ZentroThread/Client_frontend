@@ -7,6 +7,7 @@ import App from "./App";
 import "./index.css";
 
 import { CartProvider } from "@/context/CartContext";
+import { WishlistProvider } from "@/components/atoms/WishListContext";
 
 const queryClient = new QueryClient();
 
@@ -15,7 +16,9 @@ createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <CartProvider>
-          <App />
+          <WishlistProvider>
+            <App />
+          </WishlistProvider>
         </CartProvider>
       </BrowserRouter>
     </QueryClientProvider>

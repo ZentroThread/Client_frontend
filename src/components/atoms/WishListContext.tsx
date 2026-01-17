@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 
 interface Product {
-  id: string;
+  id: number;
   name: string;
   category: string;
   price: number;
@@ -13,8 +13,8 @@ interface Product {
 interface WishlistContextType {
   wishlist: Product[];
   addToWishlist: (product: Product) => void;
-  removeFromWishlist: (productId: string) => void;
-  isInWishlist: (productId: string) => boolean;
+  removeFromWishlist: (productId: number) => void;
+  isInWishlist: (productId: number) => boolean;
   wishlistCount: number;
 }
 
@@ -55,11 +55,11 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  const removeFromWishlist = (productId: string) => {
+  const removeFromWishlist = (productId: number) => {
     setWishlist((prev) => prev.filter((item) => item.id !== productId));
   };
 
-  const isInWishlist = (productId: string) => {
+  const isInWishlist = (productId: number) => {
     return wishlist.some((item) => item.id === productId);
   };
 

@@ -5,6 +5,8 @@ import { ThemeToggle } from "@/components/atoms/ThemeToggle";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+   
+  const [wishlistCount] = useState(0);
 
   return (
     <nav className="sticky top-0 z-50 glass border-b shadow-sm" style={{ borderColor: 'var(--color-border-light)' }}>
@@ -26,7 +28,7 @@ const Navbar = () => {
             <Link to="/" className="text-sm tracking-wide transition-colors" style={{ color: 'var(--color-text-secondary)' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-brand-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}>
               Home
             </Link>
-            <Link to="/collections" className="text-sm tracking-wide transition-colors" style={{ color: 'var(--color-text-secondary)' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-brand-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}>
+            <Link to="/pages/ProductListing" className="text-sm tracking-wide transition-colors" style={{ color: 'var(--color-text-secondary)' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-brand-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}>
               Collections
             </Link>
             <Link to="/about" className="text-sm tracking-wide transition-colors" style={{ color: 'var(--color-text-secondary)' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-brand-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}>
@@ -51,16 +53,18 @@ const Navbar = () => {
             <Link to="/wishlist">
               <button className="transition-colors hidden sm:block p-2 relative" style={{ color: 'var(--color-text-secondary)' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-brand-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}>
                 <Heart className="h-5 w-5" />
-                {/* {wishlistCount > 0 && (
+                {wishlistCount > 0 && (
                   <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full text-white text-xs flex items-center justify-center font-medium" style={{ backgroundColor: 'var(--color-brand-primary)' }}>
                     {wishlistCount}
                   </span>
-                )} */}
+                )}
               </button>
             </Link>
-            <button className="transition-colors hidden sm:block p-2" style={{ color: 'var(--color-text-secondary)' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-brand-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}>
-              <ShoppingBag className="h-5 w-5" />
-            </button>
+            <Link to="/cart">
+              <button className="transition-colors hidden sm:block p-2" style={{ color: 'var(--color-text-secondary)' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-brand-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}>
+                <ShoppingBag className="h-5 w-5" />
+              </button>
+            </Link>
             <button
               className="md:hidden p-2"
               style={{ color: 'var(--color-text-secondary)' }}

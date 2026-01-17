@@ -81,7 +81,7 @@ export default function Wishlist() {
                 style={{ borderColor: 'var(--color-border-light)' }}
               >
                 {/* Product Image */}
-                <div className="relative overflow-hidden aspect-[3/4]">
+                <div className="relative overflow-hidden aspect-3/4">
                   <Link to={`/product/${product.id}`}>
                     <img
                       src={product.image}
@@ -168,7 +168,7 @@ export default function Wishlist() {
             transition={{ delay: 0.3 }}
             className="text-center mt-12"
           >
-            <Link to="/products">
+            <Link to="/Collections">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

@@ -1,6 +1,9 @@
 import { useCart } from "@/context/CartContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Heart } from "lucide-react";
+import { motion } from "framer-motion";
+import useWishlist from "../atoms/WishListContext";
 
 type Props = {
   id: number;
@@ -16,6 +19,7 @@ export default function DressCard({
   image,
 }: Props) {
   const { addToCart } = useCart();
+  const { addToWishlist, isInWishlist } = useWishlist();
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
 
@@ -32,6 +36,24 @@ export default function DressCard({
           className="h-72 w-full object-cover transition-transform duration-500 hover:scale-110"
         />
         <div className={`absolute inset-0 bg-linear-to-t from-black/20 to-transparent transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`} />
+
+        {/* Wishlist Button */}
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => addToWishlist({
+            id,
+            name,
+            category: 'bridal-sarees', // Default category, can be passed as prop later
+            price: pricePerDay,
+            image,
+            inStock: true
+          })}
+          className="absolute top-4 right-4 p-2 rounded-full bg-white/90 backdrop-blur-sm shadow-lg transition-colors"
+          style={{ color: isInWishlist(id) ? 'var(--color-error)' : 'var(--color-text-secondary)' }}
+        >
+          <Heart className={`h-5 w-5 ${isInWishlist(id) ? 'fill-current' : ''}`} />
+        </motion.button>
       </div>
 
       <div className="mt-6 text-center">

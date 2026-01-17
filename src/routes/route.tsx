@@ -4,7 +4,6 @@ import Home from '@/pages/Home';
 import About from '@/pages/About';
 import Cart from "@/pages/cart";
 import Checkout from "@/pages/checkout";
-import Collections from '@/pages/Collections';
 import Contact from '@/pages/Contact';
 import Login from '@/pages/Login';
 import Wishlist from '@/pages/Wishlist';
@@ -15,6 +14,8 @@ import Lehenga from '../pages/Collections/Lehenga'
 import Jewellery from '../pages/Collections/Jewellery'
 import NilameSuits from '../pages/Collections/NilameSuits'
 import PartyDresses from '../pages/Collections/PartyDresses'
+import { ProductListing } from '@/pages/ProductListing';
+import { ProductDetails } from '@/pages/ProductDetails';
 
 export const AppRoutes = () => {
   return (
@@ -22,13 +23,14 @@ export const AppRoutes = () => {
       <Route element={<MainLayout />}>
         {/* Main pages */}
         <Route path="/" element={<Home />} />
-        <Route path="/collections" element={<Collections />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/login" element={<Login />} />
         <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/products" element={<ProductListing />} />
 
         {/* Collection pages */}
         <Route path="/collections/bridal-sarees" element={<BridalSarees />} />
