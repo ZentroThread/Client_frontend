@@ -2,11 +2,10 @@ import { Link } from "react-router-dom";
 import { useState } from 'react';
 import { Menu, X, Search, User, ShoppingBag, Heart } from 'lucide-react';
 import { ThemeToggle } from "@/components/atoms/ThemeToggle";
-import useWishlist from "@/context/WishlistContext"; 
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { wishlistCount } = useWishlist(); 
+  const wishlistCount = 0; // Replace with actual wishlist count from context or state
   return (
     <nav className="sticky top-0 z-50 glass border-b shadow-sm" style={{ borderColor: 'var(--color-border-light)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -27,7 +26,7 @@ const Navbar = () => {
             <Link to="/" className="text-sm tracking-wide transition-colors" style={{ color: 'var(--color-text-secondary)' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-brand-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}>
               Home
             </Link>
-            <Link to="/collections" className="text-sm tracking-wide transition-colors" style={{ color: 'var(--color-text-secondary)' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-brand-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}>
+            <Link to="/products" className="text-sm tracking-wide transition-colors" style={{ color: 'var(--color-text-secondary)' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-brand-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}>
               Collections
             </Link>
             <Link to="/about" className="text-sm tracking-wide transition-colors" style={{ color: 'var(--color-text-secondary)' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-brand-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}>
