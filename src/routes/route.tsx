@@ -1,21 +1,24 @@
 import { Routes, Route } from 'react-router-dom';
 import MainLayout from '@/layouts/MainLayout';
+
+// Main pages
 import Home from '@/pages/Home';
 import About from '@/pages/About';
-import Cart from "@/pages/cart";
-import Checkout from "@/pages/checkout";
 import Contact from '@/pages/Contact';
 import Login from '@/pages/Login';
 import Wishlist from '@/pages/Wishlist';
-
-// Collection pages
-import BridalSarees from '../pages/Collections/BridalSarees'
-import Lehenga from '../pages/Collections/Lehenga'
-import Jewellery from '../pages/Collections/Jewellery'
-import NilameSuits from '../pages/Collections/NilameSuits'
-import PartyDresses from '../pages/Collections/PartyDresses'
+import Cart from '@/pages/cart';
+import Checkout from '@/pages/checkout';
 import { ProductListing } from '@/pages/ProductListing';
 import { ProductDetails } from '@/pages/ProductDetails';
+
+// Collection pages
+import Collections from '@/pages/Collections';
+import BridalSarees from '@/pages/Collections/BridalSarees';
+import Lehenga from '@/pages/Collections/Lehenga';
+import Jewellery from '@/pages/Collections/Jewellery';
+import NilameSuits from '@/pages/Collections/NilameSuits';
+import PartyDresses from '@/pages/Collections/PartyDresses';
 
 export const AppRoutes = () => {
   return (
@@ -23,14 +26,15 @@ export const AppRoutes = () => {
       <Route element={<MainLayout />}>
         {/* Main pages */}
         <Route path="/" element={<Home />} />
+        <Route path="/collections" element={<Collections />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/login" element={<Login />} />
         <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/products" element={<ProductListing />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
 
         {/* Collection pages */}
         <Route path="/collections/bridal-sarees" element={<BridalSarees />} />
@@ -40,7 +44,7 @@ export const AppRoutes = () => {
         <Route path="/collections/party-dresses" element={<PartyDresses />} />
       </Route>
     </Routes>
-  )
-}
+  );
+};
 
 export default AppRoutes;

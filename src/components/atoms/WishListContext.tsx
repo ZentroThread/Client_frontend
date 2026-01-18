@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 
 interface Product {
-  id: number;
+  id: string;
   name: string;
   category: string;
   price: number;
@@ -13,8 +13,8 @@ interface Product {
 interface WishlistContextType {
   wishlist: Product[];
   addToWishlist: (product: Product) => void;
-  removeFromWishlist: (productId: number) => void;
-  isInWishlist: (productId: number) => boolean;
+  removeFromWishlist: (productId: string) => void;
+  isInWishlist: (productId: string) => boolean;
   wishlistCount: number;
 }
 
@@ -47,19 +47,16 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
 
   const addToWishlist = (product: Product) => {
     setWishlist((prev) => {
-      // Check if product already exists
-      if (prev.some((item) => item.id === product.id)) {
-        return prev;
-      }
+      if (prev.some((item) => item.id === product.id)) return prev;
       return [...prev, product];
     });
   };
 
-  const removeFromWishlist = (productId: number) => {
+  const removeFromWishlist = (productId: string) => {
     setWishlist((prev) => prev.filter((item) => item.id !== productId));
   };
 
-  const isInWishlist = (productId: number) => {
+  const isInWishlist = (productId: string) => {
     return wishlist.some((item) => item.id === productId);
   };
 
@@ -80,8 +77,6 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
   );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export default function useWishlist() {
-  const context = useContext(WishlistContext);
-  return context;
+  return useContext(WishlistContext);
 }
