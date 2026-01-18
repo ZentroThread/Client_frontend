@@ -4,19 +4,14 @@ import Footer from "@/components/organisms/Footer";
 
 const MainLayout = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-(--dashboard-bg)">
       <Navbar />
 
       {/* Page content */}
-      <main 
-        className="flex-1 px-8 py-10"
-        style={{ backgroundColor: "var(--dashboard-bg)" }}
-      >
-        <div className="max-w-7xl mx-auto">
-          <Outlet />
-        </div>
-      </main>
+      <main className="flex-1 w-full">
 
+        <Outlet />
+      </main>
 
       <Footer />
     </div>

@@ -87,9 +87,9 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F6]">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-150 md:h-175 overflow-hidden">
+      <section className="relative h-150 md:h-175 overflow-hidden w-full">
         <div className="absolute inset-0">
           <ImageWithFallback
             src="https://images.unsplash.com/photo-1587027512547-81850a319ff5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBicmlkYWwlMjBzYXJlZSUyMG1vZGVsfGVufDF8fHx8MTc2Nzg5NzQ5OXww&ixlib=rb-4.1.0&q=80&w=1080"
@@ -99,7 +99,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-linear-to-r from-black/60 to-black/20" />
         </div>
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+        <div className="relative w-full mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
           <div className="max-w-2xl">
             <div className="inline-block px-4 py-2 bg-[#D4AF37]/20 backdrop-blur-sm rounded-full mb-6">
               <span className="text-[#D4AF37] text-sm tracking-widest">NEW COLLECTION 2026</span>
