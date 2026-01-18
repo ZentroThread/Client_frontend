@@ -4,11 +4,12 @@ import Footer from "@/components/organisms/Footer";
 
 const MainLayout = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-(--dashboard-bg)">
       <Navbar />
 
       {/* Page content */}
-      <main className="flex-1 px-6 py-8">
+      <main className="flex-1 w-full">
+
         <Outlet />
       </main>
 

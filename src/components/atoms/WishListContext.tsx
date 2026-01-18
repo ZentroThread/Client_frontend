@@ -47,10 +47,7 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
 
   const addToWishlist = (product: Product) => {
     setWishlist((prev) => {
-      // Check if product already exists
-      if (prev.some((item) => item.id === product.id)) {
-        return prev;
-      }
+      if (prev.some((item) => item.id === product.id)) return prev;
       return [...prev, product];
     });
   };
@@ -80,8 +77,6 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
   );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export default function useWishlist() {
-  const context = useContext(WishlistContext);
-  return context;
+  return useContext(WishlistContext);
 }
