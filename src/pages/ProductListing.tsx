@@ -144,13 +144,12 @@ export function ProductListing() {
                 {allProducts?.map((product) =>
                   product.id !== undefined ? (
                     <ProductCard
-                      name={''}
-                      category={''}
-                      price={''}
-                      image={''}
-                      key={product.id}
-                      {...product}
-                      id={product.id}
+                      name={product.attireName || ''}
+                      price={product.attirePrice !== undefined ? `LKR ${product.attirePrice.toLocaleString()}` : ''}
+                      image={product.imageUrl || ''} 
+                      key={product.attireCode || ''}
+                      category={product.category?.categoryName || ''}
+                      id={product.attireCode || ''}
                     />
                   ) : null
                 )}

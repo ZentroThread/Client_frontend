@@ -5,7 +5,7 @@ import useWishlist from "@/components/atoms/WishListContext";
 import { motion } from "framer-motion";
 
 interface ProductCardProps {
-  id: number;
+  id: string;
   name: string;
   category: string;
   price: string;
