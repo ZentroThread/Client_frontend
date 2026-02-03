@@ -22,14 +22,14 @@ export function ProductCard({
   inStock = true,
 }: ProductCardProps) {
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
-  const isSaved = isInWishlist(id);
+  const isSaved = isInWishlist(id.toString());
 
   const handleWishlistToggle = (e: React.MouseEvent) => {
     e.preventDefault(); // prevents navigation
     e.stopPropagation(); // prevents Link click
 
     const product = {
-      id,
+      id: id.toString(),
       name,
       category,
       price: parseFloat(price.replace(/[^0-9.-]+/g, "")),
@@ -38,7 +38,7 @@ export function ProductCard({
     };
 
     if (isSaved) {
-      removeFromWishlist(id);
+      removeFromWishlist(id.toString());
     } else {
       addToWishlist(product);
     }

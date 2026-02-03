@@ -126,11 +126,11 @@ export function ProductDetails() {
   
   const [selectedImage, setSelectedImage] = useState(0);
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
-  const isSaved = isInWishlist(productId);
+  const isSaved = isInWishlist(productId.toString());
 
   const handleWishlistToggle = () => {
     const wishlistProduct = {
-      id: productId,
+      id: productId.toString(),
       name: product.name,
       category: product.category,
       price: parseFloat(product.price.replace(/[^0-9.-]+/g, '')) || 0,
@@ -139,7 +139,7 @@ export function ProductDetails() {
     };
 
     if (isSaved) {
-      removeFromWishlist(productId);
+      removeFromWishlist(productId.toString());
     } else {
       addToWishlist(wishlistProduct);
     }
