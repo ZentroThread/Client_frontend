@@ -7,8 +7,8 @@ export const attireService = {
     return await apiClient.request<Attire[]>(API_ENDPOINTS.ATTIRE.GET_ALL_PUBLIC(tenant));
   },
 
-  async getAttireById(id: number): Promise<Attire> {
-    return await apiClient.request<Attire>(API_ENDPOINTS.ATTIRE.GET_BY_ID_PUBLIC("tenant", id));
+  async getAttireById(id: number, tenant: string): Promise<Attire> {
+    return await apiClient.request<Attire>(API_ENDPOINTS.ATTIRE.GET_BY_ID_PUBLIC(tenant, id));
   },
 };
 

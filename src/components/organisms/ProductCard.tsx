@@ -11,6 +11,7 @@ interface ProductCardProps {
   price: string;
   image: string;
   inStock?: boolean;
+  tenantId: string;
 }
 
 export function ProductCard({
@@ -19,6 +20,7 @@ export function ProductCard({
   category,
   price,
   image,
+  tenantId,
   inStock = true,
 }: ProductCardProps) {
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
@@ -45,7 +47,7 @@ export function ProductCard({
   };
 
   return (
-    <Link to={`/product/${id}`} className="group block">
+    <Link to={`/product/${tenantId}/${id}`} className="group block">
       <div>
         <div
           className="relative overflow-hidden rounded-lg aspect-3/4"

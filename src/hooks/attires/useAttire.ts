@@ -10,11 +10,11 @@ export const useGetAllAttire = (tenant?: string) => {
   });
 };
 
-export const useGetAttireById = (id: number) => {
+export const useGetAttireById = (tenant: string, id: number) => {
   return useQuery<Attire>({
-    queryKey: ["attire", id],
+    queryKey: ["attire", tenant, id],
     queryFn: async () => {
-      return await attireService.getAttireById(id);
+      return await attireService.getAttireById(id, tenant);
     },
   });
 }

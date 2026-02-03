@@ -8,6 +8,7 @@ export type Category = {
 
 export const AttireSchema = z.object({
   id: z.number().int().optional(),
+  tenantId: z.string(),
   attireCode: z.string(),
   attireName: z.string(),
   attireDescription: z.string(),

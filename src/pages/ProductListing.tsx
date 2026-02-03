@@ -113,6 +113,11 @@ export function ProductListing() {
 
           {/* PRODUCT GRID */}
           <div className="flex-1">
+            {allProducts.length === 0 && (
+              <div>
+                <p className="mb-4">Loading... </p>
+              </div>
+            )}
             <div className="flex justify-between mb-6">
               <p>
                 {filteredProducts.length}{' '}
@@ -130,6 +135,7 @@ export function ProductListing() {
                     category={product.category?.categoryName ?? ''}
                     price={`LKR ${product.attirePrice.toLocaleString()}`}
                     image={product.imageUrl ?? 'https://via.placeholder.com/300x400?text=No+Image'}
+                    tenantId={product.tenantId!.toString()}
                   />
                 ))}
               </div>
