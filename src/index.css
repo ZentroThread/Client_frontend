@@ -1,104 +1,121 @@
 @import "tailwindcss";
 
-/* Tailwind CSS v4 theme variables */
+/* ===============================
+   Global Theme Tokens
+   =============================== */
 :root {
-  --font-family-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
-  --font-family-serif: "Bodoni Moda", serif;
+  /* Fonts */
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Bodoni Moda", serif;
 
-  --color-bg-primary: #fdfbf9;
-  --color-bg-secondary: #ffffff;
-  --color-bg-tertiary: #faf5f3;
+  /* Backgrounds */
+  --bg-primary: #fdfbf9;
+  --bg-secondary: #ffffff;
+  --bg-muted: #faf5f3;
 
-  --color-surface: #ffffff;
-  --color-surface-elevated: #faf5f3;
+  /* Surfaces */
+  --surface: #ffffff;
+  --surface-elevated: #f9f3f0;
 
-  --color-brand-primary: #b87e64;
-  --color-brand-secondary: #ab7057;
+  /* Brand */
+  --brand-primary: #b87e64;
+  --brand-secondary: #ab7057;
 
-  --color-accent-gold: #d4af37;
-  --color-accent-rose: #fce4ec;
-  --color-accent-beige: #f0ddd5;
+  /* Accents */
+  --accent-gold: #d4af37;
+  --accent-rose: #fce4ec;
+  --accent-beige: #f0ddd5;
 
-  --color-text-primary: #09090b;
-  --color-text-secondary: #615758;
+  /* Text */
+  --text-primary: #1c1917;
+  --text-secondary: #6b5f5f;
+  --text-muted: #9a8f8f;
 
-  --color-border-light: #eee0da;
-  --color-border-medium: #e9d8d0;
+  /* Borders */
+  --border-soft: #efe2db;
+  --border-medium: #e5d4cc;
 
-  --color-success: #008000;
-  --color-error: #d10000;
-  --color-warning: #fbbf24;
+  /* States */
+  --success: #16a34a;
+  --error: #dc2626;
+  --warning: #f59e0b;
 
-  --shadow-sm: 0 1px 2px 0 rgba(171, 112, 87, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(171, 112, 87, 0.1);
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 6px 16px rgba(0,0,0,0.06);
 }
 
+/* ===============================
+   Dark Mode
+   =============================== */
 .dark {
-  --color-bg-primary: #18181b;
-  --color-bg-secondary: #27272a;
-  --color-bg-tertiary: #3f3f46;
+  --bg-primary: #18181b;
+  --bg-secondary: #1f1f23;
+  --bg-muted: #27272a;
 
-  --color-surface: #3f3f46;
-  --color-surface-elevated: #52525b;
+  --surface: #27272a;
+  --surface-elevated: #323238;
 
-  --color-brand-primary: #fbbf24;
-  --color-brand-secondary: #fcd34d;
+  --brand-primary: #fbbf24;
+  --brand-secondary: #fde68a;
 
-  --color-accent-gold: #fbbf24;
-  --color-accent-rose: #52525b;
-  --color-accent-beige: #52525b;
+  --accent-gold: #fbbf24;
+  --accent-rose: #3f3f46;
+  --accent-beige: #3f3f46;
 
-  --color-text-primary: #fafafa;
-  --color-text-secondary: #e5e5e5;
+  --text-primary: #fafafa;
+  --text-secondary: #d4d4d8;
+  --text-muted: #a1a1aa;
 
-  --color-border-light: #52525b;
-  --color-border-medium: #3f3f46;
+  --border-soft: #3f3f46;
+  --border-medium: #52525b;
 
-  --color-success: #22c55e;
-  --color-error: #ef4444;
-  --color-warning: #fbbf24;
+  --success: #22c55e;
+  --error: #ef4444;
+  --warning: #fbbf24;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md: 0 8px 20px rgba(0,0,0,0.5);
 }
 
+/* ===============================
+   Base Styles
+   =============================== */
 * {
-  font-family: "Poppins", sans-serif;
-  transition-property: color, background-color, border-color;
-  transition-duration: 150ms;
-}
-
-body {
-  font-family: "Poppins", sans-serif;
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-primary);
-  margin: 0;
-  padding: 0;
-}
-
-h1,h2,h3,h4,h5,h6 {
-  font-family: "Bodoni Moda", serif;
-}
-
-.glass {
-  background: rgba(255,255,255,0.9);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-}
-
-.dark .glass {
-  background: rgba(63,63,70,0.9);
+  font-family: var(--font-sans);
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
 }
 
 html {
-  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
-:root {
-  --dashboard-bg: #faf7f5;
-  --card-bg: #ffffff;
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
 
-  --text-primary: #1f2937;
-  --text-secondary: #6b7280;
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  letter-spacing: 0.02em;
+}
 
-  --border-soft: #e5e7eb;
+/* ===============================
+   Glass Effect
+   =============================== */
+.glass {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: var(--shadow-md);
+}
 
-  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+.dark .glass {
+  background: rgba(39, 39, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
