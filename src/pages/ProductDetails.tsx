@@ -10,6 +10,7 @@ import {
   Package,
   Clock,
   CheckCircle,
+  XCircle,
 } from 'lucide-react';
 import useWishlist from '@/components/atoms/WishListContext';
 import { useGetAttireById,useCheckAttireAvailability } from '@/hooks/attires/useAttire';
@@ -37,9 +38,11 @@ const fallbackProduct = {
 export function ProductDetails() {
   const { tenantId, id } = useParams();
   const productId = Number(id);
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const rentDateTime = `${selectedDate}T10:00:00`;
 
   const { data: attire, isLoading } = useGetAttireById(tenantId!, productId);
-  const { data: availability } = useCheckAttireAvailability(tenantId!, attire?.attireCode ?? '', new Date().toISOString().split('T')[0]);
+  const { data: availability } = useCheckAttireAvailability(tenantId!, attire?.attireCode ?? '', rentDateTime);
 
   /* ---------------- NORMALIZED PRODUCT ---------------- */
   const product = attire
@@ -103,6 +106,8 @@ export function ProductDetails() {
     }
   };
 
+  console.log(selectedDate, availability);
+
   return (
     <div className="min-h-screen bg-[#FAF8F6]">
       <div className="max-w-7xl mx-auto px-4 py-12">
@@ -149,10 +154,38 @@ export function ProductDetails() {
               {product.name}
             </h1>
 
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 text-amber-700">
-              <CheckCircle size={16} />
-              {product.availability}
+            <div className="space-y-2">
+              <label className="text-sm text-[#8B4513] mr-4">
+                Select date to check availability
+              </label>
+
+              <input
+                type="date"
+                value={selectedDate}
+                min={new Date().toISOString().split('T')[0]}
+                onChange={(e) => setSelectedDate(e.target.value)}
+                className="border rounded-md px-4 py-2 text-[#5C4033] focus:outline-none focus:ring-2 focus:ring-[#8B4513]"
+              />
+            </div>
+
+            <span
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm
+                  ${
+                    availability?.available
+                      ? 'bg-green-100 text-green-700'
+                      : 'bg-red-100 text-red-700'
+                  }
+                `}
+              >
+              {availability?.available ? (
+                <CheckCircle size={16} />
+              ) : (
+                <XCircle size={16} />
+              )}
+
+              {availability?.message}
             </span>
+
 
             <p className="text-3xl text-[#8B4513] font-serif">
               {product.price}
