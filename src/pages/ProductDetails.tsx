@@ -13,11 +13,10 @@ import {
   XCircle,
 } from 'lucide-react';
 import useWishlist from '@/components/atoms/WishListContext';
-import { useGetAttireById,useCheckAttireAvailability } from '@/hooks/attires/useAttire';
+import { useGetAttireById, useCheckAttireAvailability } from '@/hooks/attires/useAttire';
 
 import nilameSuitImage from '../assets/items/nilame1.jpeg';
 
-/* ---------------- FALLBACK DATA ---------------- */
 const fallbackProduct = {
   name: 'Traditional Attire',
   category: 'Uncategorized',
@@ -42,9 +41,12 @@ export function ProductDetails() {
   const rentDateTime = `${selectedDate}T10:00:00`;
 
   const { data: attire, isLoading } = useGetAttireById(tenantId!, productId);
-  const { data: availability } = useCheckAttireAvailability(tenantId!, attire?.attireCode ?? '', rentDateTime);
+  const { data: availability } = useCheckAttireAvailability(
+    tenantId!,
+    attire?.attireCode ?? '',
+    rentDateTime
+  );
 
-  /* ---------------- NORMALIZED PRODUCT ---------------- */
   const product = attire
     ? {
         name: attire.attireName,
@@ -60,25 +62,15 @@ export function ProductDetails() {
             ? availability.message
             : availability?.message || 'Currently unavailable',
         readyDays: 'Ready in 7–14 working days',
-        description:
-          attire.attireDescription ??
-          'Beautiful handcrafted traditional attire.',
-        images: attire.imageUrl
-          ? [attire.imageUrl]
-          : [nilameSuitImage],
-        features: [
-          'Handcrafted Quality',
-          'Premium Materials',
-          'Traditional Design',
-        ],
+        description: attire.attireDescription ?? 'Beautiful handcrafted traditional attire.',
+        images: attire.imageUrl ? [attire.imageUrl] : [nilameSuitImage],
+        features: ['Handcrafted Quality', 'Premium Materials', 'Traditional Design'],
         details: {
           Stock: attire.attireStock ?? 'N/A',
           Status: attire.attireStatus,
         },
-        fabricDetails:
-          'Premium artisan fabric carefully selected for durability and elegance.',
-        careInstructions:
-          'Dry clean only. Store in a cool, dry place.',
+        fabricDetails: 'Premium artisan fabric carefully selected for durability and elegance.',
+        careInstructions: 'Dry clean only. Store in a cool, dry place.',
       }
     : fallbackProduct;
 
@@ -87,14 +79,12 @@ export function ProductDetails() {
   const isSaved = isInWishlist(productId.toString());
 
   if (isLoading) {
-    return <p className="text-center py-20">Loading product...</p>;
+    return <p className="text-center py-20 text-[var(--text-secondary)]">Loading product...</p>;
   }
 
-  /* ---------------- WISHLIST ---------------- */
   const handleWishlistToggle = () => {
-    if (isSaved) {
-      removeFromWishlist(productId.toString());
-    } else {
+    if (isSaved) removeFromWishlist(productId.toString());
+    else
       addToWishlist({
         id: productId.toString(),
         name: product.name,
@@ -103,173 +93,156 @@ export function ProductDetails() {
         image: product.images[0],
         inStock: product.availability === 'Available now',
       });
-    }
   };
 
-  console.log(selectedDate, availability);
-
   return (
-    <div className="min-h-screen bg-[#FAF8F6]">
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+    <div className="min-h-screen bg-[var(--bg-primary)] px-4 py-12">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+        
+        {/* IMAGE GALLERY */}
+        <div className="space-y-4">
+          <div className="relative aspect-3/4 overflow-hidden rounded-xl shadow-lg bg-white">
+            <ImageWithFallback
+              src={product.images[selectedImage]}
+              alt={product.name}
+              className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+            />
+          </div>
 
-          {/* IMAGE GALLERY */}
-          <div className="space-y-4">
-            <div className="relative aspect-3/4 overflow-hidden rounded-lg bg-white">
-              <ImageWithFallback
-                src={product.images[selectedImage]}
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
+          <div className="grid grid-cols-4 gap-4">
+            {product.images.map((img, index) => (
+              <button
+                key={index}
+                onClick={() => setSelectedImage(index)}
+                className={`rounded-lg overflow-hidden border-2 transition-all duration-300 ${
+                  selectedImage === index
+                    ? 'border-[var(--accent-gold)] shadow-md'
+                    : 'border-transparent'
+                }`}
+              >
+                <ImageWithFallback
+                  src={img}
+                  alt=""
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </button>
+            ))}
+          </div>
+        </div>
 
-            <div className="grid grid-cols-4 gap-4">
-              {product.images.map((img, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedImage(index)}
-                  className={`border-2 rounded-lg overflow-hidden ${
-                    selectedImage === index
-                      ? 'border-[#8B4513]'
-                      : 'border-transparent'
-                  }`}
-                >
-                  <ImageWithFallback
-                    src={img}
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
-                </button>
+        {/* PRODUCT INFO */}
+        <div className="space-y-6">
+          <p className="text-sm uppercase tracking-widest text-[var(--brand-secondary)]">
+            {product.category}
+          </p>
+
+          <h1 className="text-4xl md:text-5xl font-serif text-[var(--brand-primary)]">
+            {product.name}
+          </h1>
+
+          <div className="space-y-2">
+            <label className="text-sm text-[var(--brand-secondary)]">
+              Select date to check availability
+            </label>
+            <input
+              type="date"
+              value={selectedDate}
+              min={new Date().toISOString().split('T')[0]}
+              onChange={(e) => setSelectedDate(e.target.value)}
+              className="border rounded-md px-4 py-2 text-[var(--brand-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)]"
+            />
+          </div>
+
+          <span
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium
+              ${
+                availability?.available
+                  ? 'bg-[var(--accent-gold)]/20 text-[var(--accent-gold)]'
+                  : 'bg-red-100 text-red-700'
+              }`}
+          >
+            {availability?.available ? <CheckCircle /> : <XCircle />}
+            {availability?.message}
+          </span>
+
+          <p className="text-3xl text-[var(--accent-gold)] font-serif">{product.price}</p>
+
+          <div className="flex items-center gap-2 text-sm text-[var(--brand-secondary)]">
+            <Clock size={16} />
+            {product.readyDays}
+          </div>
+
+          <p className="text-[var(--brand-primary)] leading-relaxed">{product.description}</p>
+
+          {/* FEATURES */}
+          <div>
+            <h3 className="text-[var(--brand-primary)] mb-3 font-semibold">Key Features</h3>
+            <ul className="space-y-2">
+              {product.features.map((f, i) => (
+                <li key={i} className="flex items-center gap-2 text-[var(--brand-primary)]">
+                  <Sparkles className="text-[var(--accent-gold)]" size={18} />
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* DETAILS */}
+          <div className="bg-[var(--bg-secondary)] border border-[var(--border-light)] rounded-xl p-6 shadow-sm">
+            <h3 className="text-[var(--brand-primary)] mb-4 font-semibold">Product Details</h3>
+            <div className="grid grid-cols-2 gap-4">
+              {Object.entries(product.details).map(([k, v]) => (
+                <div key={k}>
+                  <p className="text-sm text-[var(--brand-secondary)]">{k}</p>
+                  <p className="text-[var(--brand-primary)]">{String(v)}</p>
+                </div>
               ))}
             </div>
           </div>
 
-          {/* PRODUCT INFO */}
-          <div className="space-y-6">
-            <p className="text-sm uppercase tracking-widest text-[#8B4513]">
-              {product.category}
-            </p>
+          {/* ACTIONS */}
+          <div className="space-y-3">
+            <a
+              href="https://wa.me/94771234567"
+              className="w-full flex justify-center gap-2 bg-[#25D366] text-white py-4 rounded-lg font-medium shadow-md hover:bg-[#1ebe5a] transition-all"
+            >
+              <MessageCircle />
+              Inquire on WhatsApp
+            </a>
 
-            <h1 className="text-4xl font-serif text-[#5C4033]">
-              {product.name}
-            </h1>
-
-            <div className="space-y-2">
-              <label className="text-sm text-[#8B4513] mr-4">
-                Select date to check availability
-              </label>
-
-              <input
-                type="date"
-                value={selectedDate}
-                min={new Date().toISOString().split('T')[0]}
-                onChange={(e) => setSelectedDate(e.target.value)}
-                className="border rounded-md px-4 py-2 text-[#5C4033] focus:outline-none focus:ring-2 focus:ring-[#8B4513]"
-              />
-            </div>
-
-            <span
-              className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm
-                  ${
-                    availability?.available
-                      ? 'bg-green-100 text-green-700'
-                      : 'bg-red-100 text-red-700'
-                  }
-                `}
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                onClick={handleWishlistToggle}
+                className={`border-2 border-[var(--brand-secondary)] py-3 rounded-lg font-medium shadow-md transition-all hover:bg-[var(--brand-secondary)] hover:text-white`}
               >
-              {availability?.available ? (
-                <CheckCircle size={16} />
-              ) : (
-                <XCircle size={16} />
-              )}
+                <Heart className="inline mr-2" />
+                {isSaved ? 'Saved' : 'Save'}
+              </button>
 
-              {availability?.message}
-            </span>
-
-
-            <p className="text-3xl text-[#8B4513] font-serif">
-              {product.price}
-            </p>
-
-            <div className="flex items-center gap-2 text-sm text-[#8B4513]">
-              <Clock size={16} />
-              {product.readyDays}
-            </div>
-
-            <p className="text-[#5C4033] leading-relaxed">
-              {product.description}
-            </p>
-
-            {/* FEATURES */}
-            <div>
-              <h3 className="text-[#5C4033] mb-3">Key Features</h3>
-              <ul className="space-y-2">
-                {product.features.map((f, i) => (
-                  <li key={i} className="flex gap-2 text-[#5C4033]">
-                    <Sparkles className="text-[#D4AF37]" size={18} />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* DETAILS */}
-            <div className="bg-white border rounded-lg p-6">
-              <h3 className="text-[#5C4033] mb-4">Product Details</h3>
-              <div className="grid grid-cols-2 gap-4">
-                {Object.entries(product.details).map(([k, v]) => (
-                  <div key={k}>
-                    <p className="text-sm text-[#8B4513]">{k}</p>
-                    <p className="text-[#5C4033]">{String(v)}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* ACTIONS */}
-            <div className="space-y-3">
-              <a
-                href="https://wa.me/94771234567"
-                className="w-full flex justify-center gap-2 bg-[#25D366] text-white py-4 rounded-md"
-              >
-                <MessageCircle />
-                Inquire on WhatsApp
-              </a>
-
-              <div className="grid grid-cols-2 gap-3">
-                <button
-                  onClick={handleWishlistToggle}
-                  className="border-2 border-[#8B4513] py-3 rounded-md hover:bg-[#8B4513] hover:text-white"
-                >
-                  <Heart className="inline mr-2" />
-                  {isSaved ? 'Saved' : 'Save'}
-                </button>
-
-                <button className="border-2 border-[#8B4513] py-3 rounded-md hover:bg-[#8B4513] hover:text-white">
-                  <Share2 className="inline mr-2" />
-                  Share
-                </button>
-              </div>
-            </div>
-
-            {/* INFO CARDS */}
-            <div className="grid grid-cols-3 gap-4 pt-6">
-              <InfoCard icon={<Ruler />} text="Custom Sizing" />
-              <InfoCard icon={<Sparkles />} text="Handcrafted" />
-              <InfoCard icon={<Package />} text="Secure Packaging" />
+              <button className="border-2 border-[var(--brand-secondary)] py-3 rounded-lg font-medium shadow-md transition-all hover:bg-[var(--brand-secondary)] hover:text-white">
+                <Share2 className="inline mr-2" />
+                Share
+              </button>
             </div>
           </div>
-        </div>
 
-        {/* EXTRA INFO */}
-        <div className="mt-16 border-t pt-12 grid md:grid-cols-3 gap-8">
-          <Section title="Fabric Details" text={product.fabricDetails} />
-          <Section title="Care Instructions" text={product.careInstructions} />
-          <Section
-            title="Customization"
-            text="We offer full customization. Contact us for tailored designs."
-          />
+          {/* INFO CARDS */}
+          <div className="grid grid-cols-3 gap-4 pt-6">
+            <InfoCard icon={<Ruler />} text="Custom Sizing" />
+            <InfoCard icon={<Sparkles />} text="Handcrafted" />
+            <InfoCard icon={<Package />} text="Secure Packaging" />
+          </div>
         </div>
+      </div>
+
+      {/* EXTRA INFO */}
+      <div className="mt-16 border-t border-[var(--border-light)] pt-12 grid md:grid-cols-3 gap-8">
+        <Section title="Fabric Details" text={product.fabricDetails} />
+        <Section title="Care Instructions" text={product.careInstructions} />
+        <Section
+          title="Customization"
+          text="We offer full customization. Contact us for tailored designs."
+        />
       </div>
     </div>
   );
@@ -278,9 +251,9 @@ export function ProductDetails() {
 /* ---------------- HELPERS ---------------- */
 function InfoCard({ icon, text }: any) {
   return (
-    <div className="text-center bg-[#8B4513]/5 p-4 rounded-lg">
-      <div className="text-[#8B4513] mb-2">{icon}</div>
-      <p className="text-xs text-[#5C4033]">{text}</p>
+    <div className="text-center bg-[var(--brand-secondary)]/10 p-4 rounded-xl shadow-sm">
+      <div className="text-[var(--brand-secondary)] mb-2">{icon}</div>
+      <p className="text-xs text-[var(--brand-primary)]">{text}</p>
     </div>
   );
 }
@@ -288,8 +261,8 @@ function InfoCard({ icon, text }: any) {
 function Section({ title, text }: any) {
   return (
     <div>
-      <h3 className="text-2xl font-serif text-[#5C4033] mb-4">{title}</h3>
-      <p className="text-[#5C4033]">{text}</p>
+      <h3 className="text-2xl font-serif text-[var(--brand-primary)] mb-4">{title}</h3>
+      <p className="text-[var(--brand-primary)]">{text}</p>
     </div>
   );
 }
