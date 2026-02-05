@@ -12,7 +12,8 @@ import {
   CheckCircle,
 } from 'lucide-react';
 import useWishlist from '@/components/atoms/WishListContext';
-import { useGetAttireById } from '@/hooks/attires/useAttire';
+import { useGetAttireById,useCheckAttireAvailability } from '@/hooks/attires/useAttire';
+
 import nilameSuitImage from '../assets/items/nilame1.jpeg';
 
 /* ---------------- FALLBACK DATA ---------------- */
@@ -38,6 +39,7 @@ export function ProductDetails() {
   const productId = Number(id);
 
   const { data: attire, isLoading } = useGetAttireById(tenantId!, productId);
+  const { data: availability } = useCheckAttireAvailability(tenantId!, attire?.attireCode ?? '', new Date().toISOString().split('T')[0]);
 
   /* ---------------- NORMALIZED PRODUCT ---------------- */
   const product = attire
@@ -51,7 +53,9 @@ export function ProductDetails() {
         availability:
           attire.attireStatus === 'AVAILABLE'
             ? 'Available now'
-            : 'Made to order',
+            : availability?.available
+            ? availability.message
+            : availability?.message || 'Currently unavailable',
         readyDays: 'Ready in 7–14 working days',
         description:
           attire.attireDescription ??
