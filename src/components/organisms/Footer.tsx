@@ -9,7 +9,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-br from-[#3b2a23] via-[#5a3a2e] to-[#3b2a23] text-[#fdfbf9]">
+    <footer className="bg-linear-to-br from-[#3b2a23] via-[#5a3a2e] to-[#3b2a23] text-[#fdfbf9]">
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
           {/* Brand */}
@@ -43,7 +43,7 @@ const Footer = () => {
                   >
                     {item}
                     <span
-                      className="absolute left-0 -bottom-1 h-[1px] w-0 bg-[#d4af37]
+                      className="absolute left-0 -bottom-1 h-px w-0 bg-[#d4af37]
                                  transition-all duration-300 group-hover:w-full"
                     />
                   </a>

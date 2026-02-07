@@ -5,14 +5,14 @@ export default function About() {
   return (
     <div className="min-h-screen bg-(--bg-primary) text-(--text-primary)">
       {/* Hero Section */}
-      <div className="relative h-[400px] md:h-[500px] overflow-hidden">
+      <div className="relative h-100 md:h-125 overflow-hidden">
         <div className="absolute inset-0">
           <ImageWithFallback
             src="https://images.unsplash.com/photo-1587027512547-81850a319ff5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
             alt="About Sarani Couture"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40" />
+          <div className="absolute inset-0 bg-linear-to-r from-black/70 to-black/40" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
           <div className="max-w-2xl">
@@ -50,14 +50,14 @@ export default function About() {
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="aspect-[3/4] overflow-hidden rounded-lg">
+              <div className="aspect-3/4 overflow-hidden rounded-lg">
                 <ImageWithFallback
                   src="https://images.unsplash.com/photo-1758995115518-26f90aa61b97?q=80&w=1080"
                   alt="Craftsmanship"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="aspect-[3/4] overflow-hidden rounded-lg mt-8">
+              <div className="aspect-3/4 overflow-hidden rounded-lg mt-8">
                 <ImageWithFallback
                   src="https://images.unsplash.com/photo-1761125135351-268e72e39158?q=80&w=1080"
                   alt="Traditional wear"
@@ -70,13 +70,13 @@ export default function About() {
       </section>
 
       {/* Values */}
-      <section className="py-16 md:py-24 bg-[var(--bg-secondary)]">
+      <section className="py-16 md:py-24 bg-(--bg-secondary)">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl mb-4 font-serif">
               Our Values
             </h2>
-            <p className="text-[var(--text-muted)] max-w-2xl mx-auto">
+            <p className="text-(--text-muted) max-w-2xl mx-auto">
               The principles that guide everything we do
             </p>
           </div>
@@ -89,11 +89,11 @@ export default function About() {
               { icon: Users, title: 'Community', text: 'Supporting local artisans and crafts' },
             ].map(({ icon: Icon, title, text }) => (
               <div key={title} className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--accent-beige)] flex items-center justify-center">
-                  <Icon className="h-8 w-8 text-[var(--accent-gold)]" />
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-(--accent-beige) flex items-center justify-center">
+                  <Icon className="h-8 w-8 text-(--accent-gold)" />
                 </div>
                 <h3 className="mb-2 font-serif">{title}</h3>
-                <p className="text-sm text-[var(--text-muted)]">{text}</p>
+                <p className="text-sm text-(--text-muted)">{text}</p>
               </div>
             ))}
           </div>
@@ -104,7 +104,7 @@ export default function About() {
       <section className="py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="aspect-[4/3] overflow-hidden rounded-lg">
+            <div className="aspect-4/3 overflow-hidden rounded-lg">
               <ImageWithFallback
                 src="https://images.unsplash.com/photo-1756483496981-05b741fdd40a?q=80&w=1080"
                 alt="Craftsmanship"
@@ -116,7 +116,7 @@ export default function About() {
               <h2 className="text-3xl md:text-4xl mb-6 font-serif">
                 Handcrafted Excellence
               </h2>
-              <div className="space-y-4 text-[var(--text-secondary)]">
+              <div className="space-y-4 text-(--text-secondary)">
                 <p>
                   Every piece at Sarani Couture is crafted by master artisans with meticulous care.
                 </p>
@@ -132,7 +132,7 @@ export default function About() {
                     'Quality inspection at every stage',
                   ].map(item => (
                     <div key={item} className="flex gap-3">
-                      <span className="w-2 h-2 bg-[var(--accent-gold)] rounded-full mt-2" />
+                      <span className="w-2 h-2 bg-(--accent-gold) rounded-full mt-2" />
                       <p>{item}</p>
                     </div>
                   ))}
@@ -144,7 +144,7 @@ export default function About() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-[var(--brand-primary)] to-[var(--brand-secondary)]">
+      <section className="py-16 md:py-24 bg-linear-to-br from-(--brand-primary) to-(--brand-secondary)">
         <div className="max-w-4xl mx-auto px-4 text-center text-white">
           <h2 className="text-3xl md:text-4xl mb-4 font-serif">
             Visit Our Showroom
@@ -162,7 +162,7 @@ export default function About() {
             </a>
             <a
               href="/contact"
-              className="bg-white text-[var(--brand-primary)] px-8 py-3 rounded-md hover:opacity-90"
+              className="bg-white text-(--brand-primary) px-8 py-3 rounded-md hover:opacity-90"
             >
               Get Directions
             </a>
