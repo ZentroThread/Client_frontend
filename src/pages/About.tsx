@@ -3,7 +3,7 @@ import { Award, Heart, Users, Sparkles } from 'lucide-react';
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
+    <div className="min-h-screen bg-(--bg-primary) text-(--text-primary)">
       {/* Hero Section */}
       <div className="relative h-[400px] md:h-[500px] overflow-hidden">
         <div className="absolute inset-0">
@@ -27,14 +27,14 @@ export default function About() {
       </div>
 
       {/* Our Heritage */}
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-24 bg-(--bg-primary)">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl mb-6 font-serif">
                 Heritage & Tradition
               </h2>
-              <div className="space-y-4 text-[var(--text-secondary)] leading-relaxed">
+              <div className="space-y-4 text-(--text-secondary) leading-relaxed">
                 <p>
                   Sarani Couture was founded in 1965 in the heart of Colombo, bringing together
                   the finest artisans and craftspeople from across Sri Lanka.

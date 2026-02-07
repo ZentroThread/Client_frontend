@@ -1,6 +1,6 @@
 import { Heart, Trash2, ShoppingBag, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
-import  useWishlist  from '../components/atoms/WishListContext';
+import useWishlist from '../components/atoms/WishListContext';
 import { Link } from 'react-router-dom';
 
 export default function Wishlist() {
@@ -13,7 +13,7 @@ export default function Wishlist() {
   };
 
   return (
-    <div className="min-h-screen py-12" style={{ backgroundColor: 'var(--color-bg-primary)' }}>
+    <div className="min-h-screen py-12 bg-(--bg-primary)">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -22,16 +22,15 @@ export default function Wishlist() {
           className="text-center mb-12"
         >
           <div className="flex items-center justify-center gap-3 mb-4">
-            <Heart className="h-8 w-8" style={{ color: 'var(--color-brand-primary)' }} fill="var(--color-brand-primary)" />
-            <h1 className="text-4xl md:text-5xl font-serif" style={{ color: 'var(--color-text-primary)' }}>
+            <Heart className="h-8 w-8 text-(--brand-primary)" fill="var(--brand-primary)" />
+            <h1 className="text-4xl md:text-5xl font-serif text-(--text-primary)">
               My Saved Items
             </h1>
           </div>
-          <p className="text-lg" style={{ color: 'var(--color-text-secondary)' }}>
-            {wishlist.length === 0 
-              ? 'Your wishlist is empty. Start adding items you love!' 
-              : `You have ${wishlist.length} saved ${wishlist.length === 1 ? 'item' : 'items'}`
-            }
+          <p className="text-lg text-(--text-secondary)">
+            {wishlist.length === 0
+              ? 'Your wishlist is empty. Start adding items you love!'
+              : `You have ${wishlist.length} saved ${wishlist.length === 1 ? 'item' : 'items'}`}
           </p>
         </motion.div>
 
@@ -42,12 +41,12 @@ export default function Wishlist() {
             animate={{ opacity: 1, scale: 1 }}
             className="text-center py-16"
           >
-            <div className="glass rounded-3xl p-12 max-w-md mx-auto border" style={{ borderColor: 'var(--color-border-light)' }}>
-              <Heart className="h-24 w-24 mx-auto mb-6 opacity-20" style={{ color: 'var(--color-brand-primary)' }} />
-              <h2 className="text-2xl font-serif mb-4" style={{ color: 'var(--color-text-primary)' }}>
+            <div className="glass rounded-3xl p-12 max-w-md mx-auto border border-(--border-soft)">
+              <Heart className="h-24 w-24 mx-auto mb-6 opacity-20 text-(--brand-primary)" />
+              <h2 className="text-2xl font-serif mb-4 text-(--text-primary)">
                 Your Wishlist is Empty
               </h2>
-              <p className="mb-8" style={{ color: 'var(--color-text-secondary)' }}>
+              <p className="mb-8 text-(--text-secondary)">
                 Explore our stunning collections and save your favorite pieces for later.
               </p>
               <Link to="/collections">
@@ -56,7 +55,7 @@ export default function Wishlist() {
                   whileTap={{ scale: 0.95 }}
                   className="px-8 py-3 rounded-lg text-white font-medium shadow-lg"
                   style={{
-                    background: 'linear-gradient(135deg, var(--color-brand-primary) 0%, var(--color-brand-secondary) 100%)',
+                    background: 'linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%)',
                   }}
                 >
                   Browse Collections
@@ -77,11 +76,10 @@ export default function Wishlist() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="glass rounded-2xl overflow-hidden border shadow-lg group"
-                style={{ borderColor: 'var(--color-border-light)' }}
+                className="glass rounded-2xl overflow-hidden border border-(--border-soft) shadow-md group"
               >
                 {/* Product Image */}
-                <div className="relative overflow-hidden aspect-[3/4]">
+                <div className="relative overflow-hidden aspect-3/4">
                   <Link to={`/product/${product.id}`}>
                     <img
                       src={product.image}
@@ -89,10 +87,10 @@ export default function Wishlist() {
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                   </Link>
-                  
+
                   {/* Stock Badge */}
                   {!product.inStock && (
-                    <div className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-medium text-white" style={{ backgroundColor: 'var(--color-error)' }}>
+                    <div className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-medium text-white bg-(--error)">
                       Out of Stock
                     </div>
                   )}
@@ -102,8 +100,8 @@ export default function Wishlist() {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => removeFromWishlist(product.id)}
-                    className="absolute top-4 right-4 p-2 rounded-full bg-white/90 backdrop-blur-sm shadow-lg transition-colors"
-                    style={{ color: 'var(--color-error)' }}
+                    className="absolute top-4 right-4 p-2 rounded-full bg-white/90 backdrop-blur-sm shadow-md"
+                    style={{ color: 'var(--error)' }}
                   >
                     <Trash2 className="h-5 w-5" />
                   </motion.button>
@@ -111,16 +109,16 @@ export default function Wishlist() {
 
                 {/* Product Info */}
                 <div className="p-5">
-                  <div className="text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--color-brand-primary)' }}>
+                  <div className="text-xs uppercase tracking-wider mb-2 text-(--brand-primary)">
                     {product.category}
                   </div>
                   <Link to={`/product/${product.id}`}>
-                    <h3 className="text-lg font-serif mb-3 hover:opacity-75 transition-opacity" style={{ color: 'var(--color-text-primary)' }}>
+                    <h3 className="text-lg font-serif mb-3 text-(--text-primary) hover:opacity-80 transition-opacity">
                       {product.name}
                     </h3>
                   </Link>
                   <div className="flex items-baseline gap-2 mb-4">
-                    <span className="text-2xl font-serif" style={{ color: 'var(--color-brand-primary)' }}>
+                    <span className="text-2xl font-serif text-(--brand-primary)">
                       LKR {product.price.toLocaleString()}
                     </span>
                   </div>
@@ -131,10 +129,10 @@ export default function Wishlist() {
                       <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg border transition-all text-sm"
+                        className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg border text-sm transition-all"
                         style={{
-                          borderColor: 'var(--color-brand-primary)',
-                          color: 'var(--color-brand-primary)',
+                          borderColor: 'var(--brand-primary)',
+                          color: 'var(--brand-primary)',
                         }}
                       >
                         <ShoppingBag className="h-4 w-4" />
@@ -145,7 +143,7 @@ export default function Wishlist() {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => handleWhatsAppInquiry(product.name)}
-                      className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-white font-medium transition-all text-sm shadow-md"
+                      className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-white font-medium shadow-md text-sm transition-all"
                       style={{
                         background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
                       }}
@@ -174,8 +172,8 @@ export default function Wishlist() {
                 whileTap={{ scale: 0.95 }}
                 className="px-8 py-3 rounded-lg border text-lg transition-all"
                 style={{
-                  borderColor: 'var(--color-brand-primary)',
-                  color: 'var(--color-brand-primary)',
+                  borderColor: 'var(--brand-primary)',
+                  color: 'var(--brand-primary)',
                 }}
               >
                 Continue Shopping

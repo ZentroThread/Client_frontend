@@ -89,7 +89,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[600px] md:h-[700px] w-full overflow-hidden">
+      <section className="relative h-150 md:h-175 w-full overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <ImageWithFallback
@@ -98,15 +98,15 @@ export default function Home() {
             className="w-full h-full object-cover transition-transform duration-700 transform group-hover:scale-105"
           />
           {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/20"></div>
+          <div className="absolute inset-0 bg-linear-to-r from-black/60 via-black/40 to-black/20"></div>
         </div>
 
         {/* Content */}
         <div className="relative w-full mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
           <div className="max-w-2xl space-y-6">
             {/* Tagline */}
-            <div className="inline-block px-4 py-2 bg-[var(--accent-gold)]/20 backdrop-blur-sm rounded-full">
-              <span className="text-[var(--accent-gold)] text-sm tracking-widest font-medium">
+            <div className="inline-block px-4 py-2 bg-(--accent-gold)/20 backdrop-blur-sm rounded-full">
+              <span className="text-(--accent-gold) text-sm tracking-widest font-medium">
                 NEW COLLECTION 2026
               </span>
             </div>
@@ -114,7 +114,7 @@ export default function Home() {
             {/* Heading */}
             <h1 className="text-4xl md:text-6xl font-serif leading-tight text-white">
               Where Tradition Meets{" "}
-              <span className="text-[var(--accent-gold)]">Elegance</span>
+              <span className="text-(--accent-gold)">Elegance</span>
             </h1>
 
             {/* Subheading */}
@@ -129,11 +129,11 @@ export default function Home() {
               <Link to="/products">
                 <button className="
                   relative overflow-hidden px-8 py-3 rounded-lg font-medium shadow-lg
-                  bg-[var(--brand-secondary)] text-white
+                  bg-(--brand-secondary) text-white
                   transition-all duration-300
-                  hover:bg-gradient-to-r hover:from-[var(--brand-primary)] hover:to-[var(--accent-gold)]
+                  hover:bg-linear-to-r hover:from-(--brand-primary) hover:to-(--accent-gold)
                   hover:text-white
-                  focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)] focus:ring-offset-2
+                  focus:outline-none focus:ring-2 focus:ring-(--accent-gold) focus:ring-offset-2
                 ">
                   Explore Collections
                   {/* Optional subtle shine effect */}
@@ -148,14 +148,14 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="
                   relative overflow-hidden px-8 py-3 rounded-lg font-medium shadow-lg
-                  bg-white text-[var(--brand-secondary)]
+                  bg-white text-(--brand-secondary)
                   transition-all duration-300
-                  hover:bg-[var(--accent-beige)] hover:text-[var(--brand-primary)]
-                  focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)] focus:ring-offset-2
+                  hover:bg-(--accent-beige) hover:text-(--brand-primary)
+                  focus:outline-none focus:ring-2 focus:ring-(--accent-gold) focus:ring-offset-2
                 "
               >
                 WhatsApp Inquiry
-                <span className="absolute top-0 left-0 w-0 h-full bg-[var(--accent-gold)]/20 transform skew-x-[-20deg] group-hover:w-full transition-all duration-500 pointer-events-none"></span>
+                <span className="absolute top-0 left-0 w-0 h-full bg-(--accent-gold)/20 transform skew-x-[-20deg] group-hover:w-full transition-all duration-500 pointer-events-none"></span>
               </a>
             </div>
 
@@ -163,19 +163,19 @@ export default function Home() {
         </div>
 
         {/* Decorative Gradient Pattern */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--bg-primary)] to-transparent">    </div>
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-(--bg-primary) to-transparent">    </div>
       </section>
 
 
       {/* Featured Categories */}
-      <section className="py-16 md:py-24 bg-[var(--bg-primary)]">
+      <section className="py-16 md:py-24 bg-(--bg-primary)">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl text-[var(--brand-primary)] mb-4 font-serif">
+            <h2 className="text-3xl md:text-4xl text-(--brand-primary) mb-4 font-serif">
               Featured Collections
             </h2>
-            <p className="text-[var(--text-secondary)] max-w-2xl mx-auto">
+            <p className="text-(--text-secondary) max-w-2xl mx-auto">
               Explore our carefully curated collections of traditional Sri Lankan fashion
             </p>
           </div>
@@ -186,7 +186,7 @@ export default function Home() {
               <Link
                 key={category.id}
                 to={`/product/${category.id}`}
-                className="group relative overflow-hidden rounded-lg aspect-[4/5] block shadow-lg hover:shadow-2xl transition-shadow duration-500"
+                className="group relative overflow-hidden rounded-lg aspect-4/5 block shadow-lg hover:shadow-2xl transition-shadow duration-500"
               >
                 {/* Image */}
                 <ImageWithFallback
@@ -196,13 +196,13 @@ export default function Home() {
                 />
 
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                 {/* Text */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-6 group-hover:translate-y-0 transition-transform duration-500">
                   <h3 className="text-2xl mb-2 font-serif">{category.title}</h3>
                   <p className="text-sm text-white/80">{category.description}</p>
-                  <div className="mt-4 inline-block border-b-2 border-[var(--accent-gold)] pb-1 group-hover:translate-x-1 transition-transform duration-300">
+                  <div className="mt-4 inline-block border-b-2 border-(--accent-gold) pb-1 group-hover:translate-x-1 transition-transform duration-300">
                     <span className="text-sm font-medium">Shop Now →</span>
                   </div>
                 </div>
@@ -213,14 +213,14 @@ export default function Home() {
       </section>
 
       {/* Best Sellers */}
-      <section className="py-16 md:py-24 bg-[var(--bg-primary)]">
+      <section className="py-16 md:py-24 bg-(--bg-primary)">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl text-[var(--brand-primary)] mb-4 font-serif">
+            <h2 className="text-3xl md:text-4xl text-(--brand-primary) mb-4 font-serif">
               Best Sellers
             </h2>
-            <p className="text-[var(--text-secondary)] font-medium">
+            <p className="text-(--text-secondary) font-medium">
               Our most loved pieces
             </p>
           </div>
@@ -243,11 +243,11 @@ export default function Home() {
               to="/products"
               className="
                 relative inline-block px-8 py-3 rounded-lg font-medium shadow-lg
-                bg-[var(--brand-secondary)] text-white
+                bg-(--brand-secondary) text-white
                 transition-all duration-300
-                hover:bg-gradient-to-r hover:from-[var(--brand-primary)] hover:to-[var(--accent-gold)]
+                hover:bg-linear-to-r hover:from-(--brand-primary) hover:to-(--accent-gold)
                 hover:text-black
-                focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)] focus:ring-offset-2
+                focus:outline-none focus:ring-2 focus:ring-(--accent-gold) focus:ring-offset-2
               "
             >
               View All Products
