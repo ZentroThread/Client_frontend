@@ -1,5 +1,9 @@
 import { ImageWithFallback } from '../components/atoms/ImageWithFallback';
 import { Award, Heart, Users, Sparkles } from 'lucide-react';
+import Jewelry from '../assets/home/jewelry.jpg';
+import saree from '../assets/home/sare.jpg'
+import nilame from '../assets/home/nilame.jpg'
+import hero2 from '../assets/home/hero2.jpg'
 
 export default function About() {
   return (
@@ -8,7 +12,7 @@ export default function About() {
       <div className="relative h-100 md:h-125 overflow-hidden">
         <div className="absolute inset-0">
           <ImageWithFallback
-            src="https://images.unsplash.com/photo-1587027512547-81850a319ff5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
+            src={hero2}
             alt="About Sarani Couture"
             className="w-full h-full object-cover"
           />
@@ -52,14 +56,14 @@ export default function About() {
             <div className="grid grid-cols-2 gap-4">
               <div className="aspect-3/4 overflow-hidden rounded-lg">
                 <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1758995115518-26f90aa61b97?q=80&w=1080"
+                  src={nilame}
                   alt="Craftsmanship"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="aspect-3/4 overflow-hidden rounded-lg mt-8">
                 <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1761125135351-268e72e39158?q=80&w=1080"
+                  src={saree}
                   alt="Traditional wear"
                   className="w-full h-full object-cover"
                 />
@@ -106,7 +110,7 @@ export default function About() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="aspect-4/3 overflow-hidden rounded-lg">
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1756483496981-05b741fdd40a?q=80&w=1080"
+                src= {Jewelry}
                 alt="Craftsmanship"
                 className="w-full h-full object-cover"
               />

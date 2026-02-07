@@ -4,24 +4,27 @@ import { ProductCard } from '../components/organisms/ProductCard';
 import { ChevronLeft, ChevronRight, Star, Quote } from 'lucide-react';
 import { useState } from 'react';
 import heroImg from '../assets/home/hero2.jpg';
+import Jewelery from '../assets/home/jewelry.jpg';
+import saree from '../assets/home/sare.jpg'
+import nilame from '../assets/home/nilame.jpg'
 
 const featuredCategories = [
   {
     id: 1,
     title: 'Bridal Sarees',
-    image: 'https://images.unsplash.com/photo-1587027512547-81850a319ff5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBicmlkYWwlMjBzYXJlZSUyMG1vZGVsfGVufDF8fHx8MTc2Nzg5NzQ5OXww&ixlib=rb-4.1.0&q=80&w=1080',
+    image: saree,
     description: 'Exquisite handwoven silk sarees',
   },
   {
     id: 2,
     title: 'Traditional Jewelry',
-    image: 'https://images.unsplash.com/photo-1758995115518-26f90aa61b97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0cmFkaXRpb25hbCUyMGdvbGQlMjBqZXdlbHJ5fGVufDF8fHx8MTc2Nzg5NzQ5OXww&ixlib=rb-4.1.0&q=80&w=1080',
+    image: Jewelery,
     description: 'Gold-plated heritage designs',
   },
   {
     id: 3,
     title: 'Nilame Suits',
-    image: 'https://images.unsplash.com/photo-1761125135351-268e72e39158?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZWQlMjB0cmFkaXRpb25hbCUyMHNhcmVlfGVufDF8fHx8MTc2Nzg5NzQ5OXww&ixlib=rb-4.1.0&q=80&w=1080',
+    image: nilame,
     description: 'Traditional ceremonial attire',
   },
 ];
@@ -32,28 +35,28 @@ const bestSellers = [
     name: 'Kandy Bridal Saree',
     category: 'Bridal Sarees',
     price: 'LKR 125,000',
-    image: 'https://images.unsplash.com/photo-1587027512547-81850a319ff5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBicmlkYWwlMjBzYXJlZSUyMG1vZGVsfGVufDF8fHx8MTc2Nzg5NzQ5OXww&ixlib=rb-4.1.0&q=80&w=1080',
+    image: saree,
   },
   {
     id: 2,
     name: 'Temple Jewelry Set',
     category: 'Jewelry',
     price: 'LKR 85,000',
-    image: 'https://images.unsplash.com/photo-1758995115518-26f90aa61b97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0cmFkaXRpb25hbCUyMGdvbGQlMjBqZXdlbHJ5fGVufDF8fHx8MTc2Nzg5NzQ5OXww&ixlib=rb-4.1.0&q=80&w=1080',
+    image: Jewelery,
   },
   {
     id: 3,
     name: 'Royal Lehenga',
     category: 'Party Wear',
     price: 'LKR 95,000',
-    image: 'https://images.unsplash.com/photo-1767790693645-2373e54d4f02?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwbGVoZW5nYSUyMGRyZXNzfGVufDF8fHx8MTc2Nzg5NzUwMHww&ixlib=rb-4.1.0&q=80&w=1080',
+    image: nilame,
   },
   {
     id: 4,
     name: 'Silk Saree Collection',
     category: 'Sarees',
     price: 'LKR 75,000',
-    image: 'https://images.unsplash.com/photo-1756483496981-05b741fdd40a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzaWxrJTIwc2FyZWUlMjBlbGVnYW50fGVufDF8fHx8MTc2Nzg4OTkyNXww&ixlib=rb-4.1.0&q=80&w=1080',
+    image: saree,
   },
 ];
 
