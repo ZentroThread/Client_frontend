@@ -16,7 +16,7 @@ export function ImageWithFallback(
     <div
       className={`inline-flex items-center justify-center w-full h-full rounded-lg 
                   bg-(--surface) dark:bg-(--surface-elevated) 
-                  text-(--text-secondary) dark:text-(--text-muted) 
+                  text-(--text-secondary) dark:text-(--text-muted)
                   ${className ?? ''}`}
       style={style}
     >

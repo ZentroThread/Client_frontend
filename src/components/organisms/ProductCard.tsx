@@ -105,7 +105,7 @@ export function ProductCard({
             className="font-serif"
             style={{ color: "var(--color-brand-secondary)" }}
           >
-            {price}
+            Rs.{price}
           </p>
         </div>
       </div>
