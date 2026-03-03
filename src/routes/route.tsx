@@ -34,7 +34,7 @@ export const AppRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/products" element={<ProductListing />} />
-        <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/product/:tenantId/:id" element={<ProductDetails />} />
 
         {/* Collection pages */}
         <Route path="/collections/bridal-sarees" element={<BridalSarees />} />

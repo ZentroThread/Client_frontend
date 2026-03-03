@@ -5,12 +5,13 @@ import useWishlist from "@/components/atoms/WishListContext";
 import { motion } from "framer-motion";
 
 interface ProductCardProps {
-  id: number;
+  id: string;
   name: string;
   category: string;
   price: string;
   image: string;
   inStock?: boolean;
+  tenantId: string;
 }
 
 export function ProductCard({
@@ -19,17 +20,18 @@ export function ProductCard({
   category,
   price,
   image,
+  tenantId,
   inStock = true,
 }: ProductCardProps) {
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
-  const isSaved = isInWishlist(id);
+  const isSaved = isInWishlist(id.toString());
 
   const handleWishlistToggle = (e: React.MouseEvent) => {
     e.preventDefault(); // prevents navigation
     e.stopPropagation(); // prevents Link click
 
     const product = {
-      id,
+      id: id.toString(),
       name,
       category,
       price: parseFloat(price.replace(/[^0-9.-]+/g, "")),
@@ -38,14 +40,14 @@ export function ProductCard({
     };
 
     if (isSaved) {
-      removeFromWishlist(id);
+      removeFromWishlist(id.toString());
     } else {
       addToWishlist(product);
     }
   };
 
   return (
-    <Link to={`/product/${id}`} className="group block">
+    <Link to={`/product/${tenantId}/${id}`} className="group block">
       <div>
         <div
           className="relative overflow-hidden rounded-lg aspect-3/4"
@@ -103,7 +105,7 @@ export function ProductCard({
             className="font-serif"
             style={{ color: "var(--color-brand-secondary)" }}
           >
-            {price}
+            Rs.{price}
           </p>
         </div>
       </div>

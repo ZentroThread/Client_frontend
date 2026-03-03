@@ -3,57 +3,34 @@ import { ImageWithFallback } from '../components/atoms/ImageWithFallback';
 import { ProductCard } from '../components/organisms/ProductCard';
 import { ChevronLeft, ChevronRight, Star, Quote } from 'lucide-react';
 import { useState } from 'react';
-
+import heroImg from '../assets/home/hero2.jpg';
+import Jewelery from '../assets/home/jewelry.jpg';
+import saree from '../assets/home/sare.jpg'
+import nilame from '../assets/home/nilame.jpg'
+import nilame1 from '../assets/social/nilame1.jpg'
+import lehanga1 from '../assets/social/lehanga1.jpg'
+import lehanga2 from '../assets/social/lehanga2.jpg'
+import sarre1 from '../assets/social/saree.jpg'
+import { useGetAllAttiresForAllTenants } from '@/hooks/attires/useGetAllAttiresForAllTenants ';
 
 const featuredCategories = [
   {
     id: 1,
     title: 'Bridal Sarees',
-    image: 'https://images.unsplash.com/photo-1587027512547-81850a319ff5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBicmlkYWwlMjBzYXJlZSUyMG1vZGVsfGVufDF8fHx8MTc2Nzg5NzQ5OXww&ixlib=rb-4.1.0&q=80&w=1080',
+    image: saree,
     description: 'Exquisite handwoven silk sarees',
   },
   {
     id: 2,
     title: 'Traditional Jewelry',
-    image: 'https://images.unsplash.com/photo-1758995115518-26f90aa61b97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0cmFkaXRpb25hbCUyMGdvbGQlMjBqZXdlbHJ5fGVufDF8fHx8MTc2Nzg5NzQ5OXww&ixlib=rb-4.1.0&q=80&w=1080',
+    image: Jewelery,
     description: 'Gold-plated heritage designs',
   },
   {
     id: 3,
     title: 'Nilame Suits',
-    image: 'https://images.unsplash.com/photo-1761125135351-268e72e39158?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZWQlMjB0cmFkaXRpb25hbCUyMHNhcmVlfGVufDF8fHx8MTc2Nzg5NzQ5OXww&ixlib=rb-4.1.0&q=80&w=1080',
+    image: nilame,
     description: 'Traditional ceremonial attire',
-  },
-];
-
-const bestSellers = [
-  {
-    id: 1,
-    name: 'Kandy Bridal Saree',
-    category: 'Bridal Sarees',
-    price: 'LKR 125,000',
-    image: 'https://images.unsplash.com/photo-1587027512547-81850a319ff5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBicmlkYWwlMjBzYXJlZSUyMG1vZGVsfGVufDF8fHx8MTc2Nzg5NzQ5OXww&ixlib=rb-4.1.0&q=80&w=1080',
-  },
-  {
-    id: 2,
-    name: 'Temple Jewelry Set',
-    category: 'Jewelry',
-    price: 'LKR 85,000',
-    image: 'https://images.unsplash.com/photo-1758995115518-26f90aa61b97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0cmFkaXRpb25hbCUyMGdvbGQlMjBqZXdlbHJ5fGVufDF8fHx8MTc2Nzg5NzQ5OXww&ixlib=rb-4.1.0&q=80&w=1080',
-  },
-  {
-    id: 3,
-    name: 'Royal Lehenga',
-    category: 'Party Wear',
-    price: 'LKR 95,000',
-    image: 'https://images.unsplash.com/photo-1767790693645-2373e54d4f02?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwbGVoZW5nYSUyMGRyZXNzfGVufDF8fHx8MTc2Nzg5NzUwMHww&ixlib=rb-4.1.0&q=80&w=1080',
-  },
-  {
-    id: 4,
-    name: 'Silk Saree Collection',
-    category: 'Sarees',
-    price: 'LKR 75,000',
-    image: 'https://images.unsplash.com/photo-1756483496981-05b741fdd40a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzaWxrJTIwc2FyZWUlMjBlbGVnYW50fGVufDF8fHx8MTc2Nzg4OTkyNXww&ixlib=rb-4.1.0&q=80&w=1080',
   },
 ];
 
@@ -77,6 +54,7 @@ const testimonials = [
 
 export default function Home() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const { attires: allProducts = [] } = useGetAllAttiresForAllTenants();
 
   const nextTestimonial = () => {
     setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
@@ -89,79 +67,123 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-150 md:h-175 overflow-hidden w-full">
+      <section className="relative h-150 md:h-175 w-full overflow-hidden">
+        {/* Background Image */}
         <div className="absolute inset-0">
           <ImageWithFallback
-            src="https://images.unsplash.com/photo-1587027512547-81850a319ff5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBicmlkYWwlMjBzYXJlZSUyMG1vZGVsfGVufDF8fHx8MTc2Nzg5NzQ5OXww&ixlib=rb-4.1.0&q=80&w=1080"
+            src={heroImg}
             alt="Bridal Collection"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transition-transform duration-700 transform group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-linear-to-r from-black/60 to-black/20" />
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-linear-to-r from-black/60 via-black/40 to-black/20"></div>
         </div>
-        
+
+        {/* Content */}
         <div className="relative w-full mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
-          <div className="max-w-2xl">
-            <div className="inline-block px-4 py-2 bg-[#D4AF37]/20 backdrop-blur-sm rounded-full mb-6">
-              <span className="text-[#D4AF37] text-sm tracking-widest">NEW COLLECTION 2026</span>
+          <div className="max-w-2xl space-y-6">
+            {/* Tagline */}
+            <div className="inline-block px-4 py-2 bg-(--accent-gold)/20 backdrop-blur-sm rounded-full">
+              <span className="text-(--accent-gold) text-sm tracking-widest font-medium">
+                NEW COLLECTION 2026
+              </span>
             </div>
-            <h1 className="text-4xl md:text-6xl text-white mb-6 font-serif leading-tight">
-              Where Tradition Meets <span className="text-[#D4AF37]">Elegance</span>
+
+            {/* Heading */}
+            <h1 className="text-4xl md:text-6xl font-serif leading-tight text-white">
+              Where Tradition Meets{" "}
+              <span className="text-(--accent-gold)">Elegance</span>
             </h1>
-            <p className="text-lg text-white/90 mb-8">
-              Discover our exquisite collection of handcrafted Sri Lankan bridal sarees, traditional jewelry, and ceremonial attire.
+
+            {/* Subheading */}
+            <p className="text-lg text-white/90">
+              Discover our exquisite collection of handcrafted Sri Lankan bridal sarees,
+              traditional jewelry, and ceremonial attire.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 mt-4">
+              {/* Explore Collections */}
               <Link to="/products">
-                <button className="inline-block bg-[#8B4513] text-white px-8 py-3 rounded-md hover:bg-[#D4AF37] transition-colors text-center">
+                <button className="
+                  relative overflow-hidden px-8 py-3 rounded-lg font-medium shadow-lg
+                  bg-(--brand-secondary) text-white
+                  transition-all duration-300
+                  hover:bg-linear-to-r hover:from-(--brand-primary) hover:to-(--accent-gold)
+                  hover:text-white
+                  focus:outline-none focus:ring-2 focus:ring-(--accent-gold) focus:ring-offset-2
+                ">
                   Explore Collections
+                  {/* Optional subtle shine effect */}
+                  <span className="absolute top-0 left-0 w-0 h-full bg-white/20 transform skew-x-[-20deg] group-hover:w-full transition-all duration-500 pointer-events-none"></span>
                 </button>
               </Link>
+
+              {/* WhatsApp Inquiry */}
               <a
                 href="https://wa.me/94771234567"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-white text-[#8B4513] px-8 py-3 rounded-md hover:bg-[#E5D5C3] transition-colors text-center"
+                className="
+                  relative overflow-hidden px-8 py-3 rounded-lg font-medium shadow-lg
+                  bg-white text-(--brand-secondary)
+                  transition-all duration-300
+                  hover:bg-(--accent-beige) hover:text-(--brand-primary)
+                  focus:outline-none focus:ring-2 focus:ring-(--accent-gold) focus:ring-offset-2
+                "
               >
                 WhatsApp Inquiry
+                <span className="absolute top-0 left-0 w-0 h-full bg-(--accent-gold)/20 transform skew-x-[-20deg] group-hover:w-full transition-all duration-500 pointer-events-none"></span>
               </a>
             </div>
+
           </div>
         </div>
 
-        {/* Decorative Pattern */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-[#FAF8F6] to-transparent" />
+        {/* Decorative Gradient Pattern */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-(--bg-primary) to-transparent">    </div>
       </section>
 
+
       {/* Featured Categories */}
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-24 bg-(--bg-primary)">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl text-[#5C4033] mb-4 font-serif">
+            <h2 className="text-3xl md:text-4xl text-(--brand-primary) mb-4 font-serif">
               Featured Collections
             </h2>
-            <p className="text-[#8B4513] max-w-2xl mx-auto">
+            <p className="text-(--text-secondary) max-w-2xl mx-auto">
               Explore our carefully curated collections of traditional Sri Lankan fashion
             </p>
           </div>
 
+          {/* Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {featuredCategories.map((category) => (
-              <Link key={category.id} to={`/product/${category.id}`}
-                className="group relative overflow-hidden rounded-lg aspect-4/5 block">
+              <Link
+                key={category.id}
+                to={`/product/${category.id}`}
+                className="group relative overflow-hidden rounded-lg aspect-4/5 block shadow-lg hover:shadow-2xl transition-shadow duration-500"
+              >
+                {/* Image */}
                 <ImageWithFallback
                   src={category.image}
                   alt={category.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h3 className="text-2xl mb-2 font-serif">{category.title}</h3>
-                    <p className="text-sm text-white/80">{category.description}</p>
-                    <div className="mt-4 inline-block border-b-2 border-[#D4AF37] pb-1">
-                      <span className="text-sm">Shop Now →</span>
-                    </div>
+
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                {/* Text */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-6 group-hover:translate-y-0 transition-transform duration-500">
+                  <h3 className="text-2xl mb-2 font-serif">{category.title}</h3>
+                  <p className="text-sm text-white/80">{category.description}</p>
+                  <div className="mt-4 inline-block border-b-2 border-(--accent-gold) pb-1 group-hover:translate-x-1 transition-transform duration-300">
+                    <span className="text-sm font-medium">Shop Now →</span>
                   </div>
-              
+                </div>
               </Link>
             ))}
           </div>
@@ -169,30 +191,51 @@ export default function Home() {
       </section>
 
       {/* Best Sellers */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-16 md:py-24 bg-(--bg-primary)">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl text-[#5C4033] mb-4 font-serif">
+            <h2 className="text-3xl md:text-4xl text-(--brand-primary) mb-4 font-serif">
               Best Sellers
             </h2>
-            <p className="text-[#8B4513]">Our most loved pieces</p>
+            <p className="text-(--text-secondary) font-medium">
+              Our most loved pieces
+            </p>
           </div>
 
+          {/* Product Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {bestSellers.map((product) => (
-              <ProductCard key={product.id} {...product} />
+            {allProducts?.slice(0, 4).map((product) => (
+              <ProductCard
+                name={product.attireName} price={product.attirePrice.toString()} image={product.imageUrl || ''} key={product.id}
+                {...product}
+                id={String(product.id)}
+                category={product.category.categoryName}
+              />
             ))}
           </div>
 
+          {/* View All Button */}
           <div className="text-center mt-12">
-            <Link to="/products"
-              className="inline-block border-2 border-[#8B4513] text-[#8B4513] px-8 py-3 rounded-md hover:bg-[#8B4513] hover:text-white transition-colors">
-                View All Products
-
+            <Link
+              to="/products"
+              className="
+                relative inline-block px-8 py-3 rounded-lg font-medium shadow-lg
+                bg-(--brand-secondary) text-white
+                transition-all duration-300
+                hover:bg-linear-to-r hover:from-(--brand-primary) hover:to-(--accent-gold)
+                hover:text-black
+                focus:outline-none focus:ring-2 focus:ring-(--accent-gold) focus:ring-offset-2
+              "
+            >
+              View All Products
+              {/* Optional subtle shine animation */}
+              <span className="absolute top-0 left-0 w-0 h-full bg-white/20 transform skew-x-[-20deg] group-hover:w-full transition-all duration-500 pointer-events-none"></span>
             </Link>
           </div>
         </div>
       </section>
+
 
       {/* Testimonials */}
       <section className="py-16 md:py-24 bg-[#8B4513] relative overflow-hidden">
@@ -257,14 +300,14 @@ export default function Home() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              'https://images.unsplash.com/photo-1587027512547-81850a319ff5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBicmlkYWwlMjBzYXJlZSUyMG1vZGVsfGVufDF8fHx8MTc2Nzg5NzQ5OXww&ixlib=rb-4.1.0&q=80&w=1080',
-              'https://images.unsplash.com/photo-1758995115518-26f90aa61b97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0cmFkaXRpb25hbCUyMGdvbGQlMjBqZXdlbHJ5fGVufDF8fHx8MTc2Nzg5NzQ5OXww&ixlib=rb-4.1.0&q=80&w=1080',
-              'https://images.unsplash.com/photo-1761125135351-268e72e39158?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZWQlMjB0cmFkaXRpb25hbCUyMHNhcmVlfGVufDF8fHx8MTc2Nzg5NzQ5OXww&ixlib=rb-4.1.0&q=80&w=1080',
-              'https://images.unsplash.com/photo-1767790693645-2373e54d4f02?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwbGVoZW5nYSUyMGRyZXNzfGVufDF8fHx8MTc2Nzg5NzUwMHww&ixlib=rb-4.1.0&q=80&w=1080',
+              nilame1,
+              lehanga1,
+              lehanga2,
+              sarre1,
             ].map((img, idx) => (
               <a
                 key={idx}
-                href="https://instagram.com"
+                href="https://web.facebook.com/hirusandubridalwear"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative aspect-square overflow-hidden rounded-lg"
@@ -277,12 +320,14 @@ export default function Home() {
                 <div className="absolute inset-0 bg-[#8B4513]/0 group-hover:bg-[#8B4513]/40 transition-colors flex items-center justify-center">
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity">
                     <svg
-                      className="h-8 w-8 text-white"
+                      className="h-8 w-8 text-(--text-primary) dark:text-white"
                       fill="currentColor"
                       viewBox="0 0 24 24"
+                      aria-label="Facebook"
                     >
-                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                      <path d="M22.675 0h-21.35C.597 0 0 .597 0 1.326v21.348C0 23.403.597 24 1.326 24h11.495v-9.294H9.691V11.01h3.13V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.796.715-1.796 1.763v2.314h3.587l-.467 3.696h-3.12V24h6.116C23.403 24 24 23.403 24 22.674V1.326C24 .597 23.403 0 22.675 0z"/>
                     </svg>
+
                   </div>
                 </div>
               </a>
