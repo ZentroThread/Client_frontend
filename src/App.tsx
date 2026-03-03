@@ -4,6 +4,7 @@ import { useTheme } from "./hooks/useTheme";
 // import Navbar from "./components/organisms/Navbar";
 // import Footer from "./components/organisms/Footer";
 import { AppRoutes } from "./routes/route";
+import AIAssistant from "./components/molecules/chatbot/AIAssistant";
 
 function App() {
   const { initializeTheme } = useTheme();
@@ -20,6 +21,7 @@ function App() {
         <AppRoutes />
       </main>
       {/* <Footer /> */}
+      <AIAssistant />
     </div>
   );
 }

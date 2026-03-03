@@ -13,4 +13,7 @@ export const API_ENDPOINTS = {
   TENANT: {
     GET_ALL: () => `/api/v1/tenant/all`,
   },
+  RAG: {
+    CHAT: "/api/chat",
+  },
 };
