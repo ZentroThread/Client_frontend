@@ -1,13 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X, Search, User, ShoppingBag, Heart } from "lucide-react";
+import { Menu, X, Heart } from "lucide-react";
 import { ThemeToggle } from "@/components/atoms/ThemeToggle";
 import useWishlist from "@/components/atoms/WishListContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const { wishlist } = useWishlist();
   const wishlistCount = wishlist.length;
+
   const navLinks = [
     { name: "Home", to: "/" },
     { name: "Collections", to: "/products" },
@@ -17,54 +19,66 @@ const Navbar = () => {
 
   return (
     <nav className="sticky top-0 z-50 glass border-b border-(--border-soft) shadow-sm backdrop-blur-md">
+
       <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
+
         <div className="flex justify-between items-center h-16 md:h-20">
+
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <div className="hidden sm:flex flex-col items-start w-auto">
-              <img src="src/assets/main/logo.png" alt="Hiru Sandu Logo" className="h-10 w-10" />
-            </div>
-             <div className="text-2xl md:text-3xl font-serif tracking-wide text-(--brand-primary)">
-              Hiru Sandu
+              <img
+                src="src/assets/main/logo.png"
+                alt="Hiru Sandu Logo"
+                className="h-15 w-30"
+              />
             </div>
           </Link>
 
-          {/* Desktop Links */}
+
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
+
             {navLinks.map((link) => (
-              <Link
+              <NavLink
                 key={link.name}
                 to={link.to}
-                className="relative text-sm tracking-wide text-(--text-secondary)
-                           transition-colors duration-300
-                           hover:text-(--brand-primary)
-                           focus:outline-none focus-visible:ring-2 focus-visible:ring-(--brand-primary)
-                           group"
+                className={({ isActive }) =>
+                  `relative text-sm tracking-wide transition-colors duration-300 group
+                  ${
+                    isActive
+                      ? "text-(--brand-primary)"
+                      : "text-(--text-secondary) hover:text-(--brand-primary)"
+                  }`
+                }
               >
-                {link.name}
-                <span className="absolute left-0 -bottom-1 h-px w-0 bg-(--brand-primary) transition-all duration-300 group-hover:w-full" />
-              </Link>
+                {({ isActive }) => (
+                  <>
+                    {link.name}
+
+                    <span
+                      className={`absolute left-0 -bottom-1 h-px bg-[var(--brand-primary)] transition-all duration-300
+                      ${isActive ? "w-full" : "w-0 group-hover:w-full"}`}
+                    />
+                  </>
+                )}
+              </NavLink>
             ))}
+
           </div>
+
 
           {/* Icons */}
           <div className="flex items-center space-x-3">
+
             <ThemeToggle />
 
-            {/* <button className="p-2 rounded transition-transform duration-200 hover:scale-110 hover:text-(--brand-primary) focus:outline-none focus-visible:ring-2 focus-visible:ring-(--brand-primary)">
-              <Search className="h-5 w-5 text-(--text-secondary)" />
-            </button> */}
-
-            {/* <Link to="/login">
-              <button className="hidden sm:block p-2 rounded transition-transform duration-200 hover:scale-110 hover:text-(--brand-primary) focus:outline-none focus-visible:ring-2 focus-visible:ring-(--brand-primary)">
-                <User className="h-5 w-5 text-(--text-secondary)" />
-              </button>
-            </Link> */}
-
+            {/* Wishlist */}
             <Link to="/wishlist" className="relative hidden sm:block">
               <button className="p-2 rounded transition-transform duration-200 hover:scale-110 hover:text-(--brand-primary) focus:outline-none focus-visible:ring-2 focus-visible:ring-(--brand-primary)">
                 <Heart className="h-5 w-5 text-(--text-secondary)" />
               </button>
+
               {wishlistCount > 0 && (
                 <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-(--brand-primary) text-white text-xs flex items-center justify-center font-medium">
                   {wishlistCount}
@@ -72,22 +86,25 @@ const Navbar = () => {
               )}
             </Link>
 
-            {/* <Link to="/cart">
-              <button className="hidden sm:block p-2 rounded transition-transform duration-200 hover:scale-110 hover:text-(--brand-primary) focus:outline-none focus-visible:ring-2 focus-visible:ring-(--brand-primary)">
-                <ShoppingBag className="h-5 w-5 text-(--text-secondary)" />
-              </button>
-            </Link> */}
 
             {/* Mobile Menu Button */}
             <button
               className="md:hidden p-2 rounded text-(--text-secondary) transition-transform duration-200 hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-(--brand-primary)"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
+
           </div>
+
         </div>
+
       </div>
+
 
       {/* Mobile Menu */}
       <div
@@ -95,19 +112,31 @@ const Navbar = () => {
           isMenuOpen ? "max-h-96" : "max-h-0"
         }`}
       >
+
         <div className="px-4 py-4 flex flex-col space-y-3">
+
           {navLinks.map((link) => (
-            <Link
+            <NavLink
               key={link.name}
               to={link.to}
-              className="block py-2 text-(--text-secondary) hover:text-(--brand-primary) transition-colors duration-300"
+              className={({ isActive }) =>
+                `block py-2 transition-colors duration-300
+                ${
+                  isActive
+                    ? "text-(--brand-primary)"
+                    : "text-(--text-secondary) hover:text-(--brand-primary)"
+                }`
+              }
               onClick={() => setIsMenuOpen(false)}
             >
               {link.name}
-            </Link>
+            </NavLink>
           ))}
+
         </div>
+
       </div>
+
     </nav>
   );
 };

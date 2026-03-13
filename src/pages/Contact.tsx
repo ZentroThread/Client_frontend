@@ -4,12 +4,12 @@ function Contact() {
   return (
     <div className="min-h-screen bg-(--bg-primary)">
       {/* Header */}
-      <div className="bg-linear-to-br from-(--brand-primary) to-(--brand-secondary) py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl text-white mb-4 font-serif">
+      <div className="py-16 md:py-24 bg-gradient-to-br from-[var(--accent-beige)] to-[var(--surface-elevated)] border-t border-[var(--border-soft)] py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-4 text-center text-(--brand-secondary)">
+          <h1 className="text-4xl md:text-5xl  mb-4 font-serif">
             Get In Touch
           </h1>
-          <p className="text-white/80 text-lg">
+          <p className="text-lg">
             We're here to help make your special day perfect
           </p>
         </div>

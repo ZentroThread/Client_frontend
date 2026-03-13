@@ -3,39 +3,63 @@ import { Award, Heart, Users, Sparkles } from 'lucide-react';
 import Jewelry from '../assets/home/jewelry.jpg';
 import saree from '../assets/home/sare.jpg'
 import nilame from '../assets/home/nilame.jpg'
-import hero2 from '../assets/home/hero2.jpg'
+import hero2 from '../assets/home/hero3.jpg'
 
 export default function About() {
   return (
     <div className="min-h-screen bg-(--bg-primary) text-(--text-primary)">
       {/* Hero Section */}
-      <div className="relative h-100 md:h-125 overflow-hidden">
-        <div className="absolute inset-0">
-          <ImageWithFallback
-            src={hero2}
-            alt="About Sarani Couture"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-linear-to-r from-black/70 to-black/40" />
-        </div>
-        <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
-          <div className="max-w-2xl">
-            <h1 className="text-4xl md:text-5xl text-white mb-4 font-serif">
-              Our Story
-            </h1>
-            <p className="text-lg text-white/90">
-              Three generations of crafting Sri Lankan elegance
-            </p>
-          </div>
-        </div>
-      </div>
+<div className="relative h-[420px] md:h-[540px] overflow-hidden">
+
+  {/* Background */}
+  <div className="absolute inset-0">
+    <ImageWithFallback
+      src={hero2}
+      alt="About Sarani Couture"
+      className="w-full h-full object-cover"
+    />
+
+    {/* Gradient Overlay */}
+    <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/40"></div>
+  </div>
+
+
+  {/* Content */}
+  <div className="relative max-w-7xl mx-auto px-6 h-full flex items-center">
+
+    <div className="max-w-2xl space-y-5">
+
+      {/* Small Label */}
+      <p className="text-sm tracking-[0.25em] uppercase text-[var(--accent-gold)]">
+        Sarani Couture
+      </p>
+
+      {/* Title */}
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white leading-tight">
+        Our Story
+      </h1>
+
+      {/* Gold Divider */}
+      <div className="w-16 h-[2px] bg-(--accent-gold)"></div>
+
+      {/* Description */}
+      <p className="text-lg text-white/90 max-w-xl">
+        Three generations of crafting Sri Lankan elegance and preserving
+        timeless bridal traditions.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
 
       {/* Our Heritage */}
       <section className="py-16 md:py-24 bg-(--bg-primary)">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl mb-6 font-serif">
+              <h2 className="text-3xl md:text-4xl mb-6 font-serif text-(--brand-secondary)">
                 Heritage & Tradition
               </h2>
               <div className="space-y-4 text-(--text-secondary) leading-relaxed">
@@ -53,7 +77,7 @@ export default function About() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 ">
               <div className="aspect-3/4 overflow-hidden rounded-lg">
                 <ImageWithFallback
                   src={nilame}
@@ -74,10 +98,10 @@ export default function About() {
       </section>
 
       {/* Values */}
-      <section className="py-16 md:py-24 bg-(--bg-secondary)">
+      <section className="py-16 md:py-24 py-16 md:py-24 bg-gradient-to-br from-[var(--accent-beige)] to-[var(--surface-elevated)] border-t border-[var(--border-soft)]">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl mb-4 font-serif">
+            <h2 className="text-3xl md:text-4xl mb-4 font-serif text-(--brand-secondary)">
               Our Values
             </h2>
             <p className="text-(--text-muted) max-w-2xl mx-auto">
@@ -117,7 +141,7 @@ export default function About() {
             </div>
 
             <div>
-              <h2 className="text-3xl md:text-4xl mb-6 font-serif">
+              <h2 className="text-3xl md:text-4xl mb-6 font-serif text-(--brand-secondary)">
                 Handcrafted Excellence
               </h2>
               <div className="space-y-4 text-(--text-secondary)">
@@ -148,12 +172,12 @@ export default function About() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-24 bg-linear-to-br from-(--brand-primary) to-(--brand-secondary)">
+      <section className="py-16 md:py-24 bg-gradient-to-br from-[var(--accent-beige)] to-[var(--surface-elevated)] border-t border-[var(--border-soft)]">
         <div className="max-w-4xl mx-auto px-4 text-center text-white">
-          <h2 className="text-3xl md:text-4xl mb-4 font-serif">
+          <h2 className="text-3xl md:text-4xl mb-4 font-serif text-(--brand-secondary)">
             Visit Our Showroom
           </h2>
-          <p className="mb-8 text-white/90">
+          <p className="mb-8 text-[var(--text-secondary)]">
             Experience our collections in person and consult with our fashion experts
           </p>
 

@@ -23,7 +23,7 @@ export default function Wishlist() {
         >
           <div className="flex items-center justify-center gap-3 mb-4">
             <Heart className="h-8 w-8 text-(--brand-primary)" fill="var(--brand-primary)" />
-            <h1 className="text-4xl md:text-5xl font-serif text-(--text-primary)">
+            <h1 className="text-4xl md:text-5xl font-serif text-(--brand-secondary)">
               My Saved Items
             </h1>
           </div>
