@@ -47,12 +47,12 @@ export function ProductListing() {
   return (
     <div className="min-h-screen bg-(--bg-primary)">
       {/* HEADER */}
-      <div className="bg-linear-to-br from-(--brand-secondary) to-(--brand-primary) py-16">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl text-white mb-4 font-serif">
+      <div className="py-16  md:py-24 bg-linear-to-br from-(--accent-beige) to-(--surface-elevated) border-t border-(--border-soft)">
+        <div className="max-w-7xl mx-auto px-4 text-center text-(--brand-secondary)">
+          <h1 className="text-4xl md:text-5xl mb-4 font-serif text-(--brand-secondary)">
             Our Collections
           </h1>
-          <p className="text-(--accent-beige) text-lg">
+          <p className="text-(--brand-secondary) text-lg">
             Discover handcrafted traditional Sri Lankan fashion
           </p>
         </div>

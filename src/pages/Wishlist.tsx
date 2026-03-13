@@ -23,7 +23,7 @@ export default function Wishlist() {
         >
           <div className="flex items-center justify-center gap-3 mb-4">
             <Heart className="h-8 w-8 text-(--brand-primary)" fill="var(--brand-primary)" />
-            <h1 className="text-4xl md:text-5xl font-serif text-(--text-primary)">
+            <h1 className="text-4xl md:text-5xl font-serif text-(--brand-secondary)">
               My Saved Items
             </h1>
           </div>
@@ -88,12 +88,12 @@ export default function Wishlist() {
                     />
                   </Link>
 
-                  {/* Stock Badge */}
+                  {/* Stock Badge
                   {!product.inStock && (
                     <div className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-medium text-white bg-(--error)">
                       Out of Stock
                     </div>
-                  )}
+                  )} */}
 
                   {/* Remove Button */}
                   <motion.button
@@ -143,9 +143,10 @@ export default function Wishlist() {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => handleWhatsAppInquiry(product.name)}
-                      className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-white font-medium shadow-md text-sm transition-all"
+                      className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg border text-sm transition-all"
                       style={{
-                        background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
+                         borderColor: 'var(--brand-primary)',
+                         color: 'var(--brand-primary)',
                       }}
                     >
                       <MessageCircle className="h-4 w-4" />

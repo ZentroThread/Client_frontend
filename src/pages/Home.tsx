@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
 import { ImageWithFallback } from '../components/atoms/ImageWithFallback';
 import { ProductCard } from '../components/organisms/ProductCard';
-import { ChevronLeft, ChevronRight, Star, Quote } from 'lucide-react';
 import { useState } from 'react';
-import heroImg from '../assets/home/hero2.jpg';
+import heroImg from '../assets/home/hero3.jpg';
 import Jewelery from '../assets/home/jewelry.jpg';
 import saree from '../assets/home/sare.jpg'
 import nilame from '../assets/home/nilame.jpg'
@@ -11,6 +10,7 @@ import nilame1 from '../assets/social/nilame1.jpg'
 import lehanga1 from '../assets/social/lehanga1.jpg'
 import lehanga2 from '../assets/social/lehanga2.jpg'
 import sarre1 from '../assets/social/saree.jpg'
+import lehanga3 from "../assets/items/lehanga3.jpg"
 import { useGetAllAttiresForAllTenants } from '@/hooks/attires/useGetAllAttiresForAllTenants ';
 
 const featuredCategories = [
@@ -32,6 +32,12 @@ const featuredCategories = [
     image: nilame,
     description: 'Traditional ceremonial attire',
   },
+  {
+    id: 4,
+    title: 'Party Wear',
+    image: lehanga3,
+    description: 'Elegant outfits for special occasions',
+  }
 ];
 
 const testimonials = [
@@ -67,81 +73,109 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-150 md:h-175 w-full overflow-hidden">
-        {/* Background Image */}
+      <section className="relative h-[520px] md:h-[680px] w-full overflow-hidden group">
+
+        {/* Background */}
         <div className="absolute inset-0">
           <ImageWithFallback
             src={heroImg}
             alt="Bridal Collection"
-            className="w-full h-full object-cover transition-transform duration-700 transform group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-linear-to-r from-black/60 via-black/40 to-black/20"></div>
+
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>
         </div>
 
+
         {/* Content */}
-        <div className="relative w-full mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+        <div className="relative max-w-7xl mx-auto px-6 h-full flex items-center">
+
           <div className="max-w-2xl space-y-6">
+
             {/* Tagline */}
-            <div className="inline-block px-4 py-2 bg-(--accent-gold)/20 backdrop-blur-sm rounded-full">
-              <span className="text-(--accent-gold) text-sm tracking-widest font-medium">
+            <div className="inline-block px-4 py-2 bg-[var(--accent-gold)]/20 backdrop-blur-sm rounded-full">
+              <span className="text-[var(--accent-gold)] text-sm tracking-widest font-medium">
                 NEW COLLECTION 2026
               </span>
             </div>
 
+
             {/* Heading */}
             <h1 className="text-4xl md:text-6xl font-serif leading-tight text-white">
               Where Tradition Meets{" "}
-              <span className="text-(--accent-gold)">Elegance</span>
+              <span className="text-[var(--accent-gold)]">
+                Elegance
+              </span>
             </h1>
 
+
             {/* Subheading */}
-            <p className="text-lg text-white/90">
+            <p className="text-lg text-white/90 max-w-xl">
               Discover our exquisite collection of handcrafted Sri Lankan bridal sarees,
               traditional jewelry, and ceremonial attire.
             </p>
 
+
             {/* Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 mt-4">
-              {/* Explore Collections */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+
+              {/* Explore Button */}
               <Link to="/products">
                 <button className="
-                  relative overflow-hidden px-8 py-3 rounded-lg font-medium shadow-lg
-                  bg-(--brand-secondary) text-white
+                  relative overflow-hidden
+                  px-8 py-3 rounded-lg
+                  font-medium
+                  bg-[var(--brand-secondary)]
+                  text-white
+                  shadow-lg
                   transition-all duration-300
-                  hover:bg-linear-to-r hover:from-(--brand-primary) hover:to-(--accent-gold)
-                  hover:text-white
-                  focus:outline-none focus:ring-2 focus:ring-(--accent-gold) focus:ring-offset-2
+                  hover:scale-105
+                  hover:bg-gradient-to-r
+                  hover:from-[var(--brand-primary)]
+                  hover:to-[var(--accent-gold)]
+                  focus:outline-none
+                  focus:ring-2
+                  focus:ring-[var(--accent-gold)]
                 ">
                   Explore Collections
-                  {/* Optional subtle shine effect */}
-                  <span className="absolute top-0 left-0 w-0 h-full bg-white/20 transform skew-x-[-20deg] group-hover:w-full transition-all duration-500 pointer-events-none"></span>
                 </button>
               </Link>
 
-              {/* WhatsApp Inquiry */}
+
+              {/* WhatsApp Button */}
               <a
                 href="https://wa.me/94771234567"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="
-                  relative overflow-hidden px-8 py-3 rounded-lg font-medium shadow-lg
-                  bg-white text-(--brand-secondary)
+                  px-8 py-3 rounded-lg
+                  font-medium
+                  bg-white
+                  text-[var(--brand-secondary)]
+                  shadow-lg
                   transition-all duration-300
-                  hover:bg-(--accent-beige) hover:text-(--brand-primary)
-                  focus:outline-none focus:ring-2 focus:ring-(--accent-gold) focus:ring-offset-2
+                  hover:scale-105
+                  hover:bg-[var(--accent-beige)]
+                  hover:text-[var(--brand-primary)]
+                  focus:outline-none
+                  focus:ring-2
+                  focus:ring-[var(--accent-gold)]
                 "
               >
                 WhatsApp Inquiry
-                <span className="absolute top-0 left-0 w-0 h-full bg-(--accent-gold)/20 transform skew-x-[-20deg] group-hover:w-full transition-all duration-500 pointer-events-none"></span>
               </a>
+
             </div>
 
           </div>
+
         </div>
 
-        {/* Decorative Gradient Pattern */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-(--bg-primary) to-transparent">    </div>
+
+        {/* Bottom Gradient */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--bg-primary)] to-transparent"></div>
+
       </section>
 
 
@@ -159,7 +193,7 @@ export default function Home() {
           </div>
 
           {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {featuredCategories.map((category) => (
               <Link
                 key={category.id}
@@ -191,7 +225,7 @@ export default function Home() {
       </section>
 
       {/* Best Sellers */}
-      <section className="py-16 md:py-24 bg-(--bg-primary)">
+      <section className="py-16 md:py-24 py-16 md:py-24 bg-gradient-to-br from-[var(--accent-beige)] to-[var(--surface-elevated)] border-t border-[var(--border-soft)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="text-center mb-12">
@@ -238,8 +272,8 @@ export default function Home() {
 
 
       {/* Testimonials */}
-      <section className="py-16 md:py-24 bg-[#8B4513] relative overflow-hidden">
-        {/* Decorative Elements */}
+      {/* <section className="py-16 md:py-24 bg-[#8B4513] relative overflow-hidden">
+       
         <div className="absolute top-0 left-0 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-0 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl" />
 
@@ -286,13 +320,13 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Instagram Gallery */}
       <section className="py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl text-[#5C4033] mb-4 font-serif">
+            <h2 className="text-3xl md:text-4xl text-(--brand-secondary) mb-4 font-serif">
               Follow Our Journey
             </h2>
             <p className="text-[#8B4513] mb-4">@saranicouture</p>
@@ -337,23 +371,43 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 md:py-24 bg-linear-to-br from-[#8B4513] to-[#5C4033]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl text-white mb-4 font-serif">
+      <section className="py-16 md:py-24 bg-gradient-to-br from-[var(--accent-beige)] to-[var(--surface-elevated)] border-t border-[var(--border-soft)]">
+
+        <div className="max-w-4xl mx-auto px-6 text-center">
+
+          {/* Heading */}
+          <h2 className="text-3xl md:text-4xl font-serif text-[var(--brand-primary)] mb-4">
             Ready to Find Your Perfect Outfit?
           </h2>
-          <p className="text-[#E5D5C3] mb-8 text-lg">
-            Contact us on WhatsApp for personalized assistance and custom orders
+
+          {/* Description */}
+          <p className="text-[var(--text-secondary)] text-lg mb-8 max-w-2xl mx-auto">
+            Contact us on WhatsApp for personalized assistance and custom bridal orders.
+            Our team will help you choose the perfect look for your special day.
           </p>
+
+          {/* WhatsApp Button */}
           <a
             href="https://wa.me/94771234567"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-[#25D366] text-white px-8 py-4 rounded-md hover:bg-[#20BA5A] transition-colors"
+            className="
+              inline-flex items-center gap-2
+              px-8 py-4 rounded-lg
+              font-medium
+              bg-[#25D366] text-white
+              shadow-md
+              transition-all duration-300
+              hover:scale-105
+              hover:bg-[#20BA5A]
+              hover:shadow-lg
+            "
           >
             Chat on WhatsApp
           </a>
+
         </div>
+
       </section>
     </div>
   );
