@@ -238,8 +238,8 @@ export default function Home() {
 
 
       {/* Testimonials */}
-      <section className="py-16 md:py-24 bg-[#8B4513] relative overflow-hidden">
-        {/* Decorative Elements */}
+      {/* <section className="py-16 md:py-24 bg-[#8B4513] relative overflow-hidden">
+       
         <div className="absolute top-0 left-0 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-0 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl" />
 
@@ -286,7 +286,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Instagram Gallery */}
       <section className="py-16 md:py-24">

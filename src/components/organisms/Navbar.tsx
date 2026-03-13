@@ -2,11 +2,12 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Menu, X, Search, User, ShoppingBag, Heart } from "lucide-react";
 import { ThemeToggle } from "@/components/atoms/ThemeToggle";
+import useWishlist from "@/components/atoms/WishListContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const wishlistCount = 0; // Replace with real state/context
-
+  const { wishlist } = useWishlist();
+  const wishlistCount = wishlist.length;
   const navLinks = [
     { name: "Home", to: "/" },
     { name: "Collections", to: "/products" },
@@ -20,16 +21,11 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <div className="text-2xl md:text-3xl font-serif tracking-wide text-(--brand-primary)">
-              Hiru Sandu
+            <div className="hidden sm:flex flex-col items-start w-auto">
+              <img src="src/assets/main/logo.png" alt="Hiru Sandu Logo" className="h-10 w-10" />
             </div>
-            <div className="hidden sm:flex flex-col items-start">
-              <div className="text-xs tracking-[0.2em] uppercase text-(--brand-secondary)">
-                Bridal
-              </div>
-              <div className="text-[0.6rem] tracking-widest text-(--text-secondary)">
-                Couture
-              </div>
+             <div className="text-2xl md:text-3xl font-serif tracking-wide text-(--brand-primary)">
+              Hiru Sandu
             </div>
           </Link>
 
@@ -55,15 +51,15 @@ const Navbar = () => {
           <div className="flex items-center space-x-3">
             <ThemeToggle />
 
-            <button className="p-2 rounded transition-transform duration-200 hover:scale-110 hover:text-(--brand-primary) focus:outline-none focus-visible:ring-2 focus-visible:ring-(--brand-primary)">
+            {/* <button className="p-2 rounded transition-transform duration-200 hover:scale-110 hover:text-(--brand-primary) focus:outline-none focus-visible:ring-2 focus-visible:ring-(--brand-primary)">
               <Search className="h-5 w-5 text-(--text-secondary)" />
-            </button>
+            </button> */}
 
-            <Link to="/login">
+            {/* <Link to="/login">
               <button className="hidden sm:block p-2 rounded transition-transform duration-200 hover:scale-110 hover:text-(--brand-primary) focus:outline-none focus-visible:ring-2 focus-visible:ring-(--brand-primary)">
                 <User className="h-5 w-5 text-(--text-secondary)" />
               </button>
-            </Link>
+            </Link> */}
 
             <Link to="/wishlist" className="relative hidden sm:block">
               <button className="p-2 rounded transition-transform duration-200 hover:scale-110 hover:text-(--brand-primary) focus:outline-none focus-visible:ring-2 focus-visible:ring-(--brand-primary)">
@@ -76,11 +72,11 @@ const Navbar = () => {
               )}
             </Link>
 
-            <Link to="/cart">
+            {/* <Link to="/cart">
               <button className="hidden sm:block p-2 rounded transition-transform duration-200 hover:scale-110 hover:text-(--brand-primary) focus:outline-none focus-visible:ring-2 focus-visible:ring-(--brand-primary)">
                 <ShoppingBag className="h-5 w-5 text-(--text-secondary)" />
               </button>
-            </Link>
+            </Link> */}
 
             {/* Mobile Menu Button */}
             <button
