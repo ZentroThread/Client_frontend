@@ -15,5 +15,6 @@ export const API_ENDPOINTS = {
   },
   RAG: {
     CHAT: "/api/chat",
+    BACKEND_CHAT: "/v1/rag/customer/chat"
   },
 };

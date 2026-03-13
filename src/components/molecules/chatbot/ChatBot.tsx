@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { X, Send, Bot, Loader2 } from "lucide-react";
-import { RAG_BASE_URL } from "@/constants/constdata";
+import { API_BASE_URL, RAG_BASE_URL } from "@/constants/constdata";
 import { API_ENDPOINTS } from "@/constants/api.constants";
 
 interface Message {
@@ -95,7 +95,7 @@ function ChatBot({ isOpen, onClose }: ChatBotProps) {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${RAG_BASE_URL}${API_ENDPOINTS.RAG.CHAT}`, {
+      const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.RAG.BACKEND_CHAT}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
