@@ -4,6 +4,7 @@ import Jewelry from '../assets/home/jewelry.jpg';
 import saree from '../assets/home/sare.jpg'
 import nilame from '../assets/home/nilame.jpg'
 import hero2 from '../assets/home/hero3.jpg'
+import {contacts} from '@/constants/contact'
 
 export default function About() {
   return (
@@ -183,7 +184,7 @@ export default function About() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://wa.me/94771234567"
+              href={`https://wa.me/${contacts.phone}`}
               className="bg-[#25D366] text-white px-8 py-3 rounded-md hover:opacity-90"
             >
               Book an Appointment

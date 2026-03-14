@@ -16,6 +16,7 @@ import useWishlist from '@/components/atoms/WishListContext';
 import { useGetAttireById, useCheckAttireAvailability } from '@/hooks/attires/useAttire';
 
 import nilameSuitImage from '../assets/items/nilame1.jpeg';
+import {contacts} from '@/constants/contact'
 
 const fallbackProduct = {
   name: 'Traditional Attire',
@@ -196,7 +197,7 @@ export function ProductDetails() {
           {/* ACTIONS */}
           <div className="space-y-3">
             <a
-              href="https://wa.me/94771234567"
+              href={`https://wa.me/${contacts.phone}`}
               className="w-full flex justify-center gap-2 bg-[#25D366] text-white py-4 rounded-lg font-medium shadow-md hover:bg-[#1ebe5a] transition-all"
             >
               <MessageCircle />
