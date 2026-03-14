@@ -1,22 +1,21 @@
 import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
 import { FaSquareFacebook, FaSquareInstagram } from "react-icons/fa6";
 import { contacts } from "@/constants/contact";
+import { useRef, useState } from "react";
+import Swal from "sweetalert2";
+
+import emailjs from "@emailjs/browser";
 
 function Contact() {
   return (
     <div className="min-h-screen bg-(--bg-primary)">
-      
-      {/* ================= HEADER ================= */}
       <Header />
 
-      {/* ================= CONTENT ================= */}
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid lg:grid-cols-3 gap-8">
 
-          {/* Contact Info */}
           <ContactInfo />
 
-          {/* Form + Map */}
           <div className="lg:col-span-2 space-y-8">
             <ContactForm />
             <LocationMap />
@@ -24,7 +23,6 @@ function Contact() {
 
         </div>
       </div>
-
     </div>
   );
 }
@@ -32,10 +30,6 @@ function Contact() {
 export default Contact;
 
 
-
-/* =====================================================
-   HEADER
-===================================================== */
 
 function Header() {
   return (
@@ -52,11 +46,6 @@ function Header() {
   );
 }
 
-
-
-/* =====================================================
-   CONTACT INFO
-===================================================== */
 
 function ContactInfo() {
   return (
@@ -102,7 +91,6 @@ function ContactInfo() {
           </a>
         </div>
 
-        {/* Social Media */}
         <SocialMedia />
 
       </div>
@@ -110,6 +98,7 @@ function ContactInfo() {
     </div>
   );
 }
+
 
 
 function SocialMedia() {
@@ -143,28 +132,76 @@ function SocialMedia() {
 }
 
 
+
+
 function ContactForm() {
+
+  const form = useRef<HTMLFormElement | null>(null);
+  const [sending, setSending] = useState(false);
+
+  const sendEmail = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!form.current) return;
+
+    setSending(true);
+
+    emailjs.sendForm(
+      import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
+      form.current,
+      import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
+    )
+    .then(() => {
+      Swal.fire({
+        icon: "success",
+        title: "Message Sent!",
+        text: "We will contact you soon.",
+        confirmButtonColor: "#d4af37"
+      });
+
+      form.current?.reset();
+    })
+    .catch((error) => {
+      console.error(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong. Please try again.",
+        confirmButtonColor: "#d4af37"
+      });
+    })
+    .finally(() => {
+      setSending(false);
+    });
+  };
+
   return (
     <div className="bg-(--surface) p-8 rounded-xl border border-(--border-soft) shadow-md">
+
       <h3 className="text-2xl font-serif text-(--text-primary) mb-6">
         Send Us a Message
       </h3>
 
-      <form className="space-y-6">
+      <form ref={form} onSubmit={sendEmail} className="space-y-6">
 
         <div className="grid sm:grid-cols-2 gap-6">
-          <Input label="Full Name" placeholder="Your name" />
-          <Input label="Phone Number" placeholder="+94" />
+          <Input name="name" label="Full Name" placeholder="Your name" />
+          <Input name="phone" label="Phone Number" placeholder="+94" />
         </div>
 
-        <Input label="Email Address" placeholder="your@email.com" />
+        <Input name="email" label="Email Address" placeholder="your@email.com" />
 
-        <Select label="Inquiry Type" />
+        <Select name="inquiry" label="Inquiry Type" />
 
-        <Textarea label="Message" />
+        <Textarea name="message" label="Message" />
 
-        <button className="w-full bg-(--brand-primary) text-white py-3 rounded-md hover:bg-(--accent-gold) transition">
-          Send Message
+        <button
+          type="submit"
+          disabled={sending}
+          className="w-full bg-(--brand-primary) text-white py-3 rounded-md hover:bg-(--accent-gold) transition disabled:opacity-70"
+        >
+          {sending ? "Sending..." : "Send Message"}
         </button>
 
         <p className="text-center text-sm text-(--text-muted)">
@@ -209,6 +246,8 @@ function LocationMap() {
   );
 }
 
+
+
 function InfoItem({ icon: Icon, title, children }: any) {
   return (
     <div className="flex gap-4">
@@ -229,7 +268,8 @@ function InfoItem({ icon: Icon, title, children }: any) {
 }
 
 
-function Input({ label, placeholder }: any) {
+
+function Input({ label, placeholder, name }: any) {
   return (
     <div>
       <label className="block mb-2 text-(--text-secondary)">
@@ -237,6 +277,7 @@ function Input({ label, placeholder }: any) {
       </label>
 
       <input
+        name={name}
         placeholder={placeholder}
         className="w-full px-4 py-3 rounded-md border border-(--border-soft) bg-(--surface-elevated)
         focus:ring-2 focus:ring-(--brand-primary) focus:border-transparent
@@ -247,7 +288,8 @@ function Input({ label, placeholder }: any) {
 }
 
 
-function Select({ label }: any) {
+
+function Select({ label, name }: any) {
   return (
     <div>
       <label className="block mb-2 text-(--text-secondary)">
@@ -255,6 +297,7 @@ function Select({ label }: any) {
       </label>
 
       <select
+        name={name}
         className="w-full px-4 py-3 rounded-md border border-(--border-soft) bg-(--surface-elevated)
         hover:border-(--brand-primary) transition"
       >
@@ -269,7 +312,8 @@ function Select({ label }: any) {
 }
 
 
-function Textarea({ label }: any) {
+
+function Textarea({ label, name }: any) {
   return (
     <div>
       <label className="block mb-2 text-(--text-secondary)">
@@ -277,6 +321,7 @@ function Textarea({ label }: any) {
       </label>
 
       <textarea
+        name={name}
         rows={5}
         className="w-full px-4 py-3 rounded-md border border-(--border-soft) bg-(--surface-elevated)
         focus:ring-2 focus:ring-(--brand-primary)
