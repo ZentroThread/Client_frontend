@@ -197,7 +197,7 @@ export default function Home() {
             {featuredCategories.map((category) => (
               <Link
                 key={category.id}
-                to={`/product/${category.id}`}
+                to={`/products`}
                 className="group relative overflow-hidden rounded-lg aspect-4/5 block shadow-lg hover:shadow-2xl transition-shadow duration-500"
               >
                 {/* Image */}
@@ -241,10 +241,8 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {allProducts?.slice(0, 4).map((product) => (
               <ProductCard
-                name={product.attireName} price={product.attirePrice.toString()} image={product.imageUrl || ''} key={product.id}
-                {...product}
-                id={String(product.id)}
-                category={product.category.categoryName}
+                key={product.id}
+                product={product}
               />
             ))}
           </div>

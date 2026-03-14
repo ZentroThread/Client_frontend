@@ -12,6 +12,8 @@ export default function Wishlist() {
     window.open(whatsappUrl, '_blank');
   };
 
+  console.log('Wishlist Items:', wishlist);
+
   return (
     <div className="min-h-screen py-12 bg-(--bg-primary)">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -49,7 +51,7 @@ export default function Wishlist() {
               <p className="mb-8 text-(--text-secondary)">
                 Explore our stunning collections and save your favorite pieces for later.
               </p>
-              <Link to="/collections">
+              <Link to="/products">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -80,10 +82,10 @@ export default function Wishlist() {
               >
                 {/* Product Image */}
                 <div className="relative overflow-hidden aspect-3/4">
-                  <Link to={`/product/${product.id}`}>
+                  <Link to={`/product/${product.tenantId}/${product.id}`}>
                     <img
-                      src={product.image}
-                      alt={product.name}
+                      src={product.imageUrl}
+                      alt={product.imageUrl}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                   </Link>
@@ -99,7 +101,7 @@ export default function Wishlist() {
                   <motion.button
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    onClick={() => removeFromWishlist(product.id)}
+                    onClick={() => removeFromWishlist(String(product.id))}
                     className="absolute top-4 right-4 p-2 rounded-full bg-white/90 backdrop-blur-sm shadow-md"
                     style={{ color: 'var(--error)' }}
                   >
@@ -110,22 +112,22 @@ export default function Wishlist() {
                 {/* Product Info */}
                 <div className="p-5">
                   <div className="text-xs uppercase tracking-wider mb-2 text-(--brand-primary)">
-                    {product.category}
+                    {product.category.categoryName}
                   </div>
-                  <Link to={`/product/${product.id}`}>
+                  <Link to={`/product/${product.tenantId}/${product.id}`}>
                     <h3 className="text-lg font-serif mb-3 text-(--text-primary) hover:opacity-80 transition-opacity">
-                      {product.name}
+                      {product.attireName}
                     </h3>
                   </Link>
                   <div className="flex items-baseline gap-2 mb-4">
                     <span className="text-2xl font-serif text-(--brand-primary)">
-                      LKR {product.price.toLocaleString()}
+                      LKR {product.attirePrice}
                     </span>
                   </div>
 
                   {/* Action Buttons */}
                   <div className="grid grid-cols-2 gap-2">
-                    <Link to={`/product/${product.id}`}>
+                    <Link to={`/product/${product.tenantId}/${product.id}`}>
                       <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
@@ -142,7 +144,7 @@ export default function Wishlist() {
                     <motion.button
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      onClick={() => handleWhatsAppInquiry(product.name)}
+                      onClick={() => handleWhatsAppInquiry(product.attireName)}
                       className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg border text-sm transition-all"
                       style={{
                          borderColor: 'var(--brand-primary)',

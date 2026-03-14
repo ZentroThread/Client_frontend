@@ -1,18 +1,10 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import type { ReactNode } from 'react';
-
-interface Product {
-  id: string;
-  name: string;
-  category: string;
-  price: number;
-  image: string;
-  inStock: boolean;
-}
+import { createContext, useContext, useEffect, useState } from "react";
+import type { ReactNode } from "react";
+import type { Attire } from "@/types/attire.type";
 
 interface WishlistContextType {
-  wishlist: Product[];
-  addToWishlist: (product: Product) => void;
+  wishlist: Attire[];
+  addToWishlist: (product: Attire) => void;
   removeFromWishlist: (productId: string) => void;
   isInWishlist: (productId: string) => boolean;
   wishlistCount: number;
@@ -27,37 +19,44 @@ const WishlistContext = createContext<WishlistContextType>({
 });
 
 export function WishlistProvider({ children }: { children: ReactNode }) {
-  const [wishlist, setWishlist] = useState<Product[]>(() => {
-    const savedWishlist = localStorage.getItem('hiru-sandu-wishlist');
+  const [wishlist, setWishlist] = useState<Attire[]>(() => {
+    const savedWishlist = localStorage.getItem("hiru-sandu-wishlist");
+
     if (savedWishlist) {
       try {
         return JSON.parse(savedWishlist);
       } catch (error) {
-        console.error('Error loading wishlist:', error);
+        console.error("Error loading wishlist:", error);
         return [];
       }
     }
+
     return [];
   });
 
-  // Save wishlist to localStorage whenever it changes
+  // Save to localStorage
   useEffect(() => {
-    localStorage.setItem('hiru-sandu-wishlist', JSON.stringify(wishlist));
+    localStorage.setItem("hiru-sandu-wishlist", JSON.stringify(wishlist));
   }, [wishlist]);
 
-  const addToWishlist = (product: Product) => {
+  //Add item
+  const addToWishlist = (product: Attire) => {
     setWishlist((prev) => {
       if (prev.some((item) => item.id === product.id)) return prev;
       return [...prev, product];
     });
   };
 
+  //Remove item
   const removeFromWishlist = (productId: string) => {
-    setWishlist((prev) => prev.filter((item) => item.id !== productId));
+    setWishlist((prev) =>
+      prev.filter((item) => String(item.id) !== productId)
+    );
   };
 
+  // Check if saved
   const isInWishlist = (productId: string) => {
-    return wishlist.some((item) => item.id === productId);
+    return wishlist.some((item) => String(item.id) === productId);
   };
 
   const wishlistCount = wishlist.length;

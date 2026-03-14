@@ -3,51 +3,29 @@ import { Link } from "react-router-dom";
 import { ImageWithFallback } from "@/components/atoms/ImageWithFallback";
 import useWishlist from "@/components/atoms/WishListContext";
 import { motion } from "framer-motion";
+import type{ Attire } from "@/types/attire.type";
 
 interface ProductCardProps {
-  id: string;
-  name: string;
-  category: string;
-  price: string;
-  image: string;
-  inStock?: boolean;
-  tenantId: string;
+  product: Attire;
 }
 
-export function ProductCard({
-  id,
-  name,
-  category,
-  price,
-  image,
-  tenantId,
-  inStock = true,
-}: ProductCardProps) {
+export function ProductCard({ product }: ProductCardProps) {
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
-  const isSaved = isInWishlist(id.toString());
+  const isSaved = isInWishlist(product.id!.toString());
 
   const handleWishlistToggle = (e: React.MouseEvent) => {
     e.preventDefault(); // prevents navigation
     e.stopPropagation(); // prevents Link click
 
-    const product = {
-      id: id.toString(),
-      name,
-      category,
-      price: parseFloat(price.replace(/[^0-9.-]+/g, "")),
-      image,
-      inStock,
-    };
-
     if (isSaved) {
-      removeFromWishlist(id.toString());
+      removeFromWishlist(product.id!.toString());
     } else {
       addToWishlist(product);
     }
   };
 
   return (
-    <Link to={`/product/${tenantId}/${id}`} className="group block">
+    <Link to={`/product/${product.tenantId}/${product.id}`} className="group block">
 
       <div className="space-y-3">
 
@@ -55,8 +33,8 @@ export function ProductCard({
         <div className="relative overflow-hidden rounded-lg aspect-[3/4] bg-[var(--accent-beige)]">
 
           <ImageWithFallback
-            src={image}
-            alt={name}
+            src={product.imageUrl}
+            alt={product.attireName}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
 
@@ -92,15 +70,15 @@ export function ProductCard({
         <div className="space-y-1">
 
           <p className="text-xs tracking-widest uppercase text-[var(--brand-primary)]">
-            {category}
+            {product.category?.categoryName}
           </p>
 
           <h3 className="text-[var(--text-secondary)] group-hover:text-[var(--brand-primary)] transition-colors">
-            {name}
+            {product.attireName}
           </h3>
 
           <p className="font-serif text-[var(--brand-secondary)]">
-            Rs. {price}
+            Rs. {product.attirePrice.toLocaleString()}
           </p>
 
         </div>
