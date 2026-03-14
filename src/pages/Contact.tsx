@@ -4,7 +4,7 @@ function Contact() {
   return (
     <div className="min-h-screen bg-(--bg-primary)">
       {/* Header */}
-      <div className="py-16 md:py-24 bg-gradient-to-br from-[var(--accent-beige)] to-[var(--surface-elevated)] border-t border-[var(--border-soft)] py-16 md:py-20">
+      <div className="md:py-24 bg-linear-to-br from-(--accent-beige) to-(--surface-elevated) border-t border-(--border-soft) py-16">
         <div className="max-w-7xl mx-auto px-4 text-center text-(--brand-secondary)">
           <h1 className="text-4xl md:text-5xl  mb-4 font-serif">
             Get In Touch

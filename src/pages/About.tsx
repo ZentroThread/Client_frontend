@@ -9,7 +9,7 @@ export default function About() {
   return (
     <div className="min-h-screen bg-(--bg-primary) text-(--text-primary)">
       {/* Hero Section */}
-<div className="relative h-[420px] md:h-[540px] overflow-hidden">
+<div className="relative h-105 md:h-135 overflow-hidden">
 
   {/* Background */}
   <div className="absolute inset-0">
@@ -20,7 +20,7 @@ export default function About() {
     />
 
     {/* Gradient Overlay */}
-    <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/40"></div>
+    <div className="absolute inset-0 bg-linear-to-r from-black/85 via-black/60 to-black/40"></div>
   </div>
 
 
@@ -30,7 +30,7 @@ export default function About() {
     <div className="max-w-2xl space-y-5">
 
       {/* Small Label */}
-      <p className="text-sm tracking-[0.25em] uppercase text-[var(--accent-gold)]">
+      <p className="text-sm tracking-[0.25em] uppercase text-(--accent-gold)">
         Sarani Couture
       </p>
 
@@ -40,7 +40,7 @@ export default function About() {
       </h1>
 
       {/* Gold Divider */}
-      <div className="w-16 h-[2px] bg-(--accent-gold)"></div>
+      <div className="w-16 h-0.5 bg-(--accent-gold)"></div>
 
       {/* Description */}
       <p className="text-lg text-white/90 max-w-xl">
@@ -98,7 +98,7 @@ export default function About() {
       </section>
 
       {/* Values */}
-      <section className="py-16 md:py-24 py-16 md:py-24 bg-gradient-to-br from-[var(--accent-beige)] to-[var(--surface-elevated)] border-t border-[var(--border-soft)]">
+      <section className="py-16 md:py-24 bg-linear-to-br from-(--accent-beige) to-(--surface-elevated) border-t border-(--border-soft)">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl mb-4 font-serif text-(--brand-secondary)">
@@ -172,12 +172,12 @@ export default function About() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-[var(--accent-beige)] to-[var(--surface-elevated)] border-t border-[var(--border-soft)]">
+      <section className="py-16 md:py-24 bg-linear-to-br from-(--accent-beige) to-(--surface-elevated) border-t border-(--border-soft)">
         <div className="max-w-4xl mx-auto px-4 text-center text-white">
           <h2 className="text-3xl md:text-4xl mb-4 font-serif text-(--brand-secondary)">
             Visit Our Showroom
           </h2>
-          <p className="mb-8 text-[var(--text-secondary)]">
+          <p className="mb-8 text-(--text-secondary)">
             Experience our collections in person and consult with our fashion experts
           </p>
 

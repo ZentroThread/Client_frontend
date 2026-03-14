@@ -130,12 +130,7 @@ export function ProductListing() {
                 {filteredProducts.map((product) => (
                   <ProductCard
                     key={product.id}
-                    id={product.id!.toString()}
-                    name={product.attireName}
-                    category={product.category?.categoryName ?? ''}
-                    price={`LKR ${product.attirePrice.toLocaleString()}`}
-                    image={product.imageUrl ?? 'https://via.placeholder.com/300x400?text=No+Image'}
-                    tenantId={product.tenantId!.toString()}
+                    product={product}
                   />
                 ))}
               </div>

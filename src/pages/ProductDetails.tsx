@@ -84,15 +84,8 @@ export function ProductDetails() {
 
   const handleWishlistToggle = () => {
     if (isSaved) removeFromWishlist(productId.toString());
-    else
-      addToWishlist({
-        id: productId.toString(),
-        name: product.name,
-        category: product.category,
-        price: Number(attire?.attirePrice ?? 0),
-        image: product.images[0],
-        inStock: product.availability === 'Available now',
-      });
+    else if (attire)
+      addToWishlist(attire);
   };
 
   return (
@@ -149,7 +142,7 @@ export function ProductDetails() {
               value={selectedDate}
               min={new Date().toISOString().split('T')[0]}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className="border rounded-md px-4 py-2 text-(--brand-primary) focus:outline-none focus:ring-2 focus:ring-(--accent-gold)"
+              className="border rounded-md px-4 py-2 ml-2 text-(--brand-primary) focus:outline-none focus:ring-2 focus:ring-(--accent-gold)"
             />
           </div>
 
@@ -188,7 +181,7 @@ export function ProductDetails() {
           </div>
 
           {/* DETAILS */}
-          <div className="bg-(--bg-secondary) border border-(--border-light) rounded-xl p-6 shadow-sm">
+          {/* <div className="bg-(--bg-secondary) border border-(--border-light) rounded-xl p-6 shadow-sm">
             <h3 className="text-(--brand-primary) mb-4 font-semibold">Product Details</h3>
             <div className="grid grid-cols-2 gap-4">
               {Object.entries(product.details).map(([k, v]) => (
@@ -198,7 +191,7 @@ export function ProductDetails() {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* ACTIONS */}
           <div className="space-y-3">
