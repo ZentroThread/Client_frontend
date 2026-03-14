@@ -54,7 +54,7 @@ const Navbar = () => {
                     {link.name}
 
                     <span
-                      className={`absolute left-0 -bottom-1 h-px bg-[var(--brand-primary)] transition-all duration-300
+                      className={`absolute left-0 -bottom-1 h-px bg-(--brand-primary) transition-all duration-300
                       ${isActive ? "w-full" : "w-0 group-hover:w-full"}`}
                     />
                   </>

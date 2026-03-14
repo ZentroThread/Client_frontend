@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ImageWithFallback } from '../components/atoms/ImageWithFallback';
 import { ProductCard } from '../components/organisms/ProductCard';
-import { useState } from 'react';
 import heroImg from '../assets/home/hero3.jpg';
 import Jewelery from '../assets/home/jewelry.jpg';
 import saree from '../assets/home/sare.jpg'
@@ -40,40 +39,41 @@ const featuredCategories = [
   }
 ];
 
-const testimonials = [
-  {
-    name: 'Dilini Perera',
-    text: 'The bridal saree I wore on my wedding day was absolutely stunning. The craftsmanship and attention to detail were exceptional. I felt like royalty!',
-    rating: 5,
-  },
-  {
-    name: 'Amaya Silva',
-    text: 'Sarani Couture made my dream wedding outfit come true. The traditional jewelry perfectly complemented my saree. Highly recommend!',
-    rating: 5,
-  },
-  {
-    name: 'Sanduni Fernando',
-    text: 'Exceptional quality and beautiful designs. The team was so helpful in customizing my lehenga. Worth every rupee!',
-    rating: 5,
-  },
-];
+// const testimonials = [
+//   {
+//     name: 'Dilini Perera',
+//     text: 'The bridal saree I wore on my wedding day was absolutely stunning. The craftsmanship and attention to detail were exceptional. I felt like royalty!',
+//     rating: 5,
+//   },
+//   {
+//     name: 'Amaya Silva',
+//     text: 'Sarani Couture made my dream wedding outfit come true. The traditional jewelry perfectly complemented my saree. Highly recommend!',
+//     rating: 5,
+//   },
+//   {
+//     name: 'Sanduni Fernando',
+//     text: 'Exceptional quality and beautiful designs. The team was so helpful in customizing my lehenga. Worth every rupee!',
+//     rating: 5,
+//   },
+// ];
 
 export default function Home() {
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  
   const { attires: allProducts = [] } = useGetAllAttiresForAllTenants();
 
-  const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-  };
+  // const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  // const nextTestimonial = () => {
+  //   setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+  // };
 
-  const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
+  // const prevTestimonial = () => {
+  //   setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  // };
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[520px] md:h-[680px] w-full overflow-hidden group">
+      <section className="relative h-130 md:h-170 w-full overflow-hidden group">
 
         {/* Background */}
         <div className="absolute inset-0">
@@ -84,7 +84,7 @@ export default function Home() {
           />
 
           {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>
+          <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/50 to-black/30"></div>
         </div>
 
 
@@ -94,8 +94,8 @@ export default function Home() {
           <div className="max-w-2xl space-y-6">
 
             {/* Tagline */}
-            <div className="inline-block px-4 py-2 bg-[var(--accent-gold)]/20 backdrop-blur-sm rounded-full">
-              <span className="text-[var(--accent-gold)] text-sm tracking-widest font-medium">
+            <div className="inline-block px-4 py-2 bg-(--accent-gold)/20 backdrop-blur-sm rounded-full">
+              <span className="text-(--accent-gold) text-sm tracking-widest font-medium">
                 NEW COLLECTION 2026
               </span>
             </div>
@@ -104,7 +104,7 @@ export default function Home() {
             {/* Heading */}
             <h1 className="text-4xl md:text-6xl font-serif leading-tight text-white">
               Where Tradition Meets{" "}
-              <span className="text-[var(--accent-gold)]">
+              <span className="text-(--accent-gold)">
                 Elegance
               </span>
             </h1>
@@ -126,17 +126,17 @@ export default function Home() {
                   relative overflow-hidden
                   px-8 py-3 rounded-lg
                   font-medium
-                  bg-[var(--brand-secondary)]
+                  bg-(--brand-secondary)
                   text-white
                   shadow-lg
                   transition-all duration-300
                   hover:scale-105
-                  hover:bg-gradient-to-r
-                  hover:from-[var(--brand-primary)]
-                  hover:to-[var(--accent-gold)]
+                  hover:bg-linear-to-r
+                  hover:from-(--brand-primary)
+                  hover:to-(--accent-gold)
                   focus:outline-none
                   focus:ring-2
-                  focus:ring-[var(--accent-gold)]
+                  focus:ring-(--accent-gold)
                 ">
                   Explore Collections
                 </button>
@@ -152,15 +152,15 @@ export default function Home() {
                   px-8 py-3 rounded-lg
                   font-medium
                   bg-white
-                  text-[var(--brand-secondary)]
+                  text-(--brand-secondary)
                   shadow-lg
                   transition-all duration-300
                   hover:scale-105
-                  hover:bg-[var(--accent-beige)]
-                  hover:text-[var(--brand-primary)]
+                  hover:bg-(--accent-beige)
+                  hover:text-(--brand-primary)
                   focus:outline-none
                   focus:ring-2
-                  focus:ring-[var(--accent-gold)]
+                  focus:ring-(--accent-gold)
                 "
               >
                 WhatsApp Inquiry
@@ -174,7 +174,7 @@ export default function Home() {
 
 
         {/* Bottom Gradient */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--bg-primary)] to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-(--bg-primary) to-transparent"></div>
 
       </section>
 
@@ -225,7 +225,7 @@ export default function Home() {
       </section>
 
       {/* Best Sellers */}
-      <section className="py-16 md:py-24 py-16 md:py-24 bg-gradient-to-br from-[var(--accent-beige)] to-[var(--surface-elevated)] border-t border-[var(--border-soft)]">
+      <section className="py-16 md:py-24 bg-linear-to-br from-(--accent-beige) to-(--surface-elevated) border-t border-(--border-soft)">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="text-center mb-12">
@@ -369,17 +369,17 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-[var(--accent-beige)] to-[var(--surface-elevated)] border-t border-[var(--border-soft)]">
+      <section className="py-16 md:py-24 bg-linear-to-br from-(--accent-beige) to-(--surface-elevated) border-t border-(--border-soft)">
 
         <div className="max-w-4xl mx-auto px-6 text-center">
 
           {/* Heading */}
-          <h2 className="text-3xl md:text-4xl font-serif text-[var(--brand-primary)] mb-4">
+          <h2 className="text-3xl md:text-4xl font-serif text-(--brand-primary) mb-4">
             Ready to Find Your Perfect Outfit?
           </h2>
 
           {/* Description */}
-          <p className="text-[var(--text-secondary)] text-lg mb-8 max-w-2xl mx-auto">
+          <p className="text-(--text-secondary) text-lg mb-8 max-w-2xl mx-auto">
             Contact us on WhatsApp for personalized assistance and custom bridal orders.
             Our team will help you choose the perfect look for your special day.
           </p>

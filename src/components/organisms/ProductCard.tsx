@@ -30,7 +30,7 @@ export function ProductCard({ product }: ProductCardProps) {
       <div className="space-y-3">
 
         {/* Image */}
-        <div className="relative overflow-hidden rounded-lg aspect-[3/4] bg-[var(--accent-beige)]">
+        <div className="relative overflow-hidden rounded-lg aspect-3/4 bg-(--accent-beige)">
 
           <ImageWithFallback
             src={product.imageUrl}
@@ -49,8 +49,8 @@ export function ProductCard({ product }: ProductCardProps) {
               transition-all duration-300
               opacity-0 group-hover:opacity-100
               ${isSaved 
-                ? "bg-[var(--brand-primary)] text-white"
-                : "bg-white/90 text-[var(--brand-primary)]"
+                ? "bg-(--brand-primary) text-white"
+                : "bg-white/90 text-(--brand-primary)"
               }
             `}
           >
@@ -61,7 +61,7 @@ export function ProductCard({ product }: ProductCardProps) {
           </motion.button>
 
           {/* Hover Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         </div>
 
@@ -69,15 +69,15 @@ export function ProductCard({ product }: ProductCardProps) {
         {/* Product Info */}
         <div className="space-y-1">
 
-          <p className="text-xs tracking-widest uppercase text-[var(--brand-primary)]">
+          <p className="text-xs tracking-widest uppercase text-(--brand-primary)">
             {product.category?.categoryName}
           </p>
 
-          <h3 className="text-[var(--text-secondary)] group-hover:text-[var(--brand-primary)] transition-colors">
+          <h3 className="text-(--text-secondary) group-hover:text-(--brand-primary) transition-colors">
             {product.attireName}
           </h3>
 
-          <p className="font-serif text-[var(--brand-secondary)]">
+          <p className="font-serif text-(--brand-secondary)">
             Rs. {product.attirePrice.toLocaleString()}
           </p>
 
