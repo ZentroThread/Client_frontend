@@ -11,6 +11,7 @@ import lehanga2 from '../assets/social/lehanga2.jpg'
 import sarre1 from '../assets/social/saree.jpg'
 import lehanga3 from "../assets/items/lehanga3.jpg"
 import { useGetAllAttiresForAllTenants } from '@/hooks/attires/useGetAllAttiresForAllTenants ';
+import {contacts} from '@/constants/contact'
 
 const featuredCategories = [
   {
@@ -145,7 +146,7 @@ export default function Home() {
 
               {/* WhatsApp Button */}
               <a
-                href="https://wa.me/94771234567"
+                href={`https://wa.me/${contacts.phone}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="
@@ -386,7 +387,7 @@ export default function Home() {
 
           {/* WhatsApp Button */}
           <a
-            href="https://wa.me/94771234567"
+            href={`https://wa.me/${contacts.phone}`}
             target="_blank"
             rel="noopener noreferrer"
             className="
