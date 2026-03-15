@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Menu, X, Heart } from "lucide-react";
 import { ThemeToggle } from "@/components/atoms/ThemeToggle";
 import useWishlist from "@/components/atoms/WishListContext";
-import logo from "./src/assets/main/logo.png"
+import logo from "@/assets/main/logo.png";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
