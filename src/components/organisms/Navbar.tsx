@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Menu, X, Heart } from "lucide-react";
 import { ThemeToggle } from "@/components/atoms/ThemeToggle";
 import useWishlist from "@/components/atoms/WishListContext";
+import logo from "./src/assets/main/logo.png"
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,7 +28,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img
-              src="/src/assets/main/logo.png"
+              src= {logo}
               alt="Hiru Sandu Logo"
               className="h-10 sm:h-12 md:h-14 w-auto"
             />
