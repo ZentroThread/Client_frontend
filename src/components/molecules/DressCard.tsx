@@ -42,17 +42,26 @@ export default function DressCard({
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => addToWishlist({
+            attireName: name,
+            attirePrice: pricePerDay,
+            category: {
+              categoryId: 1, // Replace with actual category id if available
+              categoryCode: 'bridal-sarees',
+              categoryName: 'Bridal Sarees'
+            }, // Default category, can be passed as prop later
             id,
-            name,
-            category: 'bridal-sarees', // Default category, can be passed as prop later
-            price: pricePerDay,
-            image,
-            inStock: true
+            imageUrl: image,
+            // Add other required properties with default or placeholder values
+            tenantId: "defaultTenant",
+            attireCode: "defaultCode",
+            attireDescription: "",
+            attireStatus: "available",
+            attireStock: 1
           })}
           className="absolute top-4 right-4 p-2 rounded-full bg-white/90 backdrop-blur-sm shadow-lg transition-colors"
-          style={{ color: isInWishlist(id) ? 'var(--color-error)' : 'var(--color-text-secondary)' }}
+          style={{ color: isInWishlist(id.toString()) ? 'var(--color-error)' : 'var(--color-text-secondary)' }}
         >
-          <Heart className={`h-5 w-5 ${isInWishlist(id) ? 'fill-current' : ''}`} />
+          <Heart className={`h-5 w-5 ${isInWishlist(id.toString()) ? 'fill-current' : ''}`} />
         </motion.button>
       </div>
 
