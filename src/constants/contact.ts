@@ -1,6 +1,6 @@
 export const contacts = {
-  email: 'thilinalakshan2001@gmail.com',
-  phone: '94772744053',
+  email: 'thilinalakshan@gmail.com',
+  phone: '94704474117',
   facebook: 'https://web.facebook.com/hirusandubridalwear',
   instagram: 'https://www.instagram.com/G5F5o',
 }
