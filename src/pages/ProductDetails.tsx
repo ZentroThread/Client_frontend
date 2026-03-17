@@ -21,6 +21,7 @@ import {contacts} from '@/constants/contact'
 const fallbackProduct = {
   name: 'Traditional Attire',
   category: 'Uncategorized',
+  productCode: 'N/A',
   price: 'Price on request',
   availability: 'Made to order',
   readyDays: 'Ready in 10–14 working days',
@@ -52,6 +53,7 @@ export function ProductDetails() {
     ? {
         name: attire.attireName,
         category: attire.category?.categoryName ?? 'Uncategorized',
+        productCode: attire.attireCode,
         price:
           attire.attirePrice !== undefined
             ? `LKR ${attire.attirePrice.toLocaleString()}`
@@ -74,6 +76,22 @@ export function ProductDetails() {
         careInstructions: 'Dry clean only. Store in a cool, dry place.',
       }
     : fallbackProduct;
+
+  const whatsappMessage = `
+    Hello,
+
+    I'm interested in this attire:
+
+     Item Name: ${product.name}
+     Item Code: ${product.productCode}
+     Price: ${product.price}
+
+     Image: ${product.images[0]}
+
+    Please provide more details about availability and booking.
+
+    Thank you!
+    `;
 
   const [selectedImage, setSelectedImage] = useState(0);
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
@@ -133,7 +151,9 @@ export function ProductDetails() {
           <h1 className="text-4xl md:text-5xl font-serif text-(--brand-primary)">
             {product.name}
           </h1>
-
+          <h2 className="text-2xl font-serif text-(--brand-primary)">
+            {product.productCode}
+          </h2>
           <div className="space-y-2">
             <label className="text-sm text-(--brand-secondary)">
               Select date to check availability
@@ -197,7 +217,9 @@ export function ProductDetails() {
           {/* ACTIONS */}
           <div className="space-y-3">
             <a
-              href={`https://wa.me/${contacts.phone}`}
+              href={`https://wa.me/${contacts.phone}?text=${encodeURIComponent(whatsappMessage)}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-full flex justify-center gap-2 bg-[#25D366] text-white py-4 rounded-lg font-medium shadow-md hover:bg-[#1ebe5a] transition-all"
             >
               <MessageCircle />
