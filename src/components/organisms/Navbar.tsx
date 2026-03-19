@@ -1,15 +1,26 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X, Heart } from "lucide-react";
+import { Menu, X, Heart, User, LogOut } from "lucide-react";
 import { ThemeToggle } from "@/components/atoms/ThemeToggle";
 import useWishlist from "@/components/atoms/WishListContext";
 import logo from "@/assets/main/logo.png";
+import {useAuth} from "@/context/AuthContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {isLoggedIn, logout } = useAuth();
 
+  const navigate = useNavigate();
   const { wishlist } = useWishlist();
   const wishlistCount = wishlist.length;
+
+  
+
+  //  Logout
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   const navLinks = [
     { name: "Home", to: "/" },
@@ -20,20 +31,13 @@ const Navbar = () => {
 
   return (
     <nav className="sticky top-0 z-50 glass border-b border-(--border-soft) shadow-sm backdrop-blur-md">
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
         <div className="flex justify-between items-center h-16 md:h-20">
 
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <img
-              src= {logo}
-              alt="Hiru Sandu Logo"
-              className="h-10 sm:h-12 md:h-14 w-auto"
-            />
+            <img src={logo} alt="Logo" className="h-10 md:h-14" />
           </Link>
-
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
@@ -42,47 +46,52 @@ const Navbar = () => {
                 key={link.name}
                 to={link.to}
                 className={({ isActive }) =>
-                  `relative text-sm tracking-wide transition-colors duration-300 group
-                  ${
+                  `relative text-sm transition ${
                     isActive
                       ? "text-(--brand-primary)"
                       : "text-(--text-secondary) hover:text-(--brand-primary)"
                   }`
                 }
               >
-                {({ isActive }) => (
-                  <>
-                    {link.name}
-
-                    <span
-                      className={`absolute left-0 -bottom-1 h-px bg-(--brand-primary) transition-all duration-300
-                      ${isActive ? "w-full" : "w-0 group-hover:w-full"}`}
-                    />
-                  </>
-                )}
+                {link.name}
               </NavLink>
             ))}
           </div>
 
-
-          {/* Right Icons */}
-          <div className="flex items-center space-x-2">
+          {/* Right Section */}
+          <div className="flex items-center space-x-3">
 
             <ThemeToggle />
 
             {/* Wishlist */}
             <Link to="/wishlist" className="relative">
-              <button className="p-2 rounded hover:scale-110 transition-transform">
+              <button className="p-2 rounded hover:scale-110 transition">
                 <Heart className="h-5 w-5 text-(--text-secondary)" />
               </button>
 
               {wishlistCount > 0 && (
-                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-(--brand-primary) text-white text-xs flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 h-5 w-5 text-xs bg-(--brand-primary) text-white rounded-full flex items-center justify-center">
                   {wishlistCount}
                 </span>
               )}
             </Link>
 
+            {/* USER SECTION */}
+            {!isLoggedIn ? (
+              <Link to="/login">
+                <button className="p-2 rounded hover:scale-110 transition">
+                  <User className="h-5 w-5 text-(--text-secondary)" />
+                </button>
+              </Link>
+            ) : (
+              <button
+                onClick={handleLogout}
+                className="p-2 rounded hover:scale-110 transition"
+                title="Logout"
+              >
+                <LogOut className="h-5 w-5 text-red-500" />
+              </button>
+            )}
 
             {/* Mobile Menu Button */}
             <button
@@ -97,11 +106,8 @@ const Navbar = () => {
             </button>
 
           </div>
-
         </div>
-
       </div>
-
 
       {/* Mobile Menu */}
       <div
@@ -109,31 +115,19 @@ const Navbar = () => {
           isMenuOpen ? "max-h-96 py-4" : "max-h-0 overflow-hidden"
         }`}
       >
-
         <div className="px-6 flex flex-col space-y-4">
-
           {navLinks.map((link) => (
             <NavLink
               key={link.name}
               to={link.to}
-              className={({ isActive }) =>
-                `block text-base transition-colors
-                ${
-                  isActive
-                    ? "text-(--brand-primary)"
-                    : "text-(--text-secondary)"
-                }`
-              }
+              className="text-base text-(--text-secondary)"
               onClick={() => setIsMenuOpen(false)}
             >
               {link.name}
             </NavLink>
           ))}
-
         </div>
-
       </div>
-
     </nav>
   );
 };

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, LogIn, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
+import {API_BASE_URL} from "@/constants/constdata";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -148,7 +149,14 @@ export default function Login() {
             </motion.button>
           </form>
         </motion.div>
-
+        <p className="text-center text-sm text-(--text-secondary)">
+           <a
+              href={`${API_BASE_URL}/oauth2/authorization/google?state=${encodeURIComponent(window.location.origin)}`}
+              className="text-(--brand-primary) hover:text-(--brand-secondary)"
+            >
+              Login with Google
+            </a>
+        </p>
         {/* Sign up */}
         <p className="text-center text-sm text-(--text-secondary)">
           Don't have an account? <Link to="/register" className="text-(--brand-primary) hover:text-(--brand-secondary)">Create an account</Link>
