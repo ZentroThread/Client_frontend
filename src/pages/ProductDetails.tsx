@@ -17,6 +17,10 @@ import { useGetAttireById, useCheckAttireAvailability } from '@/hooks/attires/us
 
 import nilameSuitImage from '../assets/items/nilame1.jpeg';
 import {contacts} from '@/constants/contact'
+import { API_BASE_URL } from "@/constants/constdata";
+import { useAuth } from '@/context/AuthContext';
+import Swal from "sweetalert2";
+
 
 const fallbackProduct = {
   name: 'Traditional Attire',
@@ -42,6 +46,15 @@ export function ProductDetails() {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const rentDateTime = `${selectedDate}T10:00:00`;
 
+  const [bookingStartDate, setBookingStartDate] = useState(
+    new Date().toISOString().split("T")[0]
+  );
+  const [bookingEndDate, setBookingEndDate] = useState(
+    new Date().toISOString().split("T")[0]
+  );
+  
+  const {isLoggedIn } = useAuth();
+  
   const { data: attire, isLoading } = useGetAttireById(tenantId!, productId);
   const { data: availability } = useCheckAttireAvailability(
     tenantId!,
@@ -105,6 +118,68 @@ export function ProductDetails() {
     if (isSaved) removeFromWishlist(productId.toString());
     else if (attire)
       addToWishlist(attire);
+  };
+
+  const handleBooking = async () => {
+    try {
+      if (!isLoggedIn) {
+        Swal.fire({
+          icon: "warning",
+          title: "Login Required",
+          text: "Please login to make a booking",
+        });
+        return;
+      }
+
+      // if (!availability?.available) {
+      //   Swal.fire({
+      //     icon: "error",
+      //     title: "Not Available",
+      //     text: "Selected date is not available",
+      //   });
+      //   return;
+      // }
+
+      if (bookingStartDate > bookingEndDate) {
+        Swal.fire({
+          icon: "warning",
+          title: "Invalid Dates",
+          text: "End date must be after start date",
+        });
+        return;
+      }
+
+      const token = localStorage.getItem("token");
+
+      const response = await fetch(
+        `${API_BASE_URL}/v1/bookings/request?tenantId=${tenantId}&attireId=${productId}&startDate=${bookingStartDate}&endDate=${bookingEndDate}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`, 
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Booking failed");
+      }
+
+      Swal.fire({
+        icon: "success",
+        title: "Request Sent!",
+        text: "Shop will contact you soon.",
+      });
+
+    } catch (error) {
+      console.error(error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: "Something went wrong. Try again.",
+      });
+    }
   };
 
   return (
@@ -240,8 +315,43 @@ export function ProductDetails() {
                 Share
               </button>
             </div>
+            
           </div>
+          {isLoggedIn && (
+            <div>
+              <button
+                onClick={handleBooking}
+                disabled={bookingStartDate > bookingEndDate}
+                className="border-2 border-(--brand-secondary) py-3 rounded-lg font-medium shadow-md transition-all hover:bg-(--brand-secondary) hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Booking
+              </button>
+              <div className="space-y-3">
+              <label className="text-sm text-(--brand-secondary)">
+                Select booking period
+              </label>
 
+              <div className="flex gap-3">
+                <input
+                  type="date"
+                  value={bookingStartDate}
+                  min={new Date().toISOString().split("T")[0]}
+                  onChange={(e) => setBookingStartDate(e.target.value)}
+                  className="border rounded-md px-4 py-2 text-(--brand-primary) focus:outline-none focus:ring-2 focus:ring-(--accent-gold)"
+                />
+
+                <input
+                  type="date"
+                  value={bookingEndDate}
+                  min={bookingStartDate}
+                  onChange={(e) => setBookingEndDate(e.target.value)}
+                  className="border rounded-md px-4 py-2 text-(--brand-primary) focus:outline-none focus:ring-2 focus:ring-(--accent-gold)"
+                />
+              </div>
+            </div>
+          </div>
+          )}
+          
           {/* INFO CARDS */}
           <div className="grid grid-cols-3 gap-4 pt-6">
             <InfoCard icon={<Ruler />} text="Custom Sizing" />

@@ -19,6 +19,7 @@ export default function OAuthSuccess() {
         window.dispatchEvent(new Event("auth-change"));
 
         navigate("/");
+        console.log(localStorage.getItem("token"));
       } else {
         navigate("/login");
       }

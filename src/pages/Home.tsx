@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import { Link } from 'react-router-dom';
 import { ImageWithFallback } from '../components/atoms/ImageWithFallback';
 import { ProductCard } from '../components/organisms/ProductCard';
@@ -12,6 +13,8 @@ import sarre1 from '../assets/social/saree.jpg'
 import lehanga3 from "../assets/items/lehanga3.jpg"
 import { useGetAllAttiresForAllTenants } from '@/hooks/attires/useGetAllAttiresForAllTenants ';
 import {contacts} from '@/constants/contact'
+import {useGetFeedback} from '@/hooks/feedback/useGetFeedback';
+import { Quote, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const featuredCategories = [
   {
@@ -40,36 +43,23 @@ const featuredCategories = [
   }
 ];
 
-// const testimonials = [
-//   {
-//     name: 'Dilini Perera',
-//     text: 'The bridal saree I wore on my wedding day was absolutely stunning. The craftsmanship and attention to detail were exceptional. I felt like royalty!',
-//     rating: 5,
-//   },
-//   {
-//     name: 'Amaya Silva',
-//     text: 'Sarani Couture made my dream wedding outfit come true. The traditional jewelry perfectly complemented my saree. Highly recommend!',
-//     rating: 5,
-//   },
-//   {
-//     name: 'Sanduni Fernando',
-//     text: 'Exceptional quality and beautiful designs. The team was so helpful in customizing my lehenga. Worth every rupee!',
-//     rating: 5,
-//   },
-// ];
-
 export default function Home() {
   
   const { attires: allProducts = [] } = useGetAllAttiresForAllTenants();
+  const { data: feedbacks = [] } = useGetFeedback();
 
-  // const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  // const nextTestimonial = () => {
-  //   setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-  // };
+  console.log("Feedbacks on Home Page:", feedbacks);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-  // const prevTestimonial = () => {
-  //   setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  // };
+  const nextTestimonial = () => {
+    if (feedbacks.length === 0) return;
+    setCurrentTestimonial((prev) => (prev + 1) % feedbacks.length);
+  };
+
+  const prevTestimonial = () => {
+    if (feedbacks.length === 0) return;
+    setCurrentTestimonial((prev) => (prev - 1 + feedbacks.length) % feedbacks.length);
+  };
 
   return (
     <div className="min-h-screen">
@@ -271,8 +261,11 @@ export default function Home() {
 
 
       {/* Testimonials */}
-      {/* <section className="py-16 md:py-24 bg-[#8B4513] relative overflow-hidden">
-       
+      <section className="py-16 md:py-24 bg-[#8B4513] relative overflow-hidden">
+        {!feedbacks.length ? (
+          <p className="text-center text-white">No feedback yet</p>
+        ) : (
+        <>
         <div className="absolute top-0 left-0 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-0 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl" />
 
@@ -289,17 +282,17 @@ export default function Home() {
               <Quote className="h-12 w-12 text-[#D4AF37] mb-6" />
               
               <div className="flex mb-4">
-                {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
+                {[...Array(feedbacks[currentTestimonial].rating)].map((_, i) => (
                   <Star key={i} className="h-5 w-5 text-[#D4AF37] fill-[#D4AF37]" />
                 ))}
               </div>
 
               <p className="text-white text-lg mb-6 leading-relaxed">
-                {testimonials[currentTestimonial].text}
+                {feedbacks[currentTestimonial].message}
               </p>
 
               <p className="text-[#D4AF37]">
-                — {testimonials[currentTestimonial].name}
+                — {feedbacks[currentTestimonial].userEmail}
               </p>
             </div>
 
@@ -319,7 +312,9 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section> */}
+        </>
+        )}
+      </section>
 
       {/* Instagram Gallery */}
       <section className="py-16 md:py-24">

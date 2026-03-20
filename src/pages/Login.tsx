@@ -2,10 +2,14 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, LogIn, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
-import {API_BASE_URL} from "@/constants/constdata";
+import { API_BASE_URL } from "@/constants/constdata";
+import { useAuth } from "@/context/AuthContext";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();
+
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
@@ -18,22 +22,62 @@ export default function Login() {
     else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Please enter a valid email';
 
     if (!formData.password) newErrors.password = 'Password is required';
-    else if (formData.password.length < 6)
+    else if (formData.password.length < 2)
       newErrors.password = 'Password must be at least 6 characters';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
+  // ✅ FIXED LOGIN FUNCTION
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setIsLoading(true);
-    setTimeout(() => {
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/v1/customer/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Login failed");
+      }
+
+      const token = await res.text();
+
+      // ✅ store token + update auth
+      login(token);
+
       setIsLoading(false);
+
+      Swal.fire({
+        icon: "success",
+        title: "Welcome!",
+        text: "Login successful",
+        confirmButtonColor: "var(--brand-primary)",
+      });
+
       navigate('/');
-    }, 1500);
+
+    } catch (error) {
+      setIsLoading(false);
+
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: "Invalid email or password",
+        confirmButtonColor: "var(--error)",
+      });
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,6 +123,7 @@ export default function Login() {
           className="glass rounded-2xl shadow-xl p-8 border border-(--border-medium)"
         >
           <form onSubmit={handleSubmit} className="space-y-6">
+
             {/* Email */}
             <div>
               <label htmlFor="email" className="block text-sm mb-2 text-(--text-secondary)">Email Address</label>
@@ -149,15 +194,18 @@ export default function Login() {
             </motion.button>
           </form>
         </motion.div>
+
+        {/* Google login */}
         <p className="text-center text-sm text-(--text-secondary)">
-           <a
-              href={`${API_BASE_URL}/oauth2/authorization/google?state=${encodeURIComponent(window.location.origin)}`}
-              className="text-(--brand-primary) hover:text-(--brand-secondary)"
-            >
-              Login with Google
-            </a>
+        <a
+            href={`${API_BASE_URL}/oauth2/authorization/google?state=${btoa(window.location.origin)}`}
+          >
+            Login with Google
+          </a>
+                  
         </p>
-        {/* Sign up */}
+
+        {/* Register */}
         <p className="text-center text-sm text-(--text-secondary)">
           Don't have an account? <Link to="/register" className="text-(--brand-primary) hover:text-(--brand-secondary)">Create an account</Link>
         </p>
