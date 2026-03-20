@@ -198,11 +198,10 @@ export default function Login() {
         {/* Google login */}
         <p className="text-center text-sm text-(--text-secondary)">
         <a
-            href={`${API_BASE_URL}/oauth2/authorization/google?state=${btoa(window.location.origin)}`}
-          >
-            Login with Google
-          </a>
-                  
+          href={`${API_BASE_URL}/oauth2/authorization/google?redirect=${encodeURIComponent(window.location.origin)}`}
+        >
+          Login with Google
+        </a>
         </p>
 
         {/* Register */}
