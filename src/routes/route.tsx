@@ -20,6 +20,9 @@ import Jewellery from '@/pages/Collections/Jewellery';
 import NilameSuits from '@/pages/Collections/NilameSuits';
 import PartyDresses from '@/pages/Collections/PartyDresses';
 import OAuthSuccess from '@/pages/OAuthSuccess';
+import Feedback from '@/pages/Feedback';
+import Register from '@/pages/Register';
+import MyBooking from '@/pages/MyBooking';                              
 
 export const AppRoutes = () => {
   return (
@@ -37,6 +40,9 @@ export const AppRoutes = () => {
         <Route path="/products" element={<ProductListing />} />
         <Route path="/product/:tenantId/:id" element={<ProductDetails />} />
         <Route path="/oauth-success" element={<OAuthSuccess />} />
+        <Route path="/feedback" element={<Feedback />} />
+        <Route path='/register' element={<Register/ >} />
+        <Route path="/my-booking" element={<MyBooking/>} />
 
         {/* Collection pages */}
         <Route path="/collections/bridal-sarees" element={<BridalSarees />} />

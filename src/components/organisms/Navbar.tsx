@@ -23,10 +23,12 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { name: "Home", to: "/" },
-    { name: "Collections", to: "/products" },
-    { name: "About Us", to: "/about" },
-    { name: "Contact", to: "/contact" },
+    { name: "Home", to: "/",auth: true },
+    { name: "Collections", to: "/products",auth: true },
+    { name: "About Us", to: "/about",auth: true },
+    { name: "Contact", to: "/contact",auth: true },
+    { name: "Feedback", to: "/feedback",auth: isLoggedIn},
+    {name: "My Booking", to: "/my-booking", auth: isLoggedIn}
   ];
 
   return (
@@ -42,19 +44,21 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <NavLink
-                key={link.name}
-                to={link.to}
-                className={({ isActive }) =>
-                  `relative text-sm transition ${
-                    isActive
-                      ? "text-(--brand-primary)"
-                      : "text-(--text-secondary) hover:text-(--brand-primary)"
-                  }`
-                }
-              >
-                {link.name}
-              </NavLink>
+              link.auth && (
+                <NavLink
+                  key={link.name}
+                  to={link.to}
+                  className={({ isActive }) =>
+                    `relative text-sm transition ${
+                      isActive
+                        ? "text-(--brand-primary)"
+                        : "text-(--text-secondary) hover:text-(--brand-primary)"
+                    }`
+                  }
+                >
+                  {link.name}
+                </NavLink>
+              )
             ))}
           </div>
 

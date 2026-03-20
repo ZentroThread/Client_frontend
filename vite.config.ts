@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base:process.env.VITE_BASE_PATH || "/ZentroThread/Client_frontend",
+  base:process.env.VITE_BASE_PATH || "/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
