@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 export default function Feedback() {
   const [message, setMessage] = useState("");
   const [rating, setRating] = useState(5);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -12,6 +13,7 @@ export default function Feedback() {
     const token = localStorage.getItem("token");
 
     try {
+      setLoading(true);
       const res = await fetch(`${API_BASE_URL}/v1/feedback`, {
         method: "POST",
         headers: {
@@ -58,6 +60,8 @@ export default function Feedback() {
         text: "Error submitting feedback",
         confirmButtonColor: "var(--error)",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -113,20 +117,20 @@ export default function Feedback() {
         {/* BUTTON */}
         <button
           type="submit"
-          className="w-full py-2 rounded-lg font-medium transition"
-          style={{
-            backgroundColor: "var(--brand-primary)",
-            color: "#fff",
-            boxShadow: "var(--shadow-sm)",
-          }}
-          onMouseOver={(e) =>
-            (e.currentTarget.style.backgroundColor = "var(--brand-secondary)")
-          }
-          onMouseOut={(e) =>
-            (e.currentTarget.style.backgroundColor = "var(--brand-primary)")
-          }
+          disabled={loading}
+          className="
+            w-full py-2 rounded-lg font-medium flex items-center justify-center gap-2
+            transition-all duration-200
+            bg-(--brand-primary) text-white shadow-sm
+            hover:bg-(--brand-secondary)
+            disabled:opacity-70 disabled:cursor-not-allowed
+          "
         >
-          Submit Feedback
+          {loading && (
+            <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+          )}
+
+          {loading ? "Submitting..." : "Submit Feedback"}
         </button>
       </form>
     </div>

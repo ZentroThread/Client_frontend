@@ -5,6 +5,7 @@ import { ThemeToggle } from "@/components/atoms/ThemeToggle";
 import useWishlist from "@/components/atoms/WishListContext";
 import logo from "@/assets/main/logo.png";
 import {useAuth} from "@/context/AuthContext";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,8 +19,20 @@ const Navbar = () => {
 
   //  Logout
   const handleLogout = () => {
-    logout();
-    navigate("/login");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logged out.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, logout!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logout();
+        navigate("/login");
+      }
+    });
   };
 
   const navLinks = [
@@ -27,7 +40,7 @@ const Navbar = () => {
     { name: "Collections", to: "/products",auth: true },
     { name: "About Us", to: "/about",auth: true },
     { name: "Contact", to: "/contact",auth: true },
-    { name: "Feedback", to: "/feedback",auth: isLoggedIn},
+    // { name: "Feedback", to: "/feedback",auth: isLoggedIn},
     {name: "My Booking", to: "/my-booking", auth: isLoggedIn}
   ];
 

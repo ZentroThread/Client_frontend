@@ -15,6 +15,8 @@ import { useGetAllAttiresForAllTenants } from '@/hooks/attires/useGetAllAttiresF
 import {contacts} from '@/constants/contact'
 import {useGetFeedback} from '@/hooks/feedback/useGetFeedback';
 import { Quote, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import {useAuth} from "@/context/AuthContext";
+import {useNavigate} from 'react-router-dom';
 
 const featuredCategories = [
   {
@@ -47,6 +49,8 @@ export default function Home() {
   
   const { attires: allProducts = [] } = useGetAllAttiresForAllTenants();
   const { data: feedbacks = [] } = useGetFeedback();
+  const {isLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   console.log("Feedbacks on Home Page:", feedbacks);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -261,59 +265,84 @@ export default function Home() {
 
 
       {/* Testimonials */}
-      <section className="py-16 md:py-24 bg-[#8B4513] relative overflow-hidden">
+      <section className="bg-(--bg-muted) relative overflow-hidden py-16 md:py-24 bg-linear-to-br from-(--accent-beige) to-(--surface-elevated) border-t border-(--border-soft)">
         {!feedbacks.length ? (
-          <p className="text-center text-white">No feedback yet</p>
+          <p className="text-center text-(--text-secondary)">No feedback yet</p>
         ) : (
-        <>
-        <div className="absolute top-0 left-0 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl" />
+          <>
+            {/* Decorative blobs */}
+            {/* <div className="absolute top-0 left-0 w-64 h-64 bg-(--accent-gold)/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 right-0 w-64 h-64 bg-(--accent-gold)/10 rounded-full blur-3xl" /> */}
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl text-white mb-4 font-serif">
-              What Our Brides Say
-            </h2>
-            <p className="text-[#E5D5C3]">Real stories from our cherished customers</p>
-          </div>
-
-          <div className="relative">
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8 md:p-12">
-              <Quote className="h-12 w-12 text-[#D4AF37] mb-6" />
-              
-              <div className="flex mb-4">
-                {[...Array(feedbacks[currentTestimonial].rating)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 text-[#D4AF37] fill-[#D4AF37]" />
-                ))}
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative ">
+              {/* Header */}
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl text-(--brand-primary) mb-4 font-serif">
+                  What Our Brides Say
+                </h2>
+                <p className="text-(--text-secondary)">
+                  Real stories from our cherished customers
+                </p>
               </div>
 
-              <p className="text-white text-lg mb-6 leading-relaxed">
-                {feedbacks[currentTestimonial].message}
-              </p>
+              {/* Testimonial Card */}
+              <div className="relative">
+                <div className="glass rounded-lg p-8 md:p-12 border-2 border-(--border-soft) shadow-lg shadow-(--accent-gold)/20 bg-">
+                  <Quote className="h-12 w-12 text-(--accent-gold) mb-6" />
 
-              <p className="text-[#D4AF37]">
-                — {feedbacks[currentTestimonial].userEmail}
-              </p>
-            </div>
+                  {/* Rating */}
+                  <div className="flex mb-4">
+                    {[...Array(feedbacks[currentTestimonial].rating)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="h-5 w-5 text-(--accent-gold) fill-(--accent-gold)"
+                      />
+                    ))}
+                  </div>
 
-            <div className="flex justify-center gap-4 mt-8">
-              <button
-                onClick={prevTestimonial}
-                className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full transition-colors"
-              >
-                <ChevronLeft className="h-6 w-6" />
-              </button>
-              <button
-                onClick={nextTestimonial}
-                className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full transition-colors"
-              >
-                <ChevronRight className="h-6 w-6" />
-              </button>
+                  {/* Message */}
+                  <p className="text-(--text-primary) text-lg mb-6 leading-relaxed">
+                    {feedbacks[currentTestimonial].message}
+                  </p>
+
+                  {/* User */}
+                  <p className="text-(--accent-gold)">
+                    — {feedbacks[currentTestimonial].userEmail}
+                  </p>
+                </div>
+
+                {/* Navigation */}
+                <div className="flex justify-center gap-4 mt-8">
+                  <button
+                    onClick={prevTestimonial}
+                    className="bg-(--surface-elevated) hover:bg-(--border-soft) text-(--text-primary) p-2 rounded-full transition-colors shadow-sm"
+                  >
+                    <ChevronLeft className="h-6 w-6" />
+                  </button>
+
+                  <button
+                    onClick={nextTestimonial}
+                    className="bg-(--surface-elevated) hover:bg-(--border-soft) text-(--text-primary) p-2 rounded-full transition-colors shadow-sm"
+                  >
+                    <ChevronRight className="h-6 w-6" />
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        </>
+          </>
         )}
+
+        {/* CTA Button */}
+        <button
+          onClick={() => {
+            navigate(isLoggedIn ? "/feedback" : "/login");
+          }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-lg font-medium 
+          bg-linear-to-r from-(--brand-primary) to-(--brand-secondary) 
+          text-white hover:shadow-lg transition-all duration-300 cursor-pointer"
+        >
+          Add Your Feedback
+        </button>
       </section>
 
       {/* Instagram Gallery */}

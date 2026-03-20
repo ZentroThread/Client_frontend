@@ -7,7 +7,7 @@ interface Booking {
   attireId: number;
   startDate: string;
   endDate: string;
-  status: string; // PENDING / APPROVED / REJECTED
+  status: string;
   createdAt: string;
 }
 
@@ -19,26 +19,19 @@ export default function MyBooking() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch(`${API_BASE_URL}/v1/bookings/user`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      const res = await fetch(`${API_BASE_URL}/v1/bookings/user`, {
+        headers: { Authorization: `Bearer ${token}` },
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch bookings");
-      }
+      if (!res.ok) throw new Error();
 
-      const data = await response.json();
+      const data = await res.json();
       setBookings(data);
-
-    } catch (error) {
-      console.error(error);
-
+    } catch (err) {
       Swal.fire({
         icon: "error",
-        title: "Error",
-        text: "Failed to load bookings",
+        title: "Unable to load bookings",
+        text: "Please try again later.",
       });
     } finally {
       setLoading(false);
@@ -49,50 +42,105 @@ export default function MyBooking() {
     fetchBookings();
   }, []);
 
+  const formatDate = (date: string) =>
+    new Date(date).toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+
+  const statusStyles = {
+    APPROVED: "bg-(--success)/10 text-(--success)",
+    REJECTED: "bg-(--error)/10 text-(--error)",
+    PENDING: "bg-(--warning)/10 text-(--warning)",
+  };
+
   if (loading) {
-    return <p className="text-center py-10">Loading bookings...</p>;
+    return (
+      <div className="min-h-screen flex items-center justify-center text-(--text-secondary)">
+        Loading bookings...
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen px-6 py-10">
-      <h1 className="text-3xl font-bold mb-6">My Bookings</h1>
+    <div className="min-h-screen bg-(--bg-primary) px-6 py-10">
+      {/* Page Header */}
+      <div className="max-w-5xl mx-auto mb-10">
+        <h1 className="text-3xl font-serif text-(--brand-primary)">
+          My Bookings
+        </h1>
+        <p className="text-(--text-secondary) mt-2">
+          View and manage your attire reservations
+        </p>
+      </div>
 
-      {bookings.length === 0 ? (
-        <p>No bookings found.</p>
-      ) : (
-        <div className="space-y-4">
-          {bookings.map((b) => (
-            <div
-              key={b.id}
-              className="border rounded-lg p-5 shadow-sm flex flex-col gap-2"
-            >
-              <p><strong>Booking ID:</strong> {b.id}</p>
-              <p><strong>Attire ID:</strong> {b.attireId}</p>
-              <p><strong>Start Date:</strong> {b.startDate}</p>
-              <p><strong>End Date:</strong> {b.endDate}</p>
+      {/* Content */}
+      <div className="max-w-5xl mx-auto">
+        {bookings.length === 0 ? (
+          <div className="text-center py-16 border border-dashed border-(--border-medium) rounded-lg">
+            <p className="text-(--text-secondary)">
+              You have no bookings yet.
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-5">
+            {bookings.map((b) => (
+              <div
+                key={b.id}
+                className="bg-(--surface) border border-(--border-soft) rounded-xl p-6 shadow-sm hover:shadow-md transition-all"
+              >
+                {/* Top Row */}
+                <div className="flex justify-between items-start mb-4">
+                  <div>
+                    <h2 className="text-lg font-semibold text-(--text-primary)">
+                      Booking #{b.id}
+                    </h2>
+                    <p className="text-xs text-(--text-muted)">
+                      Requested on {formatDate(b.createdAt)}
+                    </p>
+                  </div>
 
-              <p>
-                <strong>Status:</strong>{" "}
-                <span
-                  className={
-                    b.status === "APPROVED"
-                      ? "text-green-600"
-                      : b.status === "REJECTED"
-                      ? "text-red-600"
-                      : "text-yellow-600"
-                  }
-                >
-                  {b.status}
-                </span>
-              </p>
+                  <span
+                    className={`px-3 py-1 text-xs rounded-full font-medium ${
+                      statusStyles[b.status as keyof typeof statusStyles]
+                    }`}
+                  >
+                    {b.status}
+                  </span>
+                </div>
 
-              <p className="text-sm text-gray-500">
-                Requested on: {new Date(b.createdAt).toLocaleString()}
-              </p>
-            </div>
-          ))}
-        </div>
-      )}
+                {/* Divider */}
+                <div className="border-t border-(--border-soft) my-4" />
+
+                {/* Details Grid */}
+                <div className="grid sm:grid-cols-3 gap-4 text-sm">
+                  <div>
+                    <p className="text-(--text-muted)">Attire</p>
+                    <p className="text-(--text-primary) font-medium">
+                      #{b.attireId}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-(--text-muted)">Start Date</p>
+                    <p className="text-(--text-primary) font-medium">
+                      {formatDate(b.startDate)}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-(--text-muted)">End Date</p>
+                    <p className="text-(--text-primary) font-medium">
+                      {formatDate(b.endDate)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

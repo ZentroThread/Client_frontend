@@ -141,7 +141,7 @@ return (
             {/* BUTTON */}
             <button
               type="submit"
-              className="w-full py-3 rounded-lg font-medium text-white transition-all shadow-lg bg-gradient-to-r from-(--brand-primary) to-(--brand-secondary) hover:shadow-xl hover:scale-[1.01] active:scale-95"
+              className="w-full py-3 rounded-lg font-medium text-white transition-all shadow-lg bg-linear-to-r from-(--brand-primary) to-(--brand-secondary) hover:shadow-xl hover:scale-[1.01] active:scale-95"
             >
               Create Account
             </button>
