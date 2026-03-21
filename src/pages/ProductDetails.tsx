@@ -20,7 +20,7 @@ import {contacts} from '@/constants/contact'
 import { API_BASE_URL } from "@/constants/constdata";
 import { useAuth } from '@/context/AuthContext';
 import Swal from "sweetalert2";
-
+import {useNavigate} from 'react-router-dom';
 
 const fallbackProduct = {
   name: 'Traditional Attire',
@@ -42,9 +42,11 @@ const fallbackProduct = {
 
 export function ProductDetails() {
   const { tenantId, id } = useParams();
+  const navigate = useNavigate();
   const productId = Number(id);
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const rentDateTime = `${selectedDate}T10:00:00`;
+  const [loading, setLoading] = useState(false);
 
   const [bookingStartDate, setBookingStartDate] = useState(
     new Date().toISOString().split("T")[0]
@@ -122,12 +124,14 @@ export function ProductDetails() {
 
   const handleBooking = async () => {
     try {
+      setLoading(true);
       if (!isLoggedIn) {
         Swal.fire({
           icon: "warning",
           title: "Login Required",
           text: "Please login to make a booking",
         });
+        navigate('/login');
         return;
       }
 
@@ -179,6 +183,8 @@ export function ProductDetails() {
         title: "Failed",
         text: "Something went wrong. Try again.",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -317,40 +323,84 @@ export function ProductDetails() {
             </div>
             
           </div>
-          {isLoggedIn && (
-            <div>
-              <button
-                onClick={handleBooking}
-                disabled={bookingStartDate > bookingEndDate}
-                className="border-2 border-(--brand-secondary) py-3 rounded-lg font-medium shadow-md transition-all hover:bg-(--brand-secondary) hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Booking
-              </button>
-              <div className="space-y-3">
-              <label className="text-sm text-(--brand-secondary)">
+          
+          <div className="space-y-5">
+            <p className="text-sm text-(--text-secondary) bg-(--bg-muted) border border-(--border-soft)   rounded-lg p-3">
+              <span className="font-medium text-(--text-primary)">Note:</span>{" "}
+              Your booking is a request. The shop will confirm availability and contact you with further details.
+            </p>
+            {/* Booking Button */}
+            <button
+              onClick={handleBooking}
+              disabled={bookingStartDate > bookingEndDate || loading}
+              className="
+                w-full py-3 rounded-lg font-medium 
+                border border-(--border-medium)
+                bg-(--surface) text-(--text-primary)
+                shadow-sm
+                transition-all duration-200
+                flex items-center justify-center gap-2
+
+                hover:bg-(--brand-secondary) hover:text-white hover:border-(--brand-secondary)
+
+                active:scale-[0.98]  
+                disabled:opacity-50 disabled:cursor-not-allowed
+                focus:outline-none focus:ring-2 focus:ring-(--accent-gold)
+              "
+            >
+              {loading && (
+                <span className="w-4 h-4 border-2 border-(--text-primary) border-t-transparent rounded-full animate-spin"></span>
+              )}
+
+              {loading ? "Processing..." : "Booking"}
+            </button>
+
+            {/* Date Section */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-(--brand-secondary) mb-4">
                 Select booking period
               </label>
 
-              <div className="flex gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
+                {/* Start Date */}
                 <input
                   type="date"
                   value={bookingStartDate}
                   min={new Date().toISOString().split("T")[0]}
                   onChange={(e) => setBookingStartDate(e.target.value)}
-                  className="border rounded-md px-4 py-2 text-(--brand-primary) focus:outline-none focus:ring-2 focus:ring-(--accent-gold)"
+                  className="
+                    w-full px-4 py-2 rounded-md
+                    bg-(--surface) text-(--text-primary)
+                    border border-(--border-soft)
+
+                    focus:outline-none focus:ring-2 focus:ring-(--accent-gold)
+                    focus:border-(--accent-gold)
+
+                    shadow-sm
+                  "
                 />
 
+                {/* End Date */}
                 <input
                   type="date"
                   value={bookingEndDate}
                   min={bookingStartDate}
                   onChange={(e) => setBookingEndDate(e.target.value)}
-                  className="border rounded-md px-4 py-2 text-(--brand-primary) focus:outline-none focus:ring-2 focus:ring-(--accent-gold)"
+                  className="
+                    w-full px-4 py-2 rounded-md
+                    bg-(--surface) text-(--text-primary)
+                    border border-(--border-soft)
+
+                    focus:outline-none focus:ring-2 focus:ring-(--accent-gold)
+                    focus:border-(--accent-gold)
+
+                    shadow-sm
+                  "
                 />
               </div>
             </div>
           </div>
-          )}
+
           
           {/* INFO CARDS */}
           <div className="grid grid-cols-3 gap-4 pt-6">
