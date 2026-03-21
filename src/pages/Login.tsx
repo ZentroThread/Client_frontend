@@ -255,10 +255,10 @@ export default function Login() {
             </span>
             <div className="flex-1 h-px bg-(--border-medium)" />
           </div>
-            href={`${API_BASE_URL}/oauth2/authorization/google`}
+                
           {/* Google login */}
           <a
-            
+            href={`${API_BASE_URL}/oauth2/authorization/google`}
             className="w-full flex items-center justify-center gap-3 text-sm text-(--text-secondary) border-(--brand-primary) border rounded-lg p-3 hover:bg-(--accent-beige) hover:text-white transition-all duration-200"
           >
             <svg
