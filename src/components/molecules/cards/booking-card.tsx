@@ -1,4 +1,4 @@
-import {useGetAllAttiresForAllTenants} from "@/hooks/attires/useGetAllAttiresForAllTenants ";
+import { useGetAllAttiresForAllTenants } from "@/hooks/attires/useGetAllAttiresForAllTenants ";
 
 interface Booking {
   id: number;
@@ -13,51 +13,48 @@ type Props = {
   b: Booking;
 };
 
-export default function BookingCard({b}: Props) {
+export default function BookingCard({ b }: Props) {
+  const { attires, attiresLoading } = useGetAllAttiresForAllTenants();
+  const attireData = attires.find(
+    (a: typeof attires[number]) => a.id === b.attireId
+  );
 
-  const {attires,attiresLoading} = useGetAllAttiresForAllTenants();
-  const attireData = attires.find((a: typeof attires[number]) => a.id === b.attireId);
+  const statusStyle =
+    b.status === "APPROVED"
+      ? "bg-(--success)/10 text-(--success)"
+      : b.status === "REJECTED"
+      ? "bg-(--error)/10 text-(--error)"
+      : "bg-(--warning)/10 text-(--warning)";
 
   return (
-    <div
-      className="border rounded-xl p-5 
-      bg-(--color-card) 
-      border-(--color-border) 
-      shadow-[0_2px_6px_var(--color-shadow)]"
-    >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        
+    <div className="glass rounded-2xl p-6 hover:shadow-(--shadow-md) transition-all duration-300">
+
+      <div className="grid md:grid-cols-2 gap-6">
+
         {/* LEFT SIDE */}
-        <div className="flex flex-col gap-2">
-          <p className="text-(--color-text-color)">
-            <strong>Booking ID:</strong> {b.id}
-          </p>
+        <div className="flex flex-col gap-3">
+          <h3 className="text-lg font-semibold text-(--brand-primary)">
+            Booking #{b.id}
+          </h3>
 
-          <p className="text-(--color-text-color)">
-            <strong>Start Date:</strong> {b.startDate}
-          </p>
+          <div className="text-sm text-(--text-secondary)">
+            <p>
+              <span className="font-medium">Start:</span> {b.startDate}
+            </p>
+            <p>
+              <span className="font-medium">End:</span> {b.endDate}
+            </p>
+          </div>
 
-          <p className="text-(--color-text-color)">
-            <strong>End Date:</strong> {b.endDate}
-          </p>
+          {/* Status Badge */}
+          <span
+            className={`w-fit px-3 py-1 text-xs rounded-full font-medium ${statusStyle}`}
+          >
+            {b.status}
+          </span>
 
-          <p className="text-(--color-text-color)">
-            <strong>Status:</strong>{" "}
-            <span
-                className={
-                  b.status === "APPROVED"
-                    ? "text-(--color-green) font-semibold"
-                    : b.status === "REJECTED"
-                    ? "text-(--color-error) font-semibold"
-                    : "text-(--color-pie-2) font-semibold"
-                }
-              >
-                {b.status}
-              </span>
-          </p>
-
-          <p className="text-sm text-(--color-text-color)">
-            Requested on:{" "}
+          <p className="text-xs text-(--text-muted)">
+            Requested on{" "}
             {b.createdAt
               ? new Date(b.createdAt).toLocaleString()
               : "N/A"}
@@ -65,31 +62,36 @@ export default function BookingCard({b}: Props) {
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="flex flex-col gap-3">
-          
+        <div className="flex flex-col gap-4">
+
           {/* Attire Info */}
           <div>
-            <p className="text-(--color-text-color)">
-              <strong>Attire:</strong>{" "}
+            <p className="text-sm text-(--text-secondary)">
+              <span className="font-medium text-(--text-primary)">
+                Attire:
+              </span>{" "}
               {attiresLoading
                 ? "Loading..."
-                : attireData?.attireName || attireData?.attireCode || "N/A"}
+                : attireData?.attireName ||
+                  attireData?.attireCode ||
+                  "N/A"}
             </p>
           </div>
 
           {/* Image */}
           {attireData?.imageUrl && (
-            <img
-              src={
-                typeof attireData.imageUrl === "string"
-                  ? attireData.imageUrl
-                  : URL.createObjectURL(attireData.imageUrl)
-              }
-              alt={attireData.attireName || "Attire Image"}
-              className="w-full max-w-50 h-40 object-cover rounded-lg border"
-            />
+            <div className="flex items-center justify-center rounded-xl border border-(--border-soft) bg-(--bg-muted) p-2">
+              <img
+                src={
+                  typeof attireData.imageUrl === "string"
+                    ? attireData.imageUrl
+                    : URL.createObjectURL(attireData.imageUrl)
+                }
+                alt={attireData.attireName || "Attire"}
+                className="h-40 object-contain"
+              />
+            </div>
           )}
-
         </div>
       </div>
     </div>

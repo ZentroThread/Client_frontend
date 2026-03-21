@@ -14,13 +14,14 @@ import {
 } from 'lucide-react';
 import useWishlist from '@/components/atoms/WishListContext';
 import { useGetAttireById, useCheckAttireAvailability } from '@/hooks/attires/useAttire';
-
 import nilameSuitImage from '../assets/items/nilame1.jpeg';
-import {contacts} from '@/constants/contact'
 import { API_BASE_URL } from "@/constants/constdata";
 import { useAuth } from '@/context/AuthContext';
 import Swal from "sweetalert2";
 import {useNavigate} from 'react-router-dom';
+import {useGetAllTenants} from '@/hooks/tenant/useTenant';
+import type {Tenant} from '@/types/tenant.type';
+import { BsTelephone } from "react-icons/bs";
 
 const fallbackProduct = {
   name: 'Traditional Attire',
@@ -41,7 +42,11 @@ const fallbackProduct = {
 };
 
 export function ProductDetails() {
+
   const { tenantId, id } = useParams();
+  const { data: tenants } = useGetAllTenants();
+  const attireTenantInfo = tenants?.find((t: Tenant) => t.tenantId === tenantId);
+
   const navigate = useNavigate();
   const productId = Number(id);
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
@@ -108,7 +113,7 @@ export function ProductDetails() {
     Thank you!
     `;
 
-  const [selectedImage, setSelectedImage] = useState(0);
+  const [selectedImage] = useState(0);
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const isSaved = isInWishlist(productId.toString());
 
@@ -202,24 +207,26 @@ export function ProductDetails() {
             />
           </div>
 
-          <div className="grid grid-cols-4 gap-4">
-            {product.images.map((img, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedImage(index)}
-                className={`rounded-lg overflow-hidden border-2 transition-all duration-300 ${
-                  selectedImage === index
-                    ? 'border-(--accent-gold) shadow-md'
-                    : 'border-transparent'
-                }`}
-              >
-                <ImageWithFallback
-                  src={img}
-                  alt=""
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                />
-              </button>
-            ))}
+          <div className="grid grid-cols-1"> 
+            <div className="flex flex-col gap-2 p-4 rounded-xl bg-(--surface-elevated) border border-(--border-soft) shadow-sm">
+              {/* Shop Name */}
+              <h4 className="text-sm font-semibold text-(--text-primary)">
+                {attireTenantInfo?.name || "Shop Name"}
+              </h4>
+              {/* Address */}
+              <p className="text-xs text-(--text-secondary)">
+                {attireTenantInfo?.address}
+              </p>
+              {/* City */}
+              <p className="text-xs text-(--text-muted)">
+                {attireTenantInfo?.city}
+              </p>
+              {/* Phone */}
+              <p className="text-xs font-medium text-(--brand-primary)">
+                <BsTelephone className="inline-block mr-2" />
+                {attireTenantInfo?.phoneNumber}
+              </p>
+            </div>
           </div>
         </div>
 
@@ -235,6 +242,10 @@ export function ProductDetails() {
           <h2 className="text-2xl font-serif text-(--brand-primary)">
             {product.productCode}
           </h2>
+          <p className="text-sm text-(--brand-secondary)">
+            <span className="font-medium text-(--brand-primary)">Branch:</span>{" "}
+            {attireTenantInfo?.branch || "N/A"}
+          </p>
           <div className="space-y-2">
             <label className="text-sm text-(--brand-secondary)">
               Select date to check availability
@@ -298,7 +309,7 @@ export function ProductDetails() {
           {/* ACTIONS */}
           <div className="space-y-3">
             <a
-              href={`https://wa.me/${contacts.phone}?text=${encodeURIComponent(whatsappMessage)}`}
+              href={`https://wa.me/94${attireTenantInfo?.phoneNumber?.split(',')[0].replace(/^0/, '')}?text=${encodeURIComponent(whatsappMessage)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full flex justify-center gap-2 bg-[#25D366] text-white py-4 rounded-lg font-medium shadow-md hover:bg-[#1ebe5a] transition-all"
@@ -424,12 +435,18 @@ export function ProductDetails() {
   );
 }
 
-/* ---------------- HELPERS ---------------- */
 function InfoCard({ icon, text }: any) {
   return (
-    <div className="text-center bg-(--brand-secondary)/10 p-4 rounded-xl shadow-sm">
-      <div className="text-(--brand-secondary) mb-2">{icon}</div>
-      <p className="text-xs text-(--brand-primary)">{text}</p>
+    <div className="flex items-center gap-3 p-3 rounded-xl glass">
+
+      <div className="flex items-center justify-center w-9 h-9 rounded-lg 
+                      bg-(--brand-primary)/20 text-(--brand-primary)">
+        {icon}
+      </div>
+
+      <p className="text-sm text-(--text-secondary)">
+        {text}
+      </p>
     </div>
   );
 }
