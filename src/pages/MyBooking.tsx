@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { API_BASE_URL } from "@/constants/constdata";
+import BookingCard from "@/components/molecules/cards/booking-card";
 
 interface Booking {
   id: number;
@@ -86,57 +87,7 @@ export default function MyBooking() {
         ) : (
           <div className="space-y-5">
             {bookings.map((b) => (
-              <div
-                key={b.id}
-                className="bg-(--surface) border border-(--border-soft) rounded-xl p-6 shadow-sm hover:shadow-md transition-all"
-              >
-                {/* Top Row */}
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h2 className="text-lg font-semibold text-(--text-primary)">
-                      Booking #{b.id}
-                    </h2>
-                    <p className="text-xs text-(--text-muted)">
-                      Requested on {formatDate(b.createdAt)}
-                    </p>
-                  </div>
-
-                  <span
-                    className={`px-3 py-1 text-xs rounded-full font-medium ${
-                      statusStyles[b.status as keyof typeof statusStyles]
-                    }`}
-                  >
-                    {b.status}
-                  </span>
-                </div>
-
-                {/* Divider */}
-                <div className="border-t border-(--border-soft) my-4" />
-
-                {/* Details Grid */}
-                <div className="grid sm:grid-cols-3 gap-4 text-sm">
-                  <div>
-                    <p className="text-(--text-muted)">Attire</p>
-                    <p className="text-(--text-primary) font-medium">
-                      #{b.attireId}
-                    </p>
-                  </div>
-
-                  <div>
-                    <p className="text-(--text-muted)">Start Date</p>
-                    <p className="text-(--text-primary) font-medium">
-                      {formatDate(b.startDate)}
-                    </p>
-                  </div>
-
-                  <div>
-                    <p className="text-(--text-muted)">End Date</p>
-                    <p className="text-(--text-primary) font-medium">
-                      {formatDate(b.endDate)}
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <BookingCard key={b.id} b={b} />
             ))}
           </div>
         )}
