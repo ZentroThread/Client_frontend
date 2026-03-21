@@ -15,7 +15,6 @@ import {
 import useWishlist from '@/components/atoms/WishListContext';
 import { useGetAttireById, useCheckAttireAvailability } from '@/hooks/attires/useAttire';
 import nilameSuitImage from '../assets/items/nilame1.jpeg';
-import {contacts} from '@/constants/contact'
 import { API_BASE_URL } from "@/constants/constdata";
 import { useAuth } from '@/context/AuthContext';
 import Swal from "sweetalert2";
