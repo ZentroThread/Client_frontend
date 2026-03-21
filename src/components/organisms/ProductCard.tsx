@@ -4,6 +4,7 @@ import { ImageWithFallback } from "@/components/atoms/ImageWithFallback";
 import useWishlist from "@/components/atoms/WishListContext";
 import { motion } from "framer-motion";
 import type{ Attire } from "@/types/attire.type";
+import { useGetAllTenants } from "@/hooks/tenant/useTenant";
 
 interface ProductCardProps {
   product: Attire;
@@ -12,6 +13,8 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const isSaved = isInWishlist(product.id!.toString());
+  const { data: tenants } = useGetAllTenants();
+  const attireTenantInfo = tenants?.find(t => t.tenantId === product.tenantId);
 
   const handleWishlistToggle = (e: React.MouseEvent) => {
     e.preventDefault(); // prevents navigation
@@ -69,13 +72,17 @@ export function ProductCard({ product }: ProductCardProps) {
         {/* Product Info */}
         <div className="space-y-1">
 
-          <p className="text-xs tracking-widest uppercase text-(--brand-primary)">
-            {product.category?.categoryName}
-          </p>
-
-          <h3 className="text-(--text-secondary) group-hover:text-(--brand-primary) transition-colors">
-            {product.attireName}
-          </h3>
+          <div className="grid grid-cols-1">
+            <p className="text-xs tracking-widest uppercase text-(--brand-primary)">
+              {product.category?.categoryName}
+            </p>
+            <h3 className="text-(--text-secondary) group-hover:text-(--brand-primary) transition-colors">
+              {product.attireName}
+            </h3>
+            <p className="text-(--text-secondary) group-hover:text-(--brand-primary) transition-colors">
+              Branch: {attireTenantInfo?.branch || "Shop Name"}
+            </p>
+          </div>
 
           <p className="font-serif text-(--brand-secondary)">
             Rs. {product.attirePrice.toLocaleString()}
