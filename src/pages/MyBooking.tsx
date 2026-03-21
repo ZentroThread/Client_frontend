@@ -43,18 +43,18 @@ export default function MyBooking() {
     fetchBookings();
   }, []);
 
-  const formatDate = (date: string) =>
-    new Date(date).toLocaleDateString(undefined, {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
+  // const formatDate = (date: string) =>
+  //   new Date(date).toLocaleDateString(undefined, {
+  //     year: "numeric",
+  //     month: "short",
+  //     day: "numeric",
+  //   });
 
-  const statusStyles = {
-    APPROVED: "bg-(--success)/10 text-(--success)",
-    REJECTED: "bg-(--error)/10 text-(--error)",
-    PENDING: "bg-(--warning)/10 text-(--warning)",
-  };
+  // const statusStyles = {
+  //   APPROVED: "bg-(--success)/10 text-(--success)",
+  //   REJECTED: "bg-(--error)/10 text-(--error)",
+  //   PENDING: "bg-(--warning)/10 text-(--warning)",
+  // };
 
   if (loading) {
     return (
