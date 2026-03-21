@@ -265,7 +265,7 @@ export default function Home() {
 
 
       {/* Testimonials */}
-      <section className="bg-(--bg-muted) relative overflow-hidden py-16 md:py-24 bg-linear-to-br from-(--accent-beige) to-(--surface-elevated) border-t border-(--border-soft)">
+      <section className="bg-(--bg-muted) relative overflow-hidden py-12 md:py-4 bg-linear-to-br from-(--accent-beige) to-(--surface-elevated) border-t border-(--border-soft)">
         {!feedbacks.length ? (
           <p className="text-center text-(--text-secondary)">No feedback yet</p>
         ) : (
@@ -286,45 +286,47 @@ export default function Home() {
               </div>
 
               {/* Testimonial Card */}
-              <div className="relative">
-                <div className="glass rounded-lg p-8 md:p-12 border-2 border-(--border-soft) shadow-lg shadow-(--accent-gold)/20 bg-">
-                  <Quote className="h-12 w-12 text-(--accent-gold) mb-6" />
+              <div className="relative max-w-xl mx-auto px-2 sm:px-0">
+                <div className="glass rounded-lg p-4 sm:p-6 md:p-10 border border-(--border-soft) shadow-md sm:shadow-lg shadow-(--accent-gold)/20">
+
+                  {/* Quote Icon */}
+                  <Quote className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 text-(--accent-gold) mb-4 sm:mb-6" />
 
                   {/* Rating */}
-                  <div className="flex mb-4">
+                  <div className="flex mb-3 sm:mb-4">
                     {[...Array(feedbacks[currentTestimonial].rating)].map((_, i) => (
                       <Star
                         key={i}
-                        className="h-5 w-5 text-(--accent-gold) fill-(--accent-gold)"
+                        className="h-4 w-4 sm:h-5 sm:w-5 text-(--accent-gold) fill-(--accent-gold)"
                       />
                     ))}
                   </div>
 
                   {/* Message */}
-                  <p className="text-(--text-primary) text-lg mb-6 leading-relaxed">
+                  <p className="text-(--text-primary) text-sm sm:text-base md:text-lg mb-4 sm:mb-6 leading-relaxed">
                     {feedbacks[currentTestimonial].message}
                   </p>
 
                   {/* User */}
-                  <p className="text-(--accent-gold)">
+                  <p className="text-(--accent-gold) text-xs sm:text-sm md:text-base break-all">
                     — {feedbacks[currentTestimonial].userEmail}
                   </p>
                 </div>
 
                 {/* Navigation */}
-                <div className="flex justify-center gap-4 mt-8">
+                <div className="flex justify-center gap-3 sm:gap-4 mt-6 sm:mt-8">
                   <button
                     onClick={prevTestimonial}
-                    className="bg-(--surface-elevated) hover:bg-(--border-soft) text-(--text-primary) p-2 rounded-full transition-colors shadow-sm"
+                    className="bg-(--surface-elevated) hover:bg-(--border-soft) text-(--text-primary) p-2 sm:p-3 rounded-full transition-colors shadow-sm active:scale-95"
                   >
-                    <ChevronLeft className="h-6 w-6" />
+                    <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
                   </button>
 
                   <button
                     onClick={nextTestimonial}
-                    className="bg-(--surface-elevated) hover:bg-(--border-soft) text-(--text-primary) p-2 rounded-full transition-colors shadow-sm"
+                    className="bg-(--surface-elevated) hover:bg-(--border-soft) text-(--text-primary) p-2 sm:p-3 rounded-full transition-colors shadow-sm active:scale-95"
                   >
-                    <ChevronRight className="h-6 w-6" />
+                    <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
                   </button>
                 </div>
               </div>
@@ -333,16 +335,18 @@ export default function Home() {
         )}
 
         {/* CTA Button */}
-        <button
-          onClick={() => {
-            navigate(isLoggedIn ? "/feedback" : "/login");
-          }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-lg font-medium 
-          bg-linear-to-r from-(--brand-primary) to-(--brand-secondary) 
-          text-white hover:shadow-lg transition-all duration-300 cursor-pointer"
-        >
-          Add Your Feedback
-        </button>
+        <div className="flex justify-center mt-10 md:mt-14 px-4">
+          <button
+            onClick={() => {
+              navigate(isLoggedIn ? "/feedback" : "/login");
+            }}
+            className="w-full sm:w-auto px-6 py-3 rounded-lg font-medium 
+            bg-linear-to-r from-(--brand-primary) to-(--brand-secondary) 
+            text-white hover:shadow-lg transition-all duration-300 active:scale-95"
+          >
+            Add Your Feedback
+          </button>
+        </div>
       </section>
 
       {/* Instagram Gallery */}
