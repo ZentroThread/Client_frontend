@@ -58,8 +58,14 @@ export default function MyBooking() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-(--text-secondary)">
-        Loading bookings...
+      <div className="flex flex-col items-center justify-center py-24">
+        <div className="relative w-12 h-12">
+          <div className="absolute inset-0 border-4 border-(--border-soft) rounded-full"></div>
+          <div className="absolute inset-0 border-4 border-transparent border-t-(--brand-primary) rounded-full animate-spin"></div>
+        </div>
+        <p className="mt-5 text-sm text-(--text-secondary) tracking-wide">
+          Loading Bookings...
+        </p>
       </div>
     );
   }

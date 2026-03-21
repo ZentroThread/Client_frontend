@@ -118,7 +118,17 @@ export function ProductDetails() {
   const isSaved = isInWishlist(productId.toString());
 
   if (isLoading) {
-    return <p className="text-center py-20 text-(--text-secondary)">Loading product...</p>;
+      return (
+      <div className="flex flex-col items-center justify-center py-24">
+        <div className="relative w-12 h-12">
+          <div className="absolute inset-0 border-4 border-(--border-soft) rounded-full"></div>
+          <div className="absolute inset-0 border-4 border-transparent border-t-(--brand-primary) rounded-full animate-spin"></div>
+        </div>
+        <p className="mt-5 text-sm text-(--text-secondary) tracking-wide">
+          Loading Details...
+        </p>
+      </div>
+    )
   }
 
   const handleWishlistToggle = () => {
@@ -126,7 +136,26 @@ export function ProductDetails() {
     else if (attire)
       addToWishlist(attire);
   };
+  const handleShare = async () => {
+    const shareData = {
+      title: 'Check this product',
+      text: 'Look at this amazing attire!',
+      url: window.location.href,
+    };
 
+    try {
+      if (navigator.share) {
+        // ✅ Mobile / modern browsers
+        await navigator.share(shareData);
+      } else {
+        // ❌ Fallback (copy link)
+        await navigator.clipboard.writeText(window.location.href);
+        alert('Link copied to clipboard!');
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
+    }
+  };
   const handleBooking = async () => {
     try {
       setLoading(true);
@@ -327,7 +356,10 @@ export function ProductDetails() {
                 {isSaved ? 'Saved' : 'Save'}
               </button>
 
-              <button className="border-2 border-(--brand-secondary) py-3 rounded-lg font-medium shadow-md transition-all hover:bg-(--brand-secondary) hover:text-white">
+              <button
+                onClick={handleShare}
+                className="border-2 border-(--brand-secondary) py-3 px-4 rounded-lg font-medium shadow-md transition-all hover:bg-(--brand-secondary) hover:text-white"
+              >
                 <Share2 className="inline mr-2" />
                 Share
               </button>
@@ -336,9 +368,11 @@ export function ProductDetails() {
           </div>
           
           <div className="space-y-5">
-            <p className="text-sm text-(--text-secondary) bg-(--bg-muted) border border-(--border-soft)   rounded-lg p-3">
-              <span className="font-medium text-(--text-primary)">Note:</span>{" "}
-              Your booking is a request. The shop will confirm availability and contact you with further details.
+            <p>
+              <span className="font-medium text-(--brand-secondary)">Note:</span>{' '}
+              Your booking is a request. The shop will confirm availability and contact you via email. 
+              Please place your booking at least <span className="font-medium">7–14 days</span> before your rental date. 
+              For more details, feel free to reach us on WhatsApp.
             </p>
             {/* Booking Button */}
             <button
