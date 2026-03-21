@@ -258,7 +258,9 @@ export default function Login() {
                 
           {/* Google login */}
           <a
-            href={`${API_BASE_URL}/oauth2/authorization/google`}
+            href={`${API_BASE_URL}/oauth2/authorization/google?redirect=${encodeURIComponent(
+              window.location.origin
+            )}`}
             className="w-full flex items-center justify-center gap-3 text-sm text-(--text-secondary) border-(--brand-primary) border rounded-lg p-3 hover:bg-(--accent-beige) hover:text-white transition-all duration-200"
           >
             <svg
