@@ -23,12 +23,14 @@ import OAuthSuccess from '@/pages/OAuthSuccess';
 import Feedback from '@/pages/Feedback';
 import Register from '@/pages/Register';
 import MyBooking from '@/pages/MyBooking';                              
+import ProtectedRoute from "@/routes/ProtectedRoute";
 
 export const AppRoutes = () => {
   return (
     <Routes>
       <Route element={<MainLayout />}>
-        {/* Main pages */}
+
+        {/* Public routes */}
         <Route path="/" element={<Home />} />
         <Route path="/collections" element={<Collections />} />
         <Route path="/about" element={<About />} />
@@ -40,9 +42,13 @@ export const AppRoutes = () => {
         <Route path="/products" element={<ProductListing />} />
         <Route path="/product/:tenantId/:id" element={<ProductDetails />} />
         <Route path="/oauth-success" element={<OAuthSuccess />} />
-        <Route path="/feedback" element={<Feedback />} />
-        <Route path='/register' element={<Register/ >} />
-        <Route path="/my-booking" element={<MyBooking/>} />
+        <Route path="/register" element={<Register />} />
+
+        {/* Protected routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/feedback" element={<Feedback />} />
+          <Route path="/my-booking" element={<MyBooking />} />
+        </Route>
 
         {/* Collection pages */}
         <Route path="/collections/bridal-sarees" element={<BridalSarees />} />
@@ -50,6 +56,7 @@ export const AppRoutes = () => {
         <Route path="/collections/jewellery" element={<Jewellery />} />
         <Route path="/collections/nilame-suits" element={<NilameSuits />} />
         <Route path="/collections/party-dresses" element={<PartyDresses />} />
+
       </Route>
     </Routes>
   );
